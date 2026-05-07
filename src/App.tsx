@@ -1,10 +1,10 @@
-import { FoundationShowcase } from '@/components/examples/FoundationShowcase'
+import { HomeShowcase } from '@/components/examples/HomeShowcase'
 import { Toaster } from '@/components/ui/Toaster'
 
 function App() {
   return (
     <>
-      <FoundationShowcase />
+      <HomeShowcase />
       <Toaster />
     </>
   )

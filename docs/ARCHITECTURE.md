@@ -1,0 +1,121 @@
+# ARCHITECTURE.md
+
+## 整体架构
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        App.tsx                              │
+│  ┌───────────────────────────┬─────────────────────────────┐│
+│  │      LivePreview          │      ControlPanel           ││
+│  │  ┌─────────────────────┐  │  ┌───────────────────────┐  ││
+│  │  │    PreviewApp        │  │  │  ThemePicker          │  ││
+│  │  │  ┌───────────────┐  │  │  │  BackgroundPicker     │  ││
+│  │  │  │  NavBar       │  │  │  │  StyleOptionGroup     │  ││
+│  │  │  │  Sidebar      │  │  │  │  MotionPreview        │  ││
+│  │  │  │  MainContent  │  │  │  │  ExportPanel          │  ││
+│  │  │  │  StatusBar    │  │  │  └───────────────────────┘  ││
+│  │  │  └───────────────┘  │  │                             ││
+│  │  └─────────────────────┘  │                             ││
+│  └───────────────────────────┴─────────────────────────────┘│
+└─────────────────────────────────────────────────────────────┘
+```
+
+## 目录结构
+
+```
+src/
+├── main.tsx                 # React 入口
+├── App.tsx                  # 主应用组件
+├── index.css                # 全局样式 + CSS Variables
+├── vite-env.d.ts            # Vite 类型声明
+│
+├── lib/                     # 核心逻辑层
+│   ├── themes.ts            # 主题定义（20 主题 × 2 模式）
+│   ├── motion.ts            # 全局动画系统（5 级 Motion Level）
+│   ├── storage.ts           # localStorage 持久化
+│   ├── export.ts            # 导出功能（5 种格式）
+│   ├── applyTheme.ts        # 主题应用逻辑
+│   ├── builder.ts           # Builder 状态管理
+│   └── utils.ts             # 工具函数
+│
+├── components/
+│   ├── builder/             # Builder 布局组件
+│   │   ├── BuilderLayout.tsx
+│   │   ├── ControlPanel.tsx
+│   │   ├── LivePreview.tsx
+│   │   ├── ThemePicker.tsx
+│   │   ├── BackgroundPicker.tsx
+│   │   ├── StyleOptionGroup.tsx
+│   │   ├── ExportPanel.tsx
+│   │   ├── MotionPreview.tsx
+│   │   └── PreviewApp.tsx
+│   │
+│   └── ui/                  # 通用 UI 组件
+│       ├── Button.tsx
+│       ├── Card.tsx
+│       ├── Input.tsx
+│       ├── Badge.tsx
+│       ├── Tabs.tsx
+│       ├── Dialog.tsx
+│       ├── Switch.tsx
+│       ├── Progress.tsx
+│       ├── Table.tsx
+│       ├── Alert.tsx
+│       ├── Toast.tsx
+│       └── CodeBlock.tsx
+│
+docs/                        # 项目标准层文档
+scripts/                     # 自测脚本
+```
+
+## 数据流
+
+```
+用户操作 (ControlPanel)
+    ↓
+Builder State (builder.ts)
+    ↓
+┌─────────────┬─────────────┐
+│ applyTheme  │  storage    │
+│ (CSS Vars)  │ (localStorage)│
+└─────────────┴─────────────┘
+    ↓
+LivePreview (实时渲染)
+```
+
+## 主题系统
+
+每个主题包含：
+- light 模式 CSS Variables
+- dark 模式 CSS Variables
+
+变量列表：
+- background / foreground
+- card / cardForeground
+- primary / primaryForeground
+- secondary / secondaryForeground
+- muted / mutedForeground
+- accent / accentForeground
+- destructive / destructiveForeground
+- success / warning / info
+- border / input / ring
+
+## 动画系统
+
+Motion Level 分级：
+- off：几乎无动画
+- subtle：轻微淡入/缩放
+- normal：标准 OS 过渡
+- expressive：明显 spring 动画
+- cinematic：高级转场效果
+
+所有动画统一由 `src/lib/motion.ts` 管理，不允许各处乱写。
+
+## 导出系统
+
+支持格式：
+1. Copy CSS Variables
+2. Download theme.css
+3. Copy Tailwind Config
+4. Download ui-kit.json
+5. Copy React Token Object

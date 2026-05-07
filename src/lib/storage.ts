@@ -1,0 +1,70 @@
+import { type BuilderConfig, DEFAULT_CONFIG } from './builder'
+
+const STORAGE_KEY = 'ui-kit-builder-config'
+
+function isValidConfig(data: unknown): data is BuilderConfig {
+  if (!data || typeof data !== 'object') return false
+  const config = data as Record<string, unknown>
+  return (
+    typeof config.themePreset === 'string' &&
+    typeof config.mode === 'string' &&
+    typeof config.backgroundStyle === 'string' &&
+    typeof config.radius === 'string' &&
+    typeof config.shadow === 'string' &&
+    typeof config.density === 'string' &&
+    typeof config.buttonStyle === 'string' &&
+    typeof config.cardStyle === 'string' &&
+    typeof config.inputStyle === 'string' &&
+    typeof config.motionLevel === 'string' &&
+    typeof config.fontScale === 'string'
+  )
+}
+
+export function loadBuilderConfig(): BuilderConfig {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    if (!stored) return { ...DEFAULT_CONFIG }
+
+    const parsed = JSON.parse(stored)
+    if (!isValidConfig(parsed)) {
+      return { ...DEFAULT_CONFIG }
+    }
+
+    return mergeWithDefaultConfig(parsed)
+  } catch {
+    return { ...DEFAULT_CONFIG }
+  }
+}
+
+export function saveBuilderConfig(config: BuilderConfig): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(config))
+  } catch {
+    // localStorage 可能已满或不可用，静默失败
+  }
+}
+
+export function resetBuilderConfig(): BuilderConfig {
+  try {
+    localStorage.removeItem(STORAGE_KEY)
+  } catch {
+    // 静默失败
+  }
+  return { ...DEFAULT_CONFIG }
+}
+
+export function mergeWithDefaultConfig(partial: Partial<BuilderConfig>): BuilderConfig {
+  return {
+    themePreset: partial.themePreset ?? DEFAULT_CONFIG.themePreset,
+    mode: partial.mode ?? DEFAULT_CONFIG.mode,
+    backgroundStyle: partial.backgroundStyle ?? DEFAULT_CONFIG.backgroundStyle,
+    radius: partial.radius ?? DEFAULT_CONFIG.radius,
+    shadow: partial.shadow ?? DEFAULT_CONFIG.shadow,
+    density: partial.density ?? DEFAULT_CONFIG.density,
+    buttonStyle: partial.buttonStyle ?? DEFAULT_CONFIG.buttonStyle,
+    cardStyle: partial.cardStyle ?? DEFAULT_CONFIG.cardStyle,
+    inputStyle: partial.inputStyle ?? DEFAULT_CONFIG.inputStyle,
+    motionLevel: partial.motionLevel ?? DEFAULT_CONFIG.motionLevel,
+    fontScale: partial.fontScale ?? DEFAULT_CONFIG.fontScale,
+  }
+}

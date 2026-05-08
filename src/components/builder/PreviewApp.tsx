@@ -145,7 +145,7 @@ export function PreviewApp({ config }: PreviewAppProps) {
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { label: 'Total Users', value: '12,345', change: '+12%', icon: Users },
           { label: 'Revenue', value: '$45,678', change: '+8%', icon: BarChart3 },

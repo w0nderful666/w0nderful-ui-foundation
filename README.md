@@ -1,10 +1,10 @@
-# Web OS UI Kit Builder
+# w0nderful-ui-foundation
 
 高级、优雅、现代的 Web OS 风格 UI Kit 主题搭配生成器。
 
 ## 项目定位
 
-用户打开网页后，可以自由搭配整套网页 UI 风格，包括主题、背景、圆角、阴影、密度、按钮、卡片、输入框、字体、动画强度等。左侧实时预览最终效果，右侧调整配置。所有配置实时生效，并支持一键导出。
+为 Local First / GitHub Pages / Web OS 风格小工具提供可复用的 UI 基础设施。用户可自由搭配整套网页 UI 风格，包括主题、背景、圆角、阴影、密度、按钮、卡片、输入框、字体、动画强度等。左侧实时预览最终效果，右侧调整配置。所有配置实时生效，并支持一键导出。
 
 ## 核心功能
 
@@ -28,8 +28,8 @@
 
 ```bash
 # 克隆仓库
-git clone https://github.com/your-username/web-os-ui-kit-builder.git
-cd web-os-ui-kit-builder/app
+git clone https://github.com/w0nderful666/w0nderful-ui-foundation.git
+cd w0nderful-ui-foundation
 
 # 安装依赖
 npm install
@@ -57,38 +57,21 @@ npm run preview
 
 ## GitHub Pages 部署
 
-项目已配置 GitHub Pages 兼容。`vite.config.ts` 中设置 `base: '/web-os-ui-kit-builder/'`。
+项目已配置 GitHub Pages 兼容。`vite.config.ts` 中设置 `base: '/w0nderful-ui-foundation/'`。
 
 ```bash
 # 构建
 npm run build
 
-# 将 dist/ 目录部署到 GitHub Pages
-# 或使用 GitHub Actions 自动部署
+# dist/ 目录即为部署产物
+# GitHub Actions 会自动构建并部署
 ```
 
-### GitHub Actions 配置示例
+### GitHub Actions 自动部署
 
-```yaml
-name: Deploy to GitHub Pages
-on:
-  push:
-    branches: [main]
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install
-      - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./app/dist
-```
+项目已配置 `.github/workflows/deploy.yml`，push 到 `master` 分支会自动触发构建和部署。
+
+部署地址：https://w0nderful666.github.io/w0nderful-ui-foundation/
 
 ## 用户可配置项
 

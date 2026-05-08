@@ -30,6 +30,7 @@ interface PreviewShellProps {
 
 export function PreviewShell({ config, topNav, sidebar, content, rightPanel, footer }: PreviewShellProps) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const motionConfig = getMotionConfig(config.motionLevel as any)
 
   return (
@@ -40,13 +41,29 @@ export function PreviewShell({ config, topNav, sidebar, content, rightPanel, foo
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: motionConfig.duration.normal }}
       >
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="lg:hidden mr-2 h-8 w-8 rounded hover:bg-muted flex items-center justify-center"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
         {topNav}
       </motion.header>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden relative">
+        {/* Mobile overlay */}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
         <motion.aside
           className={cn(
-            'border-r border-border bg-card/50 shrink-0 overflow-y-auto transition-all',
+            'border-r border-border bg-card/50 shrink-0 overflow-y-auto transition-all z-50',
+            'fixed lg:relative inset-y-0 left-0',
+            sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
             sidebarCollapsed ? 'w-14' : 'w-52'
           )}
           initial={{ opacity: 0, x: -8 }}
@@ -56,9 +73,15 @@ export function PreviewShell({ config, topNav, sidebar, content, rightPanel, foo
           <div className="flex items-center justify-end p-2">
             <button
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="h-6 w-6 rounded hover:bg-muted flex items-center justify-center"
+              className="h-6 w-6 rounded hover:bg-muted flex items-center justify-center hidden lg:flex"
             >
               {sidebarCollapsed ? <ChevronRight className="h-3 w-3" /> : <ChevronLeft className="h-3 w-3" />}
+            </button>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="h-6 w-6 rounded hover:bg-muted flex items-center justify-center lg:hidden"
+            >
+              <ChevronLeft className="h-3 w-3" />
             </button>
           </div>
           {sidebar}
@@ -132,7 +155,7 @@ export function StatusBar() {
           100%
         </span>
       </div>
-      <div className="flex-1 text-center">Web OS UI Kit Builder</div>
+      <div className="flex-1 text-center">w0nderful-ui-foundation</div>
       <div className="flex items-center gap-4">
         <span className="flex items-center gap-1">
           <Clock className="h-3 w-3" />

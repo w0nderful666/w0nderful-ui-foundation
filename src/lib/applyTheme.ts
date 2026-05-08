@@ -31,9 +31,9 @@ const SHADOW_VALUES: Record<Shadow, Record<string, string>> = {
     '--shadow-lg': '0 24px 48px rgba(0,0,0,0.24)',
   },
   glow: {
-    '--shadow-sm': '0 0 8px rgba(var(--primary-rgb), 0.15)',
-    '--shadow-md': '0 0 16px rgba(var(--primary-rgb), 0.25)',
-    '--shadow-lg': '0 0 32px rgba(var(--primary-rgb), 0.35)',
+    '--shadow-sm': '0 0 8px hsl(var(--primary) / 0.15)',
+    '--shadow-md': '0 0 16px hsl(var(--primary) / 0.25)',
+    '--shadow-lg': '0 0 32px hsl(var(--primary) / 0.35)',
   },
 }
 

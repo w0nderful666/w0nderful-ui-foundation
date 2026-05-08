@@ -28,7 +28,7 @@ export function FloatingWindowPreview({ config }: FloatingWindowPreviewProps) {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="absolute top-20 right-80 w-80 bg-card border border-border rounded-xl shadow-2xl overflow-hidden z-40"
+            className="absolute top-20 right-8 w-80 bg-card border border-border rounded-xl shadow-2xl overflow-hidden z-[70]"
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}

@@ -9,6 +9,11 @@ function isValidConfig(data: unknown): data is BuilderConfig {
     typeof config.themePreset === 'string' &&
     typeof config.mode === 'string' &&
     typeof config.backgroundStyle === 'string' &&
+    typeof config.layoutStyle === 'string' &&
+    typeof config.dockStyle === 'string' &&
+    typeof config.panelChrome === 'string' &&
+    typeof config.borderStyle === 'string' &&
+    typeof config.surfaceMaterial === 'string' &&
     typeof config.radius === 'string' &&
     typeof config.shadow === 'string' &&
     typeof config.density === 'string' &&
@@ -58,6 +63,11 @@ export function mergeWithDefaultConfig(partial: Partial<BuilderConfig>): Builder
     themePreset: partial.themePreset ?? DEFAULT_CONFIG.themePreset,
     mode: partial.mode ?? DEFAULT_CONFIG.mode,
     backgroundStyle: partial.backgroundStyle ?? DEFAULT_CONFIG.backgroundStyle,
+    layoutStyle: partial.layoutStyle ?? DEFAULT_CONFIG.layoutStyle,
+    dockStyle: partial.dockStyle ?? DEFAULT_CONFIG.dockStyle,
+    panelChrome: partial.panelChrome ?? DEFAULT_CONFIG.panelChrome,
+    borderStyle: partial.borderStyle ?? DEFAULT_CONFIG.borderStyle,
+    surfaceMaterial: partial.surfaceMaterial ?? DEFAULT_CONFIG.surfaceMaterial,
     radius: partial.radius ?? DEFAULT_CONFIG.radius,
     shadow: partial.shadow ?? DEFAULT_CONFIG.shadow,
     density: partial.density ?? DEFAULT_CONFIG.density,

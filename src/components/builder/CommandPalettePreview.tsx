@@ -43,15 +43,15 @@ export function CommandPalettePreview({ config }: CommandPalettePreviewProps) {
 
       <AnimatePresence>
         {open && (
-          <div className="fixed inset-0 z-50">
+          <div className="absolute inset-0 pointer-events-auto">
             <motion.div
-              className="fixed inset-0 bg-background/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-background/80 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
             />
-            <div className="fixed inset-0 flex items-start justify-center pt-[20vh]">
+            <div className="absolute inset-0 flex items-start justify-center pt-[20vh] pointer-events-auto">
               <motion.div
                 className="w-full max-w-md bg-card border border-border rounded-xl shadow-2xl overflow-hidden"
                 initial={{ opacity: 0, scale: 0.95, y: -20 }}

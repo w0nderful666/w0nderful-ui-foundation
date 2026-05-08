@@ -33,10 +33,20 @@ export function PreviewShell({ config, topNav, sidebar, content, rightPanel, foo
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const motionConfig = getMotionConfig(config.motionLevel as any)
 
+  const shellStyle = {
+    boxShadow: 'var(--shadow-md)',
+  }
+
+  const densityStyle = {
+    padding: 'var(--density-spacing-md)',
+    gap: 'var(--density-gap)',
+  }
+
   return (
     <div className="flex flex-col h-full">
       <motion.header
         className="flex items-center h-12 px-4 border-b border-border bg-card/80 backdrop-blur-sm shrink-0"
+        style={shellStyle}
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: motionConfig.duration.normal }}
@@ -87,7 +97,13 @@ export function PreviewShell({ config, topNav, sidebar, content, rightPanel, foo
           {sidebar}
         </motion.aside>
 
-        <main className="flex-1 overflow-y-auto">
+        <main 
+          className="flex-1 overflow-y-auto"
+          style={{ 
+            padding: 'var(--density-spacing-md)',
+            fontSize: 'var(--font-size-base)',
+          }}
+        >
           {content}
         </main>
 

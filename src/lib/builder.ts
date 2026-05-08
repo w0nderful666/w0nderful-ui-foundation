@@ -52,10 +52,25 @@ export type MotionLevel = 'off' | 'subtle' | 'normal' | 'expressive' | 'cinemati
 
 export type FontScale = 'compact' | 'normal' | 'large' | 'display'
 
+export type LayoutStyle = 'sidebar' | 'topbar' | 'split' | 'floating-panels' | 'dashboard-grid'
+
+export type DockStyle = 'minimal' | 'glass-dock' | 'pill-dock' | 'floating-shelf' | 'neon-dock'
+
+export type PanelChrome = 'macos' | 'linux' | 'terminal' | 'minimal' | 'studio'
+
+export type BorderStyle = 'none' | 'subtle' | 'strong' | 'glow' | 'dashed' | 'double'
+
+export type SurfaceMaterial = 'solid' | 'glass' | 'matte' | 'acrylic' | 'paper' | 'terminal'
+
 export interface BuilderConfig {
   themePreset: ThemePreset
   mode: Mode
   backgroundStyle: BackgroundStyle
+  layoutStyle: LayoutStyle
+  dockStyle: DockStyle
+  panelChrome: PanelChrome
+  borderStyle: BorderStyle
+  surfaceMaterial: SurfaceMaterial
   radius: Radius
   shadow: Shadow
   density: Density
@@ -176,10 +191,57 @@ export const FONT_SCALES: { value: FontScale; label: string }[] = [
   { value: 'display', label: 'Display' },
 ]
 
+export const LAYOUT_STYLES: { value: LayoutStyle; label: string }[] = [
+  { value: 'sidebar', label: 'Sidebar' },
+  { value: 'topbar', label: 'Topbar' },
+  { value: 'split', label: 'Split View' },
+  { value: 'floating-panels', label: 'Floating Panels' },
+  { value: 'dashboard-grid', label: 'Dashboard Grid' },
+]
+
+export const DOCK_STYLES: { value: DockStyle; label: string }[] = [
+  { value: 'minimal', label: 'Minimal' },
+  { value: 'glass-dock', label: 'Glass Dock' },
+  { value: 'pill-dock', label: 'Pill Dock' },
+  { value: 'floating-shelf', label: 'Floating Shelf' },
+  { value: 'neon-dock', label: 'Neon Dock' },
+]
+
+export const PANEL_CHROMES: { value: PanelChrome; label: string }[] = [
+  { value: 'macos', label: 'macOS' },
+  { value: 'linux', label: 'Linux' },
+  { value: 'terminal', label: 'Terminal' },
+  { value: 'minimal', label: 'Minimal' },
+  { value: 'studio', label: 'Studio' },
+]
+
+export const BORDER_STYLES: { value: BorderStyle; label: string }[] = [
+  { value: 'none', label: 'None' },
+  { value: 'subtle', label: 'Subtle' },
+  { value: 'strong', label: 'Strong' },
+  { value: 'glow', label: 'Glow' },
+  { value: 'dashed', label: 'Dashed' },
+  { value: 'double', label: 'Double' },
+]
+
+export const SURFACE_MATERIALS: { value: SurfaceMaterial; label: string }[] = [
+  { value: 'solid', label: 'Solid' },
+  { value: 'glass', label: 'Glass' },
+  { value: 'matte', label: 'Matte' },
+  { value: 'acrylic', label: 'Acrylic' },
+  { value: 'paper', label: 'Paper' },
+  { value: 'terminal', label: 'Terminal' },
+]
+
 export const DEFAULT_CONFIG: BuilderConfig = {
   themePreset: 'tokyo-night',
   mode: 'dark',
   backgroundStyle: 'soft-gradient',
+  layoutStyle: 'sidebar',
+  dockStyle: 'glass-dock',
+  panelChrome: 'macos',
+  borderStyle: 'subtle',
+  surfaceMaterial: 'solid',
   radius: 'rounded',
   shadow: 'soft',
   density: 'normal',

@@ -18,6 +18,11 @@ import {
   INPUT_STYLES,
   MOTION_LEVELS,
   FONT_SCALES,
+  LAYOUT_STYLES,
+  DOCK_STYLES,
+  PANEL_CHROMES,
+  BORDER_STYLES,
+  SURFACE_MATERIALS,
   DEFAULT_CONFIG,
 } from '@/lib/builder'
 import { motion } from 'framer-motion'
@@ -66,6 +71,71 @@ export function ControlPanel({ config, onConfigChange, onReset }: ControlPanelPr
             <BackgroundPicker
               value={config.backgroundStyle}
               onChange={(v) => onConfigChange('backgroundStyle', v)}
+            />
+          </CardContent>
+        </Card>
+
+        <Card variant="glass" padding="sm">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Layout Style</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <StyleOptionGroup
+              options={LAYOUT_STYLES}
+              value={config.layoutStyle}
+              onChange={(v) => onConfigChange('layoutStyle', v as any)}
+            />
+          </CardContent>
+        </Card>
+
+        <Card variant="glass" padding="sm">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Dock Style</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <StyleOptionGroup
+              options={DOCK_STYLES}
+              value={config.dockStyle}
+              onChange={(v) => onConfigChange('dockStyle', v as any)}
+            />
+          </CardContent>
+        </Card>
+
+        <Card variant="glass" padding="sm">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Panel Chrome</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <StyleOptionGroup
+              options={PANEL_CHROMES}
+              value={config.panelChrome}
+              onChange={(v) => onConfigChange('panelChrome', v as any)}
+            />
+          </CardContent>
+        </Card>
+
+        <Card variant="glass" padding="sm">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Border Style</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <StyleOptionGroup
+              options={BORDER_STYLES}
+              value={config.borderStyle}
+              onChange={(v) => onConfigChange('borderStyle', v as any)}
+            />
+          </CardContent>
+        </Card>
+
+        <Card variant="glass" padding="sm">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Surface Material</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <StyleOptionGroup
+              options={SURFACE_MATERIALS}
+              value={config.surfaceMaterial}
+              onChange={(v) => onConfigChange('surfaceMaterial', v as any)}
             />
           </CardContent>
         </Card>

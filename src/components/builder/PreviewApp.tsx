@@ -406,13 +406,20 @@ export function PreviewApp({ config }: PreviewAppProps) {
   )
 
   return (
-    <PreviewShell
-      config={config}
-      topNav={topNav}
-      sidebar={sidebar}
-      content={content}
-      rightPanel={rightPanel}
-      footer={<StatusBar />}
-    />
+    <div className="relative h-full">
+      <PreviewShell
+        config={config}
+        topNav={topNav}
+        sidebar={sidebar}
+        content={content}
+        rightPanel={rightPanel}
+        footer={<StatusBar />}
+      />
+      {/* Overlay for modals - renders on top of PreviewShell */}
+      <div className="absolute inset-0 pointer-events-none z-[60]">
+        <CommandPalettePreview config={config} />
+        <FloatingWindowPreview config={config} />
+      </div>
+    </div>
   )
 }

@@ -59,6 +59,24 @@ export type BackgroundStyle =
   | 'soft-noise'
   | 'diagonal-lines'
   | 'liquid-blobs'
+  | 'windows-bloom'
+  | 'windows-classic-clouds'
+  | 'ubuntu-jammy-gradient'
+  | 'gnome-adwaita-waves'
+  | 'kali-dragon-grid'
+  | 'unix-crt-scanlines'
+  | 'macos-aqua-aurora'
+  | 'macos-graphite-mist'
+  | 'centos-server-grid'
+  | 'android-material-shapes'
+  | 'material-you-blobs'
+  | 'debian-swirl-soft'
+  | 'fedora-blue-waves'
+  | 'arch-cyber-minimal'
+  | 'misty-color-fields'
+  | 'soft-glass-orbs'
+  | 'aurora-fog'
+  | 'layered-pastel-fog'
 
 export type Radius = 'square' | 'sharp' | 'soft' | 'smooth' | 'rounded' | 'pill' | 'xl' | 'organic'
 
@@ -66,11 +84,11 @@ export type Shadow = 'flat' | 'soft' | 'ambient' | 'hard' | 'floating' | 'layere
 
 export type Density = 'compact' | 'normal' | 'spacious' | 'presentation'
 
-export type ButtonStyle = 'solid' | 'soft' | 'outline' | 'ghost' | 'gradient' | 'glass' | 'neon' | 'command' | 'dock' | 'brutal' | 'link' | 'inverse' | 'shine'
+export type ButtonStyle = 'solid' | 'soft' | 'outline' | 'ghost' | 'gradient' | 'glass' | 'neon' | 'command' | 'dock' | 'brutal' | 'link' | 'inverse' | 'shine' | 'classic' | 'fluent' | 'adwaita' | 'ubuntu' | 'aqua' | 'material' | 'terminal' | 'server'
 
-export type CardStyle = 'solid' | 'glass' | 'bordered' | 'elevated' | 'floating' | 'terminal' | 'neumorphic' | 'spotlight' | 'acrylic' | 'paper' | 'outline-glow'
+export type CardStyle = 'solid' | 'glass' | 'bordered' | 'elevated' | 'floating' | 'terminal' | 'neumorphic' | 'spotlight' | 'acrylic' | 'paper' | 'outline-glow' | 'classic-panel' | 'fluent-card' | 'adwaita-surface' | 'ubuntu-panel' | 'aqua-glass' | 'material-elevated' | 'terminal-panel' | 'server-panel' | 'mist-card'
 
-export type InputStyle = 'filled' | 'outline' | 'minimal' | 'glass' | 'terminal' | 'searchbar' | 'underline' | 'command-line' | 'pill' | 'filled-glow'
+export type InputStyle = 'filled' | 'outline' | 'minimal' | 'glass' | 'terminal' | 'searchbar' | 'underline' | 'command-line' | 'pill' | 'filled-glow' | 'classic-box' | 'fluent-search' | 'adwaita-entry' | 'ubuntu-entry' | 'aqua-search' | 'material-filled' | 'terminal-prompt' | 'server-field'
 
 export type MotionLevel = 'off' | 'subtle' | 'normal' | 'expressive' | 'cinematic' | 'elastic' | 'snappy'
 
@@ -187,6 +205,24 @@ export const BACKGROUND_STYLES: { value: BackgroundStyle; label: string }[] = [
   { value: 'soft-noise', label: 'Soft Noise' },
   { value: 'diagonal-lines', label: 'Diagonal Lines' },
   { value: 'liquid-blobs', label: 'Liquid Blobs' },
+  { value: 'windows-bloom', label: 'Windows Bloom' },
+  { value: 'windows-classic-clouds', label: 'Windows Classic' },
+  { value: 'ubuntu-jammy-gradient', label: 'Ubuntu' },
+  { value: 'gnome-adwaita-waves', label: 'GNOME' },
+  { value: 'kali-dragon-grid', label: 'Kali' },
+  { value: 'unix-crt-scanlines', label: 'Unix Terminal' },
+  { value: 'macos-aqua-aurora', label: 'macOS Aqua' },
+  { value: 'macos-graphite-mist', label: 'macOS Graphite' },
+  { value: 'centos-server-grid', label: 'CentOS' },
+  { value: 'android-material-shapes', label: 'Android' },
+  { value: 'material-you-blobs', label: 'Material You' },
+  { value: 'debian-swirl-soft', label: 'Debian' },
+  { value: 'fedora-blue-waves', label: 'Fedora' },
+  { value: 'arch-cyber-minimal', label: 'Arch' },
+  { value: 'misty-color-fields', label: 'Misty Fields' },
+  { value: 'soft-glass-orbs', label: 'Glass Orbs' },
+  { value: 'aurora-fog', label: 'Aurora Fog' },
+  { value: 'layered-pastel-fog', label: 'Pastel Fog' },
 ]
 
 export const RADII: { value: Radius; label: string }[] = [
@@ -233,6 +269,14 @@ export const BUTTON_STYLES: { value: ButtonStyle; label: string }[] = [
   { value: 'link', label: 'Link' },
   { value: 'inverse', label: 'Inverse' },
   { value: 'shine', label: 'Shine' },
+  { value: 'classic', label: 'Classic' },
+  { value: 'fluent', label: 'Fluent' },
+  { value: 'adwaita', label: 'Adwaita' },
+  { value: 'ubuntu', label: 'Ubuntu' },
+  { value: 'aqua', label: 'Aqua' },
+  { value: 'material', label: 'Material' },
+  { value: 'terminal', label: 'Terminal' },
+  { value: 'server', label: 'Server' },
 ]
 
 export const CARD_STYLES: { value: CardStyle; label: string }[] = [
@@ -247,6 +291,15 @@ export const CARD_STYLES: { value: CardStyle; label: string }[] = [
   { value: 'acrylic', label: 'Acrylic' },
   { value: 'paper', label: 'Paper' },
   { value: 'outline-glow', label: 'Outline Glow' },
+  { value: 'classic-panel', label: 'Classic Panel' },
+  { value: 'fluent-card', label: 'Fluent Card' },
+  { value: 'adwaita-surface', label: 'Adwaita' },
+  { value: 'ubuntu-panel', label: 'Ubuntu Panel' },
+  { value: 'aqua-glass', label: 'Aqua Glass' },
+  { value: 'material-elevated', label: 'Material' },
+  { value: 'terminal-panel', label: 'Terminal Panel' },
+  { value: 'server-panel', label: 'Server Panel' },
+  { value: 'mist-card', label: 'Mist Card' },
 ]
 
 export const INPUT_STYLES: { value: InputStyle; label: string }[] = [
@@ -260,6 +313,14 @@ export const INPUT_STYLES: { value: InputStyle; label: string }[] = [
   { value: 'command-line', label: 'Command Line' },
   { value: 'pill', label: 'Pill' },
   { value: 'filled-glow', label: 'Filled Glow' },
+  { value: 'classic-box', label: 'Classic Box' },
+  { value: 'fluent-search', label: 'Fluent Search' },
+  { value: 'adwaita-entry', label: 'Adwaita Entry' },
+  { value: 'ubuntu-entry', label: 'Ubuntu Entry' },
+  { value: 'aqua-search', label: 'Aqua Search' },
+  { value: 'material-filled', label: 'Material Filled' },
+  { value: 'terminal-prompt', label: 'Terminal Prompt' },
+  { value: 'server-field', label: 'Server Field' },
 ]
 
 export const MOTION_LEVELS: { value: MotionLevel; label: string }[] = [
@@ -692,7 +753,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'windows-classic',
       mode: 'light',
-      backgroundStyle: 'blueprint-grid',
+      backgroundStyle: 'windows-classic-clouds',
       layoutStyle: 'sidebar',
       dockStyle: 'minimal',
       panelChrome: 'linux',
@@ -706,9 +767,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'sharp',
       shadow: 'hard',
       density: 'compact',
-      buttonStyle: 'solid',
-      cardStyle: 'bordered',
-      inputStyle: 'outline',
+      buttonStyle: 'classic',
+      cardStyle: 'classic-panel',
+      inputStyle: 'classic-box',
       motionLevel: 'subtle',
       fontScale: 'normal',
     },
@@ -721,7 +782,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'windows-11',
       mode: 'light',
-      backgroundStyle: 'layered-glass',
+      backgroundStyle: 'windows-bloom',
       layoutStyle: 'dashboard-grid',
       dockStyle: 'glass-dock',
       panelChrome: 'minimal',
@@ -735,9 +796,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'xl',
       shadow: 'floating',
       density: 'normal',
-      buttonStyle: 'solid',
-      cardStyle: 'acrylic',
-      inputStyle: 'pill',
+      buttonStyle: 'fluent',
+      cardStyle: 'fluent-card',
+      inputStyle: 'fluent-search',
       motionLevel: 'cinematic',
       fontScale: 'normal',
     },
@@ -750,7 +811,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'ubuntu-aubergine',
       mode: 'dark',
-      backgroundStyle: 'soft-gradient',
+      backgroundStyle: 'ubuntu-jammy-gradient',
       layoutStyle: 'sidebar',
       dockStyle: 'pill-dock',
       panelChrome: 'linux',
@@ -764,9 +825,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'rounded',
       shadow: 'floating',
       density: 'normal',
-      buttonStyle: 'solid',
-      cardStyle: 'elevated',
-      inputStyle: 'filled',
+      buttonStyle: 'ubuntu',
+      cardStyle: 'ubuntu-panel',
+      inputStyle: 'ubuntu-entry',
       motionLevel: 'normal',
       fontScale: 'normal',
     },
@@ -779,7 +840,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'gnome-adwaita',
       mode: 'light',
-      backgroundStyle: 'solid',
+      backgroundStyle: 'gnome-adwaita-waves',
       layoutStyle: 'topbar',
       dockStyle: 'minimal',
       panelChrome: 'minimal',
@@ -793,9 +854,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'rounded',
       shadow: 'soft',
       density: 'normal',
-      buttonStyle: 'solid',
-      cardStyle: 'solid',
-      inputStyle: 'outline',
+      buttonStyle: 'adwaita',
+      cardStyle: 'adwaita-surface',
+      inputStyle: 'adwaita-entry',
       motionLevel: 'normal',
       fontScale: 'normal',
     },
@@ -808,7 +869,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'kali-dark',
       mode: 'dark',
-      backgroundStyle: 'carbon-grid',
+      backgroundStyle: 'kali-dragon-grid',
       layoutStyle: 'split',
       dockStyle: 'neon-dock',
       panelChrome: 'terminal',
@@ -822,9 +883,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'sharp',
       shadow: 'glow',
       density: 'compact',
-      buttonStyle: 'neon',
-      cardStyle: 'terminal',
-      inputStyle: 'command-line',
+      buttonStyle: 'terminal',
+      cardStyle: 'terminal-panel',
+      inputStyle: 'terminal-prompt',
       motionLevel: 'snappy',
       fontScale: 'compact',
     },
@@ -837,7 +898,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'unix-terminal',
       mode: 'dark',
-      backgroundStyle: 'terminal-matrix',
+      backgroundStyle: 'unix-crt-scanlines',
       layoutStyle: 'topbar',
       dockStyle: 'minimal',
       panelChrome: 'terminal',
@@ -851,9 +912,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'square',
       shadow: 'flat',
       density: 'compact',
-      buttonStyle: 'ghost',
-      cardStyle: 'terminal',
-      inputStyle: 'command-line',
+      buttonStyle: 'terminal',
+      cardStyle: 'terminal-panel',
+      inputStyle: 'terminal-prompt',
       motionLevel: 'off',
       fontScale: 'compact',
     },
@@ -866,7 +927,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'macos-aqua',
       mode: 'light',
-      backgroundStyle: 'layered-glass',
+      backgroundStyle: 'macos-aqua-aurora',
       layoutStyle: 'floating-panels',
       dockStyle: 'glass-dock',
       panelChrome: 'macos',
@@ -880,9 +941,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'xl',
       shadow: 'floating',
       density: 'normal',
-      buttonStyle: 'glass',
-      cardStyle: 'glass',
-      inputStyle: 'pill',
+      buttonStyle: 'aqua',
+      cardStyle: 'aqua-glass',
+      inputStyle: 'aqua-search',
       motionLevel: 'cinematic',
       fontScale: 'normal',
     },
@@ -895,7 +956,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'macos-graphite',
       mode: 'dark',
-      backgroundStyle: 'soft-noise',
+      backgroundStyle: 'macos-graphite-mist',
       layoutStyle: 'split',
       dockStyle: 'glass-dock',
       panelChrome: 'macos',
@@ -909,7 +970,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'xl',
       shadow: 'layered',
       density: 'normal',
-      buttonStyle: 'soft',
+      buttonStyle: 'glass',
       cardStyle: 'glass',
       inputStyle: 'searchbar',
       motionLevel: 'normal',
@@ -924,7 +985,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'centos-blue',
       mode: 'dark',
-      backgroundStyle: 'blueprint-grid',
+      backgroundStyle: 'centos-server-grid',
       layoutStyle: 'sidebar',
       dockStyle: 'minimal',
       panelChrome: 'linux',
@@ -938,9 +999,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'sharp',
       shadow: 'ambient',
       density: 'compact',
-      buttonStyle: 'solid',
-      cardStyle: 'bordered',
-      inputStyle: 'outline',
+      buttonStyle: 'server',
+      cardStyle: 'server-panel',
+      inputStyle: 'server-field',
       motionLevel: 'subtle',
       fontScale: 'normal',
     },
@@ -953,7 +1014,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'android-material',
       mode: 'light',
-      backgroundStyle: 'soft-gradient',
+      backgroundStyle: 'android-material-shapes',
       layoutStyle: 'dashboard-grid',
       dockStyle: 'pill-dock',
       panelChrome: 'minimal',
@@ -967,9 +1028,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'xl',
       shadow: 'soft',
       density: 'normal',
-      buttonStyle: 'solid',
-      cardStyle: 'elevated',
-      inputStyle: 'filled',
+      buttonStyle: 'material',
+      cardStyle: 'material-elevated',
+      inputStyle: 'material-filled',
       motionLevel: 'normal',
       fontScale: 'large',
     },
@@ -996,9 +1057,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'organic',
       shadow: 'soft',
       density: 'normal',
-      buttonStyle: 'soft',
-      cardStyle: 'paper',
-      inputStyle: 'pill',
+      buttonStyle: 'material',
+      cardStyle: 'mist-card',
+      inputStyle: 'material-filled',
       motionLevel: 'elastic',
       fontScale: 'normal',
     },
@@ -1011,7 +1072,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'debian-red',
       mode: 'light',
-      backgroundStyle: 'solid',
+      backgroundStyle: 'debian-swirl-soft',
       layoutStyle: 'sidebar',
       dockStyle: 'minimal',
       panelChrome: 'linux',
@@ -1026,7 +1087,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       shadow: 'soft',
       density: 'normal',
       buttonStyle: 'solid',
-      cardStyle: 'bordered',
+      cardStyle: 'solid',
       inputStyle: 'outline',
       motionLevel: 'normal',
       fontScale: 'normal',
@@ -1040,7 +1101,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'fedora-blue',
       mode: 'dark',
-      backgroundStyle: 'soft-gradient',
+      backgroundStyle: 'fedora-blue-waves',
       layoutStyle: 'sidebar',
       dockStyle: 'pill-dock',
       panelChrome: 'linux',
@@ -1054,9 +1115,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'rounded',
       shadow: 'soft',
       density: 'normal',
-      buttonStyle: 'solid',
-      cardStyle: 'elevated',
-      inputStyle: 'filled',
+      buttonStyle: 'server',
+      cardStyle: 'server-panel',
+      inputStyle: 'server-field',
       motionLevel: 'normal',
       fontScale: 'normal',
     },
@@ -1069,7 +1130,7 @@ export const STYLE_PRESETS: StylePreset[] = [
     config: {
       themePreset: 'arch-minimal',
       mode: 'dark',
-      backgroundStyle: 'terminal-matrix',
+      backgroundStyle: 'arch-cyber-minimal',
       layoutStyle: 'topbar',
       dockStyle: 'minimal',
       panelChrome: 'terminal',
@@ -1083,9 +1144,9 @@ export const STYLE_PRESETS: StylePreset[] = [
       radius: 'sharp',
       shadow: 'flat',
       density: 'compact',
-      buttonStyle: 'ghost',
-      cardStyle: 'terminal',
-      inputStyle: 'command-line',
+      buttonStyle: 'terminal',
+      cardStyle: 'terminal-panel',
+      inputStyle: 'terminal-prompt',
       motionLevel: 'off',
       fontScale: 'compact',
     },

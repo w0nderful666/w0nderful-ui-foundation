@@ -394,6 +394,118 @@ test('MOTION_LEVELS 包含 elastic 和 snappy', () => {
   assert(content.includes("{ value: 'snappy'"), 'MOTION_LEVELS 缺少 snappy')
 })
 
+test('新增系统背景风格', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes("'windows-bloom'"), '缺少 windows-bloom 背景')
+  assert(content.includes("'ubuntu-jammy-gradient'"), '缺少 ubuntu-jammy-gradient 背景')
+  assert(content.includes("'misty-color-fields'"), '缺少 misty-color-fields 背景')
+  assert(content.includes("'soft-glass-orbs'"), '缺少 soft-glass-orbs 背景')
+  assert(content.includes("'aurora-fog'"), '缺少 aurora-fog 背景')
+  assert(content.includes("'layered-pastel-fog'"), '缺少 layered-pastel-fog 背景')
+})
+
+test('previewStyles.ts 包含系统背景映射', () => {
+  const content = readFileSync(resolve(root, 'src/lib/previewStyles.ts'), 'utf-8')
+  assert(content.includes("'windows-bloom':"), 'previewStyles 缺少 windows-bloom')
+  assert(content.includes("'misty-color-fields':"), 'previewStyles 缺少 misty-color-fields')
+})
+
+test('ButtonStyle 包含系统风格', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes("'classic', label: 'Classic'"), '缺少 classic 按钮风格')
+  assert(content.includes("'fluent', label: 'Fluent'"), '缺少 fluent 按钮风格')
+  assert(content.includes("'adwaita', label: 'Adwaita'"), '缺少 adwaita 按钮风格')
+  assert(content.includes("'aqua', label: 'Aqua'"), '缺少 aqua 按钮风格')
+  assert(content.includes("'material', label: 'Material'"), '缺少 material 按钮风格')
+  assert(content.includes("'terminal', label: 'Terminal'"), '缺少 terminal 按钮风格')
+  assert(content.includes("'server', label: 'Server'"), '缺少 server 按钮风格')
+})
+
+test('CardStyle 包含系统风格', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes("'classic-panel', label: 'Classic Panel'"), '缺少 classic-panel 卡片风格')
+  assert(content.includes("'fluent-card', label: 'Fluent Card'"), '缺少 fluent-card 卡片风格')
+  assert(content.includes("'adwaita-surface', label: 'Adwaita'"), '缺少 adwaita-surface 卡片风格')
+  assert(content.includes("'aqua-glass', label: 'Aqua Glass'"), '缺少 aqua-glass 卡片风格')
+  assert(content.includes("'material-elevated', label: 'Material'"), '缺少 material-elevated 卡片风格')
+  assert(content.includes("'terminal-panel', label: 'Terminal Panel'"), '缺少 terminal-panel 卡片风格')
+  assert(content.includes("'server-panel', label: 'Server Panel'"), '缺少 server-panel 卡片风格')
+  assert(content.includes("'mist-card', label: 'Mist Card'"), '缺少 mist-card 卡片风格')
+})
+
+test('InputStyle 包含系统风格', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes("'classic-box', label: 'Classic Box'"), '缺少 classic-box 输入框风格')
+  assert(content.includes("'fluent-search', label: 'Fluent Search'"), '缺少 fluent-search 输入框风格')
+  assert(content.includes("'adwaita-entry', label: 'Adwaita Entry'"), '缺少 adwaita-entry 输入框风格')
+  assert(content.includes("'aqua-search', label: 'Aqua Search'"), '缺少 aqua-search 输入框风格')
+  assert(content.includes("'material-filled', label: 'Material Filled'"), '缺少 material-filled 输入框风格')
+  assert(content.includes("'terminal-prompt', label: 'Terminal Prompt'"), '缺少 terminal-prompt 输入框风格')
+  assert(content.includes("'server-field', label: 'Server Field'"), '缺少 server-field 输入框风格')
+})
+
+test('Button.tsx 支持新按钮风格', () => {
+  const content = readFileSync(resolve(root, 'src/components/ui/Button.tsx'), 'utf-8')
+  assert(content.includes('classic:'), 'Button 缺少 classic 样式')
+  assert(content.includes('fluent:'), 'Button 缺少 fluent 样式')
+  assert(content.includes('adwaita:'), 'Button 缺少 adwaita 样式')
+  assert(content.includes('ubuntu:'), 'Button 缺少 ubuntu 样式')
+  assert(content.includes('aqua:'), 'Button 缺少 aqua 样式')
+  assert(content.includes('material:'), 'Button 缺少 material 样式')
+  assert(content.includes('terminal:'), 'Button 缺少 terminal 样式')
+  assert(content.includes('server:'), 'Button 缺少 server 样式')
+})
+
+test('Card.tsx 支持新卡片风格', () => {
+  const content = readFileSync(resolve(root, 'src/components/ui/Card.tsx'), 'utf-8')
+  assert(content.includes("'classic-panel':"), 'Card 缺少 classic-panel 样式')
+  assert(content.includes("'fluent-card':"), 'Card 缺少 fluent-card 样式')
+  assert(content.includes("'adwaita-surface':"), 'Card 缺少 adwaita-surface 样式')
+  assert(content.includes("'aqua-glass':"), 'Card 缺少 aqua-glass 样式')
+  assert(content.includes("'material-elevated':"), 'Card 缺少 material-elevated 样式')
+  assert(content.includes("'terminal-panel':"), 'Card 缺少 terminal-panel 样式')
+  assert(content.includes("'server-panel':"), 'Card 缺少 server-panel 样式')
+  assert(content.includes("'mist-card':"), 'Card 缺少 mist-card 样式')
+})
+
+test('Input.tsx 支持新输入框风格', () => {
+  const content = readFileSync(resolve(root, 'src/components/ui/Input.tsx'), 'utf-8')
+  assert(content.includes("'classic-box':"), 'Input 缺少 classic-box 样式')
+  assert(content.includes("'fluent-search':"), 'Input 缺少 fluent-search 样式')
+  assert(content.includes("'adwaita-entry':"), 'Input 缺少 adwaita-entry 样式')
+  assert(content.includes("'ubuntu-entry':"), 'Input 缺少 ubuntu-entry 样式')
+  assert(content.includes("'aqua-search':"), 'Input 缺少 aqua-search 样式')
+  assert(content.includes("'material-filled':"), 'Input 缺少 material-filled 样式')
+  assert(content.includes("'terminal-prompt':"), 'Input 缺少 terminal-prompt 样式')
+  assert(content.includes("'server-field':"), 'Input 缺少 server-field 样式')
+})
+
+test('系统预设使用对应背景风格', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes("backgroundStyle: 'windows-classic-clouds'"), 'windows-classic 未使用 windows-classic-clouds')
+  assert(content.includes("backgroundStyle: 'windows-bloom'"), 'windows-11 未使用 windows-bloom')
+  assert(content.includes("backgroundStyle: 'ubuntu-jammy-gradient'"), 'ubuntu 未使用 ubuntu-jammy-gradient')
+  assert(content.includes("backgroundStyle: 'macos-aqua-aurora'"), 'macOS Aqua 未使用 macos-aqua-aurora')
+  assert(content.includes("backgroundStyle: 'arch-cyber-minimal'"), 'Arch 未使用 arch-cyber-minimal')
+})
+
+test('系统预设使用对应按钮风格', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes("buttonStyle: 'classic'"), 'windows-classic 未使用 classic 按钮')
+  assert(content.includes("buttonStyle: 'fluent'"), 'windows-11 未使用 fluent 按钮')
+  assert(content.includes("buttonStyle: 'ubuntu'"), 'ubuntu 未使用 ubuntu 按钮')
+  assert(content.includes("buttonStyle: 'adwaita'"), 'gnome 未使用 adwaita 按钮')
+  assert(content.includes("buttonStyle: 'aqua'"), 'macOS Aqua 未使用 aqua 按钮')
+  assert(content.includes("buttonStyle: 'material'"), 'material 未使用 material 按钮')
+})
+
+test('README 包含 system-inspired 说明', () => {
+  const content = readFileSync(resolve(root, 'README.md'), 'utf-8')
+  assert(content.includes('系统风格主题说明'), 'README 缺少系统风格主题说明')
+  assert(content.includes('不隶属于'), 'README 缺少不隶属于声明')
+  assert(content.includes('CSS 生成的'), 'README 缺少 CSS 生成声明')
+})
+
 console.log(`\n📊 结果: ${passed} 通过, ${failed} 失败\n`)
 
 if (failed > 0) {

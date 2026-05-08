@@ -129,3 +129,16 @@ Screenshots coming soon.
 ## 许可证
 
 MIT
+
+## 系统风格主题说明
+
+本项目包含"系统风格主题"（System-inspired Theme Packs），仅用于界面色彩与 UI 气质参考。
+
+**重要声明**：
+
+- 本项目**不隶属于** Microsoft、Apple、Canonical、Google、Red Hat、Debian、Fedora、Arch Linux、Kali Linux 或任何其他商标持有者
+- **不包含**任何官方 Logo、壁纸、图标、字体或专有资产
+- 所有系统风格主题和背景均为 CSS 生成的视觉效果，使用 CSS gradient、radial-gradient、conic-gradient 等实现
+- 主题名称仅表示设计灵感来源（如"Windows Classic"表示类 Windows 经典桌面风格），并非官方复刻
+
+系统风格主题仅用于色彩与界面气质参考，不包含任何官方素材。使用即表示理解并接受此免责声明。

@@ -1,5 +1,32 @@
 # Release Notes
 
+## v0.7.0 (2026-05-08)
+
+### Starter Kit ZIP Export
+
+新增一键下载完整可运行 Starter Kit 的功能：
+
+#### 导出功能
+- **downloadStarterKitZip(config)** - 一键生成 ZIP 包
+- **generateStarterKitReadme(config)** - 生成 README 说明文档
+- 使用 JSZip (轻量级 ~3KB gzipped)
+
+#### ZIP 内容
+- `demo.html` - 可直接浏览器打开的完整演示页面
+- `demo.css` - 基于主题 Token 的 CSS 组件类
+- `ui-kit.json` - 完整配置备份
+- `README.md` - 使用说明文档
+
+#### IntegrationGuide 更新
+- Starter Files tab 增加 "Download Starter Kit ZIP" 按钮
+- 显示 ZIP 包内容说明：包含 demo.html, demo.css, ui-kit.json, README.md
+
+#### 测试更新
+- 新增 4 个测试用例验证 ZIP 功能
+- self-test: 120/120
+
+---
+
 ## v0.6.0 (2026-05-07)
 
 ### 阶段 1-5 完成摘要

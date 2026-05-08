@@ -99,6 +99,23 @@ npm run build
 
 ## 如何使用生成的 UI Kit
 
+### 快速开始：下载 Starter Kit ZIP
+
+最简单的方式是下载 **Starter Kit ZIP**，包含：
+
+- `demo.html` - 可直接浏览器打开的演示页面
+- `demo.css` - 基于主题 Token 的 CSS 组件类
+- `ui-kit.json` - 完整配置备份（可导入 UI Foundation）
+- `README.md` - 使用说明
+
+使用方式：
+1. 在 UI Foundation 页面点击 "Download Starter Kit ZIP"
+2. 解压 ZIP 到项目目录
+3. 打开 `demo.html` 预览主题效果
+4. 将 `demo.css` 复制到你的项目
+
+适合：快速预览、无需构建工具、备份配置
+
 ### 1. HTML / CSS
 
 下载 `theme.css` 后在 HTML 中引入：

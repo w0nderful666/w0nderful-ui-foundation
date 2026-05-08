@@ -806,6 +806,29 @@ test('ControlPanel 包含 IntegrationGuide', () => {
   assert(content.includes('Usage / Integration Guide'), 'ControlPanel 显示 Integration Guide 标题')
 })
 
+test('Starter Kit ZIP 导出功能存在', () => {
+  const content = readFileSync(resolve(root, 'src/lib/export.ts'), 'utf-8')
+  assert(content.includes('downloadStarterKitZip'), 'export.ts 导出 downloadStarterKitZip')
+  assert(content.includes('generateStarterKitReadme'), 'export.ts 包含 generateStarterKitReadme')
+  assert(content.includes('JSZip'), 'export.ts 使用 JSZip')
+})
+
+test('IntegrationGuide 支持 Starter Kit ZIP 下载', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/IntegrationGuide.tsx'), 'utf-8')
+  assert(content.includes('downloadStarterKitZip'), 'IntegrationGuide 导入 downloadStarterKitZip')
+  assert(content.includes('Download Starter Kit ZIP'), 'IntegrationGuide 显示 ZIP 下载按钮')
+})
+
+test('Starter Kit ZIP 文件名正确', () => {
+  const content = readFileSync(resolve(root, 'src/lib/export.ts'), 'utf-8')
+  assert(content.includes('ui-kit-starter-'), 'ZIP 文件名包含 ui-kit-starter-')
+})
+
+test('README 包含 Starter Kit ZIP 说明', () => {
+  const content = readFileSync(resolve(root, 'README.md'), 'utf-8')
+  assert(content.includes('Starter Kit') || content.includes('ZIP'), 'README 提到 Starter Kit')
+})
+
 test('README 包含 How to use generated UI Kit', () => {
   const content = readFileSync(resolve(root, 'README.md'), 'utf-8')
   assert(content.includes('如何使用生成的 UI Kit'), 'README 包含中文使用说明')

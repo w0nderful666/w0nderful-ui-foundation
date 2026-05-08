@@ -1,6 +1,7 @@
 import { type BuilderConfig, type Radius, type Shadow, type Density, type FontScale } from './builder'
 import { getThemeTokens } from './themes'
 import { getMotionCSSVariables } from './motion'
+import { DENSITY_STYLES, FONT_SCALE_STYLES } from './previewConfig'
 
 const RADIUS_VALUES: Record<Radius, string> = {
   sharp: '0px',
@@ -16,74 +17,31 @@ const SHADOW_VALUES: Record<Shadow, Record<string, string>> = {
     '--shadow-lg': 'none',
   },
   soft: {
-    '--shadow-sm': '0 1px 2px rgba(0,0,0,0.05)',
-    '--shadow-md': '0 4px 6px -1px rgba(0,0,0,0.1)',
-    '--shadow-lg': '0 10px 15px -3px rgba(0,0,0,0.1)',
+    '--shadow-sm': '0 2px 4px rgba(0,0,0,0.06)',
+    '--shadow-md': '0 4px 12px rgba(0,0,0,0.08)',
+    '--shadow-lg': '0 8px 24px rgba(0,0,0,0.1)',
   },
   floating: {
-    '--shadow-sm': '0 2px 4px rgba(0,0,0,0.08)',
-    '--shadow-md': '0 8px 16px rgba(0,0,0,0.12)',
-    '--shadow-lg': '0 16px 32px rgba(0,0,0,0.16)',
+    '--shadow-sm': '0 4px 8px rgba(0,0,0,0.08)',
+    '--shadow-md': '0 12px 24px rgba(0,0,0,0.12)',
+    '--shadow-lg': '0 24px 48px rgba(0,0,0,0.16)',
   },
   elevated: {
-    '--shadow-sm': '0 4px 8px rgba(0,0,0,0.12)',
-    '--shadow-md': '0 12px 24px rgba(0,0,0,0.18)',
-    '--shadow-lg': '0 24px 48px rgba(0,0,0,0.24)',
+    '--shadow-sm': '0 8px 16px rgba(0,0,0,0.12)',
+    '--shadow-md': '0 16px 32px rgba(0,0,0,0.18)',
+    '--shadow-lg': '0 32px 64px rgba(0,0,0,0.24)',
   },
   glow: {
-    '--shadow-sm': '0 0 8px hsl(var(--primary) / 0.15)',
-    '--shadow-md': '0 0 16px hsl(var(--primary) / 0.25)',
-    '--shadow-lg': '0 0 32px hsl(var(--primary) / 0.35)',
-  },
-}
-
-const DENSITY_VALUES: Record<Density, Record<string, string>> = {
-  compact: {
-        '--density-spacing-xs': '4px',
-    '--density-spacing-sm': '8px',
-    '--density-spacing-md': '12px',
-    '--density-spacing-lg': '16px',
-    '--density-padding-card': '12px',
-    '--density-padding-button-x': '12px',
-    '--density-padding-button-y': '6px',
-    '--density-gap': '8px',
-  },
-  normal: {
-    '--density-spacing-xs': '6px',
-    '--density-spacing-sm': '12px',
-    '--density-spacing-md': '16px',
-    '--density-spacing-lg': '24px',
-    '--density-padding-card': '16px',
-    '--density-padding-button-x': '16px',
-    '--density-padding-button-y': '8px',
-    '--density-gap': '12px',
-  },
-  spacious: {
-    '--density-spacing-xs': '8px',
-    '--density-spacing-sm': '16px',
-    '--density-spacing-md': '24px',
-    '--density-spacing-lg': '32px',
-    '--density-padding-card': '24px',
-    '--density-padding-button-x': '24px',
-    '--density-padding-button-y': '12px',
-    '--density-gap': '16px',
-  },
-  presentation: {
-    '--density-spacing-xs': '12px',
-    '--density-spacing-sm': '24px',
-    '--density-spacing-md': '32px',
-    '--density-spacing-lg': '48px',
-    '--density-padding-card': '32px',
-    '--density-padding-button-x': '32px',
-    '--density-padding-button-y': '16px',
-    '--density-gap': '24px',
+    '--shadow-sm': '0 0 12px hsl(var(--primary) / 0.25)',
+    '--shadow-md': '0 0 24px hsl(var(--primary) / 0.4)',
+    '--shadow-lg': '0 0 48px hsl(var(--primary) / 0.5)',
   },
 }
 
 const FONT_SCALE_VALUES: Record<FontScale, string> = {
-  compact: '14px',
-  normal: '16px',
-  large: '18px',
+  compact: '13px',
+  normal: '15px',
+  large: '17px',
   display: '20px',
 }
 
@@ -122,14 +80,18 @@ export function applyBuilderTheme(config: BuilderConfig): void {
     root.style.setProperty(key, value)
   })
 
-  // 写入 density
-  const density = DENSITY_VALUES[config.density]
-  Object.entries(density).forEach(([key, value]) => {
+  // 写入 font scale
+  const fontScale = FONT_SCALE_VALUES[config.fontScale]
+  root.style.setProperty('--font-size-base', fontScale)
+  Object.entries(FONT_SCALE_STYLES[config.fontScale]).forEach(([key, value]) => {
     root.style.setProperty(key, value)
   })
 
-  // 写入 font scale
-  root.style.setProperty('--font-size-base', FONT_SCALE_VALUES[config.fontScale])
+  // 写入 density - dramatically different values
+  const densityValues = DENSITY_STYLES[config.density]
+  Object.entries(densityValues).forEach(([key, value]) => {
+    root.style.setProperty(key, value)
+  })
 
   // 写入 motion
   const motionVars = getMotionCSSVariables(config.motionLevel)

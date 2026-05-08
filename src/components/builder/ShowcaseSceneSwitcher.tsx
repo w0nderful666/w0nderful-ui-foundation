@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { type BuilderConfig } from '@/lib/builder'
-import { getPreviewPanelClass, getPreviewCardClass, getPreviewSurfaceClass, getPreviewContainerClass } from '@/lib/previewSurfaces'
+import { getPreviewToolbarClass, getPreviewPanelClass, getPreviewCardClass, getPreviewCodeClass, getPreviewInputClass } from '@/lib/previewSurfaces'
 import { cn } from '@/lib/utils'
 import {
   LayoutGrid,
@@ -45,14 +45,15 @@ interface ShowcaseSceneSwitcherProps {
 
 export function ShowcaseSceneSwitcher({ config }: ShowcaseSceneSwitcherProps) {
   const [activeScene, setActiveScene] = useState<ShowcaseScene>('overview')
-  const containerClass = getPreviewContainerClass(config)
-  const panelClass = getPreviewPanelClass(config)
+  const containerClass = getPreviewToolbarClass(config).replace('border-b border-white/10', '').replace('border-b border-border/60', '').replace('bg-card/40', 'bg-transparent').replace('bg-black/30', 'bg-transparent').replace('bg-card/70', 'bg-transparent')
+  const toolbarClass = getPreviewToolbarClass(config)
   const cardClass = getPreviewCardClass(config)
-  const surfaceClass = getPreviewSurfaceClass(config)
+  const codeClass = getPreviewCodeClass(config)
+  const inputClass = getPreviewInputClass(config)
 
   return (
     <div className={cn("flex-1 overflow-hidden flex flex-col", containerClass)}>
-      <div className="flex items-center gap-1 px-4 py-2 border-b border-border bg-card/50">
+      <div className={cn("flex items-center gap-1 px-4 py-2", toolbarClass)}>
         {SHOWCASE_SCENES.map((scene) => {
           const Icon = scene.icon
           const isActive = activeScene === scene.id
@@ -61,10 +62,10 @@ export function ShowcaseSceneSwitcher({ config }: ShowcaseSceneSwitcherProps) {
               key={scene.id}
               onClick={() => setActiveScene(scene.id)}
               className={cn(
-                'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all',
+                'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200',
                 isActive
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  ? 'bg-primary/90 text-primary-foreground shadow-md shadow-primary/20 backdrop-blur-sm'
+                  : 'text-muted-foreground/80 hover:text-foreground hover:bg-muted/40 hover:backdrop-blur-sm'
               )}
             >
               <Icon className="h-3.5 w-3.5" />
@@ -99,65 +100,67 @@ export function ShowcaseSceneSwitcher({ config }: ShowcaseSceneSwitcherProps) {
 
 function OverviewScene({ config }: { config: BuilderConfig }) {
   const cardClass = getPreviewCardClass(config)
+  const codeClass = getPreviewCodeClass(config)
+  const inputClass = getPreviewInputClass(config)
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div className={cn(cardClass, "rounded-lg p-4")}>
-        <h3 className="text-sm font-semibold text-card-foreground mb-2">Colors</h3>
+        <h3 className="text-sm font-semibold text-card-foreground mb-3">Colors</h3>
         <div className="flex gap-2 flex-wrap">
-          <div className="w-8 h-8 rounded bg-primary" title="Primary" />
-          <div className="w-8 h-8 rounded bg-secondary" title="Secondary" />
-          <div className="w-8 h-8 rounded bg-accent" title="Accent" />
-          <div className="w-8 h-8 rounded bg-muted" title="Muted" />
-          <div className="w-8 h-8 rounded bg-destructive" title="Destructive" />
+          <div className="w-8 h-8 rounded ring-2 ring-white/10 shadow-lg bg-primary" title="Primary" />
+          <div className="w-8 h-8 rounded ring-2 ring-white/10 shadow-lg bg-secondary" title="Secondary" />
+          <div className="w-8 h-8 rounded ring-2 ring-white/10 shadow-lg bg-accent" title="Accent" />
+          <div className="w-8 h-8 rounded ring-2 ring-white/10 shadow-lg bg-muted" title="Muted" />
+          <div className="w-8 h-8 rounded ring-2 ring-white/10 shadow-lg bg-destructive" title="Destructive" />
         </div>
       </div>
       <div className={cn(cardClass, "rounded-lg p-4")}>
-        <h3 className="text-sm font-semibold text-card-foreground mb-2">Buttons</h3>
+        <h3 className="text-sm font-semibold text-card-foreground mb-3">Buttons</h3>
         <div className="flex gap-2 flex-wrap">
-          <button className="px-3 py-1.5 rounded bg-primary text-primary-foreground text-xs font-medium">Primary</button>
-          <button className="px-3 py-1.5 rounded bg-secondary text-secondary-foreground text-xs font-medium">Secondary</button>
-          <button className="px-3 py-1.5 rounded border border-border text-foreground text-xs font-medium">Outline</button>
-          <button className="px-3 py-1.5 rounded text-foreground text-xs font-medium hover:bg-muted">Ghost</button>
+          <button className="px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-medium transition-all hover:shadow-lg hover:shadow-primary/20">Primary</button>
+          <button className="px-3 py-1.5 rounded-md bg-secondary text-secondary-foreground text-xs font-medium transition-all hover:opacity-90">Secondary</button>
+          <button className="px-3 py-1.5 rounded-md border border-border/60 text-foreground text-xs font-medium transition-all hover:bg-muted/50">Outline</button>
+          <button className="px-3 py-1.5 rounded-md text-foreground text-xs font-medium transition-all hover:bg-muted/60 hover:backdrop-blur-sm">Ghost</button>
         </div>
       </div>
       <div className={cn(cardClass, "rounded-lg p-4")}>
-        <h3 className="text-sm font-semibold text-card-foreground mb-2">Badges</h3>
+        <h3 className="text-sm font-semibold text-card-foreground mb-3">Badges</h3>
         <div className="flex gap-2 flex-wrap">
-          <span className="px-2 py-0.5 rounded-full bg-accent text-accent-foreground text-xs">Default</span>
-          <span className="px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground text-xs">Secondary</span>
-          <span className="px-2 py-0.5 rounded-full bg-green-500/20 text-green-500 text-xs">Success</span>
-          <span className="px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-500 text-xs">Warning</span>
-          <span className="px-2 py-0.5 rounded-full bg-red-500/20 text-red-500 text-xs">Error</span>
+          <span className="px-2.5 py-1 rounded-full bg-accent/80 backdrop-blur-sm text-accent-foreground text-xs font-medium">Default</span>
+          <span className="px-2.5 py-1 rounded-full bg-secondary/80 backdrop-blur-sm text-secondary-foreground text-xs font-medium">Secondary</span>
+          <span className="px-2.5 py-1 rounded-full bg-green-500/20 backdrop-blur-sm text-green-500 text-xs font-medium">Success</span>
+          <span className="px-2.5 py-1 rounded-full bg-yellow-500/20 backdrop-blur-sm text-yellow-500 text-xs font-medium">Warning</span>
+          <span className="px-2.5 py-1 rounded-full bg-red-500/20 backdrop-blur-sm text-red-500 text-xs font-medium">Error</span>
         </div>
       </div>
       <div className={cn(cardClass, "rounded-lg p-4 col-span-1 md:col-span-2")}>
-        <h3 className="text-sm font-semibold text-card-foreground mb-2">Card</h3>
-        <div className={cn(cardClass, "rounded-lg p-4 max-w-sm")}>
+        <h3 className="text-sm font-semibold text-card-foreground mb-3">Card</h3>
+        <div className={cn(cardClass, "rounded-lg p-4 max-w-sm border border-primary/10")}>
           <h4 className="text-base font-semibold text-card-foreground">Card Title</h4>
-          <p className="text-sm text-muted-foreground mt-1">This is a sample card component with your theme tokens.</p>
-          <button className="mt-3 px-3 py-1.5 rounded bg-primary text-primary-foreground text-xs font-medium">Action</button>
+          <p className="text-sm text-muted-foreground mt-1.5">This is a sample card component with your theme tokens.</p>
+          <button className="mt-3 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-medium transition-all hover:shadow-lg hover:shadow-primary/20">Action</button>
         </div>
       </div>
       <div className={cn(cardClass, "rounded-lg p-4")}>
-        <h3 className="text-sm font-semibold text-card-foreground mb-2">Input</h3>
+        <h3 className="text-sm font-semibold text-card-foreground mb-3">Input</h3>
         <input
           type="text"
           placeholder="Enter text..."
-          className="w-full px-3 py-2 rounded border border-border bg-background/50 text-foreground text-sm"
+          className={cn(inputClass, "w-full px-3 py-2 rounded-md text-sm")}
         />
       </div>
       <div className={cn(cardClass, "rounded-lg p-4")}>
-        <h3 className="text-sm font-semibold text-card-foreground mb-2">Switch</h3>
-        <div className="flex items-center gap-2">
-          <div className="w-10 h-5 rounded-full bg-primary/20 p-0.5 cursor-pointer">
-            <div className="w-4 h-4 rounded-full bg-primary shadow-sm" />
+        <h3 className="text-sm font-semibold text-card-foreground mb-3">Switch</h3>
+        <div className="flex items-center gap-3">
+          <div className="w-11 h-6 rounded-full bg-primary/30 backdrop-blur-sm p-0.5 cursor-pointer ring-2 ring-primary/20">
+            <div className="w-5 h-5 rounded-full bg-primary shadow-lg shadow-primary/30" />
           </div>
           <span className="text-sm text-foreground">Enabled</span>
         </div>
       </div>
       <div className={cn(cardClass, "rounded-lg p-4 col-span-1 md:col-span-2 lg:col-span-3")}>
-        <h3 className="text-sm font-semibold text-card-foreground mb-2">Code Block</h3>
-        <pre className="bg-zinc-900/80 text-zinc-100 p-3 rounded text-xs overflow-x-auto">
+        <h3 className="text-sm font-semibold text-card-foreground mb-3">Code Block</h3>
+        <pre className={cn(codeClass, "text-zinc-100 p-4 rounded-lg text-xs overflow-x-auto font-mono")}>
 {`function greet(name: string): string {
   return \`Hello, \${name}!\`
 }`}

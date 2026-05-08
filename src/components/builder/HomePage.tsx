@@ -263,6 +263,29 @@ export function HomePage({ onEnterBuilder, motionLevel = 'normal' }: HomePagePro
 
               
 
+              {/* Floating Token Inspector */}
+              <motion.div
+                className="absolute -right-4 top-1/4 w-48 rounded-lg border border-border bg-card shadow-lg p-3 hidden xl:block"
+                initial={{ opacity: 0, x: 16 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: motionConfig.listStagger * 3, duration: motionConfig.duration.normal }}
+              >
+                <div className="text-xs font-medium mb-2">Token Inspector</div>
+                <div className="space-y-1.5">
+                  {[
+                    { name: '--primary', color: 'rgb(99 102 241)' },
+                    { name: '--secondary', color: 'rgb(244 244 245)' },
+                    { name: '--accent', color: 'rgb(244 244 245)' },
+                    { name: '--destructive', color: 'rgb(239 68 68)' },
+                  ].map((token) => (
+                    <div key={token.name} className="flex items-center gap-2">
+                      <div className="h-4 w-4 rounded border border-border" style={{ backgroundColor: token.color }} />
+                      <span className="text-xs font-mono text-muted-foreground">{token.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
               {/* Floating Motion Inspector */}
               <motion.div
                 className="absolute -left-4 bottom-1/4 w-44 rounded-lg border border-border bg-card shadow-lg p-3 hidden xl:block"

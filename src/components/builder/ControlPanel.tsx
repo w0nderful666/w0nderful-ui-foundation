@@ -19,6 +19,7 @@ import {
   INPUT_STYLES,
   MOTION_LEVELS,
   FONT_SCALES,
+  EXPERIENCE_STYLES,
   LAYOUT_STYLES,
   DOCK_STYLES,
   PANEL_CHROMES,
@@ -267,6 +268,19 @@ export function ControlPanel({ config, onConfigChange, onConfigReplace, onReset 
               options={FONT_SCALES}
               value={config.fontScale}
               onChange={(v) => onConfigChange('fontScale', v as any)}
+            />
+          </CardContent>
+        </Card>
+
+        <Card variant="glass" padding="sm">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Experience Style</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <StyleOptionGroup
+              options={EXPERIENCE_STYLES}
+              value={config.experienceStyle ?? 'fluent-glass'}
+              onChange={(v) => onConfigChange('experienceStyle', v as any)}
             />
           </CardContent>
         </Card>

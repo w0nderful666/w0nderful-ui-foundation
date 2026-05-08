@@ -114,6 +114,20 @@ export type ContentShape = 'cards' | 'list' | 'tiles' | 'kanban' | 'metrics'
 
 export type HeaderHeight = 'compact' | 'normal' | 'large' | 'hero'
 
+export type ExperienceStyle =
+  | 'classic-desktop'
+  | 'fluent-glass'
+  | 'linux-workstation'
+  | 'gnome-clean'
+  | 'security-console'
+  | 'unix-terminal'
+  | 'aqua-desktop'
+  | 'graphite-pro'
+  | 'server-panel'
+  | 'material-mobile'
+  | 'material-you'
+  | 'minimal-dev'
+
 export interface BuilderConfig {
   themePreset: ThemePreset
   mode: Mode
@@ -136,6 +150,7 @@ export interface BuilderConfig {
   inputStyle: InputStyle
   motionLevel: MotionLevel
   fontScale: FontScale
+  experienceStyle?: ExperienceStyle
 }
 
 export type BuilderConfigKey = keyof BuilderConfig
@@ -338,6 +353,21 @@ export const FONT_SCALES: { value: FontScale; label: string }[] = [
   { value: 'normal', label: 'Normal' },
   { value: 'large', label: 'Large' },
   { value: 'display', label: 'Display' },
+]
+
+export const EXPERIENCE_STYLES: { value: ExperienceStyle; label: string }[] = [
+  { value: 'classic-desktop', label: 'Classic Desktop' },
+  { value: 'fluent-glass', label: 'Fluent Glass' },
+  { value: 'linux-workstation', label: 'Linux Workstation' },
+  { value: 'gnome-clean', label: 'GNOME Clean' },
+  { value: 'security-console', label: 'Security Console' },
+  { value: 'unix-terminal', label: 'Unix Terminal' },
+  { value: 'aqua-desktop', label: 'Aqua Desktop' },
+  { value: 'graphite-pro', label: 'Graphite Pro' },
+  { value: 'server-panel', label: 'Server Panel' },
+  { value: 'material-mobile', label: 'Material Mobile' },
+  { value: 'material-you', label: 'Material You' },
+  { value: 'minimal-dev', label: 'Minimal Dev' },
 ]
 
 export const LAYOUT_STYLES: { value: LayoutStyle; label: string }[] = [
@@ -772,6 +802,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'classic-box',
       motionLevel: 'subtle',
       fontScale: 'normal',
+      experienceStyle: 'classic-desktop',
     },
   },
   {
@@ -1175,6 +1206,7 @@ export const DEFAULT_CONFIG: BuilderConfig = {
   inputStyle: 'outline',
   motionLevel: 'normal',
   fontScale: 'normal',
+  experienceStyle: 'fluent-glass',
 }
 
 export function getStylePresetById(id: string): StylePreset | undefined {

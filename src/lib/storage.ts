@@ -26,7 +26,8 @@ function isValidConfig(data: unknown): data is BuilderConfig {
     typeof config.cardStyle === 'string' &&
     typeof config.inputStyle === 'string' &&
     typeof config.motionLevel === 'string' &&
-    typeof config.fontScale === 'string'
+    typeof config.fontScale === 'string' &&
+    (typeof config.experienceStyle === 'string' || config.experienceStyle === undefined)
   )
 }
 
@@ -86,5 +87,6 @@ export function mergeWithDefaultConfig(partial: Partial<BuilderConfig>): Builder
     inputStyle: partial.inputStyle ?? DEFAULT_CONFIG.inputStyle,
     motionLevel: partial.motionLevel ?? DEFAULT_CONFIG.motionLevel,
     fontScale: partial.fontScale ?? DEFAULT_CONFIG.fontScale,
+    experienceStyle: partial.experienceStyle ?? DEFAULT_CONFIG.experienceStyle,
   }
 }

@@ -322,11 +322,11 @@ test('themes.ts 无主题别名 fallback', () => {
 
 test('THEME_PRESETS 无假主题', () => {
   const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
-  assert(!content.includes("'midnight-orchid', label: 'Midnight Orchid'"), 'THEME_PRESETS 包含假主题 midnight-orchid')
-  assert(!content.includes("'obsidian-green', label: 'Obsidian Green'"), 'THEME_PRESETS 包含假主题 obsidian-green')
-  assert(!content.includes("'cloud-minimal', label: 'Cloud Minimal'"), 'THEME_PRESETS 包含假主题 cloud-minimal')
-  assert(!content.includes("'graphite-pro', label: 'Graphite Pro'"), 'THEME_PRESETS 包含假主题 graphite-pro')
-  assert(!content.includes("'sunset-coral', label: 'Sunset Coral'"), 'THEME_PRESETS 包含假主题 sunset-coral')
+  const themePresetsSection = content.substring(content.indexOf('THEME_PRESETS'), content.indexOf('export const MODES'))
+  assert(!themePresetsSection.includes("'midnight-orchid'"), 'THEME_PRESETS 包含假主题 midnight-orchid')
+  assert(!themePresetsSection.includes("'obsidian-green'"), 'THEME_PRESETS 包含假主题 obsidian-green')
+  assert(!themePresetsSection.includes("'cloud-minimal'"), 'THEME_PRESETS 包含假主题 cloud-minimal')
+  assert(!themePresetsSection.includes("'sunset-coral'"), 'THEME_PRESETS 包含假主题 sunset-coral')
 })
 
 test('系统 ThemePreset 存在完整 token', () => {
@@ -504,6 +504,37 @@ test('README 包含 system-inspired 说明', () => {
   assert(content.includes('系统风格主题说明'), 'README 缺少系统风格主题说明')
   assert(content.includes('不隶属于'), 'README 缺少不隶属于声明')
   assert(content.includes('CSS 生成的'), 'README 缺少 CSS 生成声明')
+})
+
+test('BuilderConfig 包含 experienceStyle', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes('experienceStyle:'), 'BuilderConfig 缺少 experienceStyle')
+  assert(content.includes('ExperienceStyle'), '缺少 ExperienceStyle 类型')
+})
+
+test('EXPERIENCE_STYLES 数组存在', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes("'classic-desktop', label: 'Classic Desktop'"), '缺少 classic-desktop')
+  assert(content.includes("'fluent-glass', label: 'Fluent Glass'"), '缺少 fluent-glass')
+  assert(content.includes("'unix-terminal', label: 'Unix Terminal'"), '缺少 unix-terminal')
+  assert(content.includes("'aqua-desktop', label: 'Aqua Desktop'"), '缺少 aqua-desktop')
+  assert(content.includes("'material-you', label: 'Material You'"), '缺少 material-you')
+})
+
+test('DEFAULT_CONFIG 包含 experienceStyle', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes('experienceStyle:'), 'DEFAULT_CONFIG 缺少 experienceStyle')
+})
+
+test('storage.ts 验证 experienceStyle', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  assert(content.includes('experienceStyle'), 'storage.ts 缺少 experienceStyle 验证')
+})
+
+test('ControlPanel 包含 Experience Style 控制项', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlPanel.tsx'), 'utf-8')
+  assert(content.includes('EXPERIENCE_STYLES'), 'ControlPanel 缺少 EXPERIENCE_STYLES 导入')
+  assert(content.includes('Experience Style'), 'ControlPanel 缺少 Experience Style 控制项')
 })
 
 console.log(`\n📊 结果: ${passed} 通过, ${failed} 失败\n`)

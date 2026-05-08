@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { type BuilderConfig } from '@/lib/builder'
-import { getPreviewToolbarClass, getPreviewPanelClass, getPreviewCardClass, getPreviewCodeClass, getPreviewInputClass } from '@/lib/previewSurfaces'
+import { getPreviewContainerClass, getPreviewToolbarClass, getPreviewPanelClass, getPreviewCardClass, getPreviewCodeClass, getPreviewInputClass } from '@/lib/previewSurfaces'
 import { cn } from '@/lib/utils'
 import {
   LayoutGrid,
@@ -45,7 +45,7 @@ interface ShowcaseSceneSwitcherProps {
 
 export function ShowcaseSceneSwitcher({ config }: ShowcaseSceneSwitcherProps) {
   const [activeScene, setActiveScene] = useState<ShowcaseScene>('overview')
-  const containerClass = getPreviewToolbarClass(config).replace('border-b border-white/10', '').replace('border-b border-border/60', '').replace('bg-card/40', 'bg-transparent').replace('bg-black/30', 'bg-transparent').replace('bg-card/70', 'bg-transparent')
+  const containerClass = getPreviewContainerClass(config)
   const toolbarClass = getPreviewToolbarClass(config)
   const cardClass = getPreviewCardClass(config)
   const codeClass = getPreviewCodeClass(config)

@@ -876,6 +876,49 @@ test('README 包含 How to use generated UI Kit', () => {
   assert(content.includes('Runtime Theme Loading'), 'README 包含 Runtime 说明')
 })
 
+test('PresetGallery.tsx 存在', () => {
+  assert(existsSync(resolve(root, 'src/components/builder/PresetGallery.tsx')), 'PresetGallery.tsx 不存在')
+})
+
+test('ControlPanel.tsx 引入并使用 PresetGallery', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlPanel.tsx'), 'utf-8')
+  assert(content.includes('import { PresetGallery }'), 'ControlPanel.tsx 未引入 PresetGallery')
+  assert(content.includes('<PresetGallery'), 'ControlPanel.tsx 未使用 PresetGallery 组件')
+})
+
+test('builder.ts 包含 8 个高级预设', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes('aurora-glass'), '缺少 aurora-glass')
+  assert(content.includes('deep-space'), '缺少 deep-space')
+  assert(content.includes('linux-frost'), '缺少 linux-frost')
+  assert(content.includes('terminal-pro'), '缺少 terminal-pro')
+  assert(content.includes('cyber-neon'), '缺少 cyber-neon')
+  assert(content.includes('paper-minimal'), '缺少 paper-minimal')
+  assert(content.includes('ocean-panel'), '缺少 ocean-panel')
+  assert(content.includes('warm-studio'), '缺少 warm-studio')
+})
+
+test('PresetGallery.tsx 包含 Apply 文案', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/PresetGallery.tsx'), 'utf-8')
+  assert(content.includes('Apply') || content.includes('Applied'), 'PresetGallery 缺少 Apply/Applied 文案')
+})
+
+test('PresetGallery.tsx 包含 gradient 预览', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/PresetGallery.tsx'), 'utf-8')
+  assert(content.includes('gradient') || content.includes('bg-gradient-to-r'), 'PresetGallery 缺少 gradient 预览')
+})
+
+test('README 包含 Preset Gallery', () => {
+  const content = readFileSync(resolve(root, 'README.md'), 'utf-8')
+  assert(content.includes('Preset Gallery') || content.includes('高级预设'), 'README 缺少 Preset Gallery 说明')
+})
+
+test('RELEASE_NOTES 包含 v0.9.0', () => {
+  const content = readFileSync(resolve(root, 'RELEASE_NOTES.md'), 'utf-8')
+  assert(content.includes('v0.9.0'), 'RELEASE_NOTES 缺少 v0.9.0')
+  assert(content.includes('Preset Gallery'), 'RELEASE_NOTES 缺少 Preset Gallery 记录')
+})
+
 console.log(`\n📊 结果: ${passed} 通过, ${failed} 失败\n`)
 
 if (failed > 0) {

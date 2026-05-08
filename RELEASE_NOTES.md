@@ -1,5 +1,36 @@
 # Release Notes
 
+## v0.9.0 (2026-05-08)
+
+### Preset Gallery - 高级预设库
+
+新增一键应用的高级风格预设库：
+
+#### 新增功能
+- **PresetGallery 组件** - ControlPanel 中新增折叠区
+- **8 套高级预设**:
+  1. **Aurora Glass** - 极光玻璃风，适合高级展示页 / OS 首页
+  2. **Deep Space** - 深空控制台，适合 dashboard / AI / cyber 工具
+  3. **Linux Frost** - Linux 工作站风，适合 OS 项目迁移
+  4. **Terminal Pro** - 终端工程师风，适合开发者工具 / 安全控制台
+  5. **Cyber Neon** - 赛博霓虹风，适合高级演示和分享截图
+  6. **Paper Minimal** - 极简纸张风，适合文章、文档、博客
+  7. **Ocean Panel** - 蓝绿色控制台风，适合 SaaS / dashboard
+  8. **Warm Studio** - 暖色创作工作台，适合内容工具 / design studio
+
+#### 技术实现
+- 新增 PresetGallery.tsx 组件
+- 8 个预设加入 STYLE_PRESETS (builder.ts)
+- 每个预设包含完整 BuilderConfig 配置
+- 卡片包含 gradient strip 预览
+- Apply / Applied 状态显示
+
+#### 测试
+- self-test: 125/125
+- preflight: 21/21
+
+---
+
 ## v0.8.0 (2026-05-08)
 
 ### Showcase Scene Switcher

@@ -6,10 +6,11 @@ import { LivePreview } from './LivePreview'
 interface BuilderLayoutProps {
   config: BuilderConfig
   onConfigChange: <K extends keyof BuilderConfig>(key: K, value: BuilderConfig[K]) => void
+  onConfigReplace: (config: BuilderConfig) => void
   onReset: () => void
 }
 
-export function BuilderLayout({ config, onConfigChange, onReset }: BuilderLayoutProps) {
+export function BuilderLayout({ config, onConfigChange, onConfigReplace, onReset }: BuilderLayoutProps) {
   return (
     <motion.div
       className="flex flex-col lg:flex-row h-screen overflow-hidden bg-background"
@@ -18,7 +19,12 @@ export function BuilderLayout({ config, onConfigChange, onReset }: BuilderLayout
       transition={{ duration: 0.3 }}
     >
       <LivePreview config={config} />
-      <ControlPanel config={config} onConfigChange={onConfigChange} onReset={onReset} />
+      <ControlPanel 
+        config={config} 
+        onConfigChange={onConfigChange} 
+        onConfigReplace={onConfigReplace}
+        onReset={onReset} 
+      />
     </motion.div>
   )
 }

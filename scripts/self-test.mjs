@@ -308,6 +308,92 @@ test('组件使用 CSS variables', () => {
   assert(button.includes('text-primary-foreground'), 'Button 未使用 primary-foreground')
 })
 
+test('themes.ts 无主题别名 fallback', () => {
+  const content = readFileSync(resolve(root, 'src/lib/themes.ts'), 'utf-8')
+  assert(!content.includes("'midnight-orchid': oceanic"), '存在 midnight-orchid -> oceanic 别名')
+  assert(!content.includes("'obsidian-green': oceanic"), '存在 obsidian-green -> oceanic 别名')
+  assert(!content.includes("'cloud-minimal': githubLight"), '存在 cloud-minimal -> githubLight 别名')
+  assert(!content.includes("'graphite-pro': slatePro"), '存在 graphite-pro -> slatePro 别名')
+  assert(!content.includes("'sunset-coral': amberStudio"), '存在 sunset-coral -> amberStudio 别名')
+  assert(!content.includes("'deep-ocean': oceanic"), '存在 deep-ocean -> oceanic 别名')
+  assert(!content.includes("'lavender-mist': rosePine"), '存在 lavender-mist -> rosePine 别名')
+  assert(!content.includes("'matrix-green': cyberNeon"), '存在 matrix-green -> cyberNeon 别名')
+})
+
+test('THEME_PRESETS 无假主题', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(!content.includes("'midnight-orchid', label: 'Midnight Orchid'"), 'THEME_PRESETS 包含假主题 midnight-orchid')
+  assert(!content.includes("'obsidian-green', label: 'Obsidian Green'"), 'THEME_PRESETS 包含假主题 obsidian-green')
+  assert(!content.includes("'cloud-minimal', label: 'Cloud Minimal'"), 'THEME_PRESETS 包含假主题 cloud-minimal')
+  assert(!content.includes("'graphite-pro', label: 'Graphite Pro'"), 'THEME_PRESETS 包含假主题 graphite-pro')
+  assert(!content.includes("'sunset-coral', label: 'Sunset Coral'"), 'THEME_PRESETS 包含假主题 sunset-coral')
+})
+
+test('系统 ThemePreset 存在完整 token', () => {
+  const content = readFileSync(resolve(root, 'src/lib/themes.ts'), 'utf-8')
+  assert(content.includes("'windows-classic': {"), '缺少 windows-classic 主题定义')
+  assert(content.includes("'windows-11': {"), '缺少 windows-11 主题定义')
+  assert(content.includes("'ubuntu-aubergine': {"), '缺少 ubuntu-aubergine 主题定义')
+  assert(content.includes("'gnome-adwaita': {"), '缺少 gnome-adwaita 主题定义')
+  assert(content.includes("'kali-dark': {"), '缺少 kali-dark 主题定义')
+  assert(content.includes("'unix-terminal': {"), '缺少 unix-terminal 主题定义')
+  assert(content.includes("'macos-aqua': {"), '缺少 macos-aqua 主题定义')
+  assert(content.includes("'macos-graphite': {"), '缺少 macos-graphite 主题定义')
+  assert(content.includes("'centos-blue': {"), '缺少 centos-blue 主题定义')
+  assert(content.includes("'android-material': {"), '缺少 android-material 主题定义')
+  assert(content.includes("'material-you': {"), '缺少 material-you 主题定义')
+  assert(content.includes("'debian-red': {"), '缺少 debian-red 主题定义')
+  assert(content.includes("'fedora-blue': {"), '缺少 fedora-blue 主题定义')
+  assert(content.includes("'arch-minimal': {"), '缺少 arch-minimal 主题定义')
+})
+
+test('SYSTEM_PRESETS 包含至少 10 个系统预设', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes("windows-classic-desktop"), '缺少 windows-classic-desktop 预设')
+  assert(content.includes("windows-11-glass"), '缺少 windows-11-glass 预设')
+  assert(content.includes("ubuntu-workstation"), '缺少 ubuntu-workstation 预设')
+  assert(content.includes("gnome-adwaita-clean"), '缺少 gnome-adwaita-clean 预设')
+  assert(content.includes("kali-ops-console"), '缺少 kali-ops-console 预设')
+  assert(content.includes("unix-terminal-console"), '缺少 unix-terminal-console 预设')
+  assert(content.includes("macos-aqua-desk"), '缺少 macos-aqua-desk 预设')
+  assert(content.includes("macos-graphite-pro"), '缺少 macos-graphite-pro 预设')
+  assert(content.includes("android-material-dashboard"), '缺少 android-material-dashboard 预设')
+  assert(content.includes("material-you-lab"), '缺少 material-you-lab 预设')
+})
+
+test('ControlPanel 包含 Presets UI', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlPanel.tsx'), 'utf-8')
+  assert(content.includes('PresetsPicker'), 'ControlPanel 缺少 PresetsPicker 组件')
+  assert(content.includes('onConfigReplace'), 'ControlPanel 缺少 onConfigReplace prop')
+})
+
+test('PresetsPicker 组件存在', () => {
+  assert(existsSync(resolve(root, 'src/components/builder/PresetsPicker.tsx')), 'PresetsPicker.tsx 不存在')
+})
+
+test('App 包含 onConfigReplace 函数', () => {
+  const content = readFileSync(resolve(root, 'src/App.tsx'), 'utf-8')
+  assert(content.includes('onConfigReplace'), 'App.tsx 缺少 onConfigReplace 函数')
+})
+
+test('BuilderLayout 传递 onConfigReplace', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/BuilderLayout.tsx'), 'utf-8')
+  assert(content.includes('onConfigReplace'), 'BuilderLayout.tsx 未传递 onConfigReplace')
+})
+
+test('Preset swatch 使用 theme token', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/PresetsPicker.tsx'), 'utf-8')
+  assert(content.includes('getThemeTokens'), 'PresetsPicker 未使用 getThemeTokens')
+  assert(content.includes('tokens.background'), 'PresetsPicker 未读取 background token')
+  assert(content.includes('tokens.primary'), 'PresetsPicker 未读取 primary token')
+})
+
+test('MOTION_LEVELS 包含 elastic 和 snappy', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  assert(content.includes("{ value: 'elastic'"), 'MOTION_LEVELS 缺少 elastic')
+  assert(content.includes("{ value: 'snappy'"), 'MOTION_LEVELS 缺少 snappy')
+})
+
 console.log(`\n📊 结果: ${passed} 通过, ${failed} 失败\n`)
 
 if (failed > 0) {

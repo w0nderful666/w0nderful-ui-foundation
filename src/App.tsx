@@ -19,6 +19,10 @@ export default function App() {
     setConfig((prev) => ({ ...prev, [key]: value }))
   }, [])
 
+  const handleConfigReplace = useCallback((newConfig: BuilderConfig) => {
+    setConfig(newConfig)
+  }, [])
+
   const handleReset = useCallback(() => {
     const newConfig = resetBuilderConfig()
     setConfig(newConfig)
@@ -55,6 +59,7 @@ export default function App() {
             <BuilderLayout
               config={config}
               onConfigChange={handleConfigChange}
+              onConfigReplace={handleConfigReplace}
               onReset={handleReset}
             />
           </div>

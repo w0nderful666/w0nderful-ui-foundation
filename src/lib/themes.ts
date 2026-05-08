@@ -986,18 +986,6 @@ const THEMES = {
   'rose-terminal': roseTerminal,
   'slate-pro': slatePro,
   'oceanic': oceanic,
-  'midnight-orchid': oceanic,
-  'obsidian-green': oceanic,
-  'cloud-minimal': githubLight,
-  'graphite-pro': slatePro,
-  'sunset-coral': amberStudio,
-  'deep-ocean': oceanic,
-  'lavender-mist': rosePine,
-  'matrix-green': cyberNeon,
-  'warm-paper': githubLight,
-  'ice-blue': mintLab,
-  'volcanic-red': amberStudio,
-  'sandstone': githubLight,
   'windows-classic': {
     light: {
       background: '210 20% 96%',

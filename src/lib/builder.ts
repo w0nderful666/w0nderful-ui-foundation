@@ -19,18 +19,7 @@ export type ThemePreset =
   | 'rose-terminal'
   | 'slate-pro'
   | 'oceanic'
-  | 'midnight-orchid'
-  | 'obsidian-green'
-  | 'cloud-minimal'
-  | 'graphite-pro'
-  | 'sunset-coral'
-  | 'deep-ocean'
-  | 'lavender-mist'
-  | 'matrix-green'
   | 'warm-paper'
-  | 'ice-blue'
-  | 'volcanic-red'
-  | 'sandstone'
   | 'windows-classic'
   | 'windows-11'
   | 'ubuntu-aubergine'
@@ -155,18 +144,6 @@ export const THEME_PRESETS: { value: ThemePreset; label: string }[] = [
   { value: 'rose-terminal', label: 'Rose Terminal' },
   { value: 'slate-pro', label: 'Slate Pro' },
   { value: 'oceanic', label: 'Oceanic' },
-  { value: 'midnight-orchid', label: 'Midnight Orchid' },
-  { value: 'obsidian-green', label: 'Obsidian Green' },
-  { value: 'cloud-minimal', label: 'Cloud Minimal' },
-  { value: 'graphite-pro', label: 'Graphite Pro' },
-  { value: 'sunset-coral', label: 'Sunset Coral' },
-  { value: 'deep-ocean', label: 'Deep Ocean' },
-  { value: 'lavender-mist', label: 'Lavender Mist' },
-  { value: 'matrix-green', label: 'Matrix Green' },
-  { value: 'warm-paper', label: 'Warm Paper' },
-  { value: 'ice-blue', label: 'Ice Blue' },
-  { value: 'volcanic-red', label: 'Volcanic Red' },
-  { value: 'sandstone', label: 'Sandstone' },
   { value: 'windows-classic', label: 'Windows Classic' },
   { value: 'windows-11', label: 'Windows 11' },
   { value: 'ubuntu-aubergine', label: 'Ubuntu' },
@@ -291,6 +268,8 @@ export const MOTION_LEVELS: { value: MotionLevel; label: string }[] = [
   { value: 'normal', label: 'Normal' },
   { value: 'expressive', label: 'Expressive' },
   { value: 'cinematic', label: 'Cinematic' },
+  { value: 'elastic', label: 'Elastic' },
+  { value: 'snappy', label: 'Snappy' },
 ]
 
 export const FONT_SCALES: { value: FontScale; label: string }[] = [
@@ -391,6 +370,20 @@ export type StylePresetId =
   | 'aurora-dashboard'
   | 'minimal-saas'
   | 'neon-command'
+  | 'windows-classic-desktop'
+  | 'windows-11-glass'
+  | 'ubuntu-workstation'
+  | 'gnome-adwaita-clean'
+  | 'kali-ops-console'
+  | 'unix-terminal-console'
+  | 'macos-aqua-desk'
+  | 'macos-graphite-pro'
+  | 'centos-server-panel'
+  | 'android-material-dashboard'
+  | 'material-you-lab'
+  | 'debian-workbench'
+  | 'fedora-workstation'
+  | 'arch-minimal-console'
 
 export interface StylePreset {
   id: StylePresetId
@@ -691,6 +684,412 @@ export const STYLE_PRESETS: StylePreset[] = [
       fontScale: 'large',
     },
   },
+  {
+    id: 'windows-classic-desktop',
+    label: 'Windows Classic',
+    description: 'Classic Windows desktop style with blue-gray tones',
+    tags: ['windows', 'classic', 'desktop'],
+    config: {
+      themePreset: 'windows-classic',
+      mode: 'light',
+      backgroundStyle: 'blueprint-grid',
+      layoutStyle: 'sidebar',
+      dockStyle: 'minimal',
+      panelChrome: 'linux',
+      borderStyle: 'strong',
+      surfaceMaterial: 'solid',
+      accentIntensity: 'medium',
+      blurStrength: 'none',
+      iconStyle: 'line',
+      contentShape: 'cards',
+      headerHeight: 'normal',
+      radius: 'sharp',
+      shadow: 'hard',
+      density: 'compact',
+      buttonStyle: 'solid',
+      cardStyle: 'bordered',
+      inputStyle: 'outline',
+      motionLevel: 'subtle',
+      fontScale: 'normal',
+    },
+  },
+  {
+    id: 'windows-11-glass',
+    label: 'Windows 11',
+    description: 'Modern Windows 11 with acrylic glass effects',
+    tags: ['windows', 'modern', 'glass'],
+    config: {
+      themePreset: 'windows-11',
+      mode: 'light',
+      backgroundStyle: 'layered-glass',
+      layoutStyle: 'dashboard-grid',
+      dockStyle: 'glass-dock',
+      panelChrome: 'minimal',
+      borderStyle: 'subtle',
+      surfaceMaterial: 'acrylic',
+      accentIntensity: 'medium',
+      blurStrength: 'medium',
+      iconStyle: 'line',
+      contentShape: 'cards',
+      headerHeight: 'normal',
+      radius: 'xl',
+      shadow: 'floating',
+      density: 'normal',
+      buttonStyle: 'solid',
+      cardStyle: 'acrylic',
+      inputStyle: 'pill',
+      motionLevel: 'cinematic',
+      fontScale: 'normal',
+    },
+  },
+  {
+    id: 'ubuntu-workstation',
+    label: 'Ubuntu',
+    description: 'Ubuntu workstation with aubergine purple tones',
+    tags: ['linux', 'ubuntu', 'workstation'],
+    config: {
+      themePreset: 'ubuntu-aubergine',
+      mode: 'dark',
+      backgroundStyle: 'soft-gradient',
+      layoutStyle: 'sidebar',
+      dockStyle: 'pill-dock',
+      panelChrome: 'linux',
+      borderStyle: 'subtle',
+      surfaceMaterial: 'matte',
+      accentIntensity: 'medium',
+      blurStrength: 'soft',
+      iconStyle: 'line',
+      contentShape: 'cards',
+      headerHeight: 'normal',
+      radius: 'rounded',
+      shadow: 'floating',
+      density: 'normal',
+      buttonStyle: 'solid',
+      cardStyle: 'elevated',
+      inputStyle: 'filled',
+      motionLevel: 'normal',
+      fontScale: 'normal',
+    },
+  },
+  {
+    id: 'gnome-adwaita-clean',
+    label: 'GNOME Adwaita',
+    description: 'Clean GNOME Adwaita with subtle blue accents',
+    tags: ['linux', 'gnome', 'clean'],
+    config: {
+      themePreset: 'gnome-adwaita',
+      mode: 'light',
+      backgroundStyle: 'solid',
+      layoutStyle: 'topbar',
+      dockStyle: 'minimal',
+      panelChrome: 'minimal',
+      borderStyle: 'subtle',
+      surfaceMaterial: 'solid',
+      accentIntensity: 'low',
+      blurStrength: 'none',
+      iconStyle: 'line',
+      contentShape: 'cards',
+      headerHeight: 'compact',
+      radius: 'rounded',
+      shadow: 'soft',
+      density: 'normal',
+      buttonStyle: 'solid',
+      cardStyle: 'solid',
+      inputStyle: 'outline',
+      motionLevel: 'normal',
+      fontScale: 'normal',
+    },
+  },
+  {
+    id: 'kali-ops-console',
+    label: 'Kali Linux',
+    description: 'Kali Linux ops console with cyber blue highlights',
+    tags: ['linux', 'kali', 'security'],
+    config: {
+      themePreset: 'kali-dark',
+      mode: 'dark',
+      backgroundStyle: 'carbon-grid',
+      layoutStyle: 'split',
+      dockStyle: 'neon-dock',
+      panelChrome: 'terminal',
+      borderStyle: 'glow',
+      surfaceMaterial: 'terminal',
+      accentIntensity: 'high',
+      blurStrength: 'none',
+      iconStyle: 'mono',
+      contentShape: 'list',
+      headerHeight: 'compact',
+      radius: 'sharp',
+      shadow: 'glow',
+      density: 'compact',
+      buttonStyle: 'neon',
+      cardStyle: 'terminal',
+      inputStyle: 'command-line',
+      motionLevel: 'snappy',
+      fontScale: 'compact',
+    },
+  },
+  {
+    id: 'unix-terminal-console',
+    label: 'Unix Terminal',
+    description: 'Classic Unix terminal with green/amber monochrome',
+    tags: ['terminal', 'unix', 'console'],
+    config: {
+      themePreset: 'unix-terminal',
+      mode: 'dark',
+      backgroundStyle: 'terminal-matrix',
+      layoutStyle: 'topbar',
+      dockStyle: 'minimal',
+      panelChrome: 'terminal',
+      borderStyle: 'none',
+      surfaceMaterial: 'terminal',
+      accentIntensity: 'low',
+      blurStrength: 'none',
+      iconStyle: 'mono',
+      contentShape: 'list',
+      headerHeight: 'compact',
+      radius: 'square',
+      shadow: 'flat',
+      density: 'compact',
+      buttonStyle: 'ghost',
+      cardStyle: 'terminal',
+      inputStyle: 'command-line',
+      motionLevel: 'off',
+      fontScale: 'compact',
+    },
+  },
+  {
+    id: 'macos-aqua-desk',
+    label: 'macOS Aqua',
+    description: 'Classic macOS Aqua with blue glass and soft gradients',
+    tags: ['macos', 'aqua', 'glass'],
+    config: {
+      themePreset: 'macos-aqua',
+      mode: 'light',
+      backgroundStyle: 'layered-glass',
+      layoutStyle: 'floating-panels',
+      dockStyle: 'glass-dock',
+      panelChrome: 'macos',
+      borderStyle: 'subtle',
+      surfaceMaterial: 'acrylic',
+      accentIntensity: 'medium',
+      blurStrength: 'medium',
+      iconStyle: 'filled',
+      contentShape: 'cards',
+      headerHeight: 'normal',
+      radius: 'xl',
+      shadow: 'floating',
+      density: 'normal',
+      buttonStyle: 'glass',
+      cardStyle: 'glass',
+      inputStyle: 'pill',
+      motionLevel: 'cinematic',
+      fontScale: 'normal',
+    },
+  },
+  {
+    id: 'macos-graphite-pro',
+    label: 'macOS Graphite',
+    description: 'Professional macOS Graphite with subtle gray tones',
+    tags: ['macos', 'pro', 'graphite'],
+    config: {
+      themePreset: 'macos-graphite',
+      mode: 'dark',
+      backgroundStyle: 'soft-noise',
+      layoutStyle: 'split',
+      dockStyle: 'glass-dock',
+      panelChrome: 'macos',
+      borderStyle: 'subtle',
+      surfaceMaterial: 'matte',
+      accentIntensity: 'medium',
+      blurStrength: 'soft',
+      iconStyle: 'line',
+      contentShape: 'cards',
+      headerHeight: 'normal',
+      radius: 'xl',
+      shadow: 'layered',
+      density: 'normal',
+      buttonStyle: 'soft',
+      cardStyle: 'glass',
+      inputStyle: 'searchbar',
+      motionLevel: 'normal',
+      fontScale: 'normal',
+    },
+  },
+  {
+    id: 'centos-server-panel',
+    label: 'CentOS',
+    description: 'CentOS server panel with enterprise blue',
+    tags: ['linux', 'centos', 'server'],
+    config: {
+      themePreset: 'centos-blue',
+      mode: 'dark',
+      backgroundStyle: 'blueprint-grid',
+      layoutStyle: 'sidebar',
+      dockStyle: 'minimal',
+      panelChrome: 'linux',
+      borderStyle: 'strong',
+      surfaceMaterial: 'matte',
+      accentIntensity: 'medium',
+      blurStrength: 'none',
+      iconStyle: 'line',
+      contentShape: 'list',
+      headerHeight: 'normal',
+      radius: 'sharp',
+      shadow: 'ambient',
+      density: 'compact',
+      buttonStyle: 'solid',
+      cardStyle: 'bordered',
+      inputStyle: 'outline',
+      motionLevel: 'subtle',
+      fontScale: 'normal',
+    },
+  },
+  {
+    id: 'android-material-dashboard',
+    label: 'Android Material',
+    description: 'Android Material dashboard with green accent',
+    tags: ['android', 'material', 'mobile'],
+    config: {
+      themePreset: 'android-material',
+      mode: 'light',
+      backgroundStyle: 'soft-gradient',
+      layoutStyle: 'dashboard-grid',
+      dockStyle: 'pill-dock',
+      panelChrome: 'minimal',
+      borderStyle: 'subtle',
+      surfaceMaterial: 'solid',
+      accentIntensity: 'medium',
+      blurStrength: 'none',
+      iconStyle: 'filled',
+      contentShape: 'cards',
+      headerHeight: 'normal',
+      radius: 'xl',
+      shadow: 'soft',
+      density: 'normal',
+      buttonStyle: 'solid',
+      cardStyle: 'elevated',
+      inputStyle: 'filled',
+      motionLevel: 'normal',
+      fontScale: 'large',
+    },
+  },
+  {
+    id: 'material-you-lab',
+    label: 'Material You',
+    description: 'Google Material You with dynamic purple tones',
+    tags: ['material', 'google', 'dynamic'],
+    config: {
+      themePreset: 'material-you',
+      mode: 'light',
+      backgroundStyle: 'liquid-blobs',
+      layoutStyle: 'dashboard-grid',
+      dockStyle: 'pill-dock',
+      panelChrome: 'minimal',
+      borderStyle: 'none',
+      surfaceMaterial: 'matte',
+      accentIntensity: 'medium',
+      blurStrength: 'soft',
+      iconStyle: 'filled',
+      contentShape: 'cards',
+      headerHeight: 'normal',
+      radius: 'organic',
+      shadow: 'soft',
+      density: 'normal',
+      buttonStyle: 'soft',
+      cardStyle: 'paper',
+      inputStyle: 'pill',
+      motionLevel: 'elastic',
+      fontScale: 'normal',
+    },
+  },
+  {
+    id: 'debian-workbench',
+    label: 'Debian',
+    description: 'Debian workbench with red accent',
+    tags: ['linux', 'debian', 'workbench'],
+    config: {
+      themePreset: 'debian-red',
+      mode: 'light',
+      backgroundStyle: 'solid',
+      layoutStyle: 'sidebar',
+      dockStyle: 'minimal',
+      panelChrome: 'linux',
+      borderStyle: 'subtle',
+      surfaceMaterial: 'solid',
+      accentIntensity: 'medium',
+      blurStrength: 'none',
+      iconStyle: 'line',
+      contentShape: 'cards',
+      headerHeight: 'normal',
+      radius: 'rounded',
+      shadow: 'soft',
+      density: 'normal',
+      buttonStyle: 'solid',
+      cardStyle: 'bordered',
+      inputStyle: 'outline',
+      motionLevel: 'normal',
+      fontScale: 'normal',
+    },
+  },
+  {
+    id: 'fedora-workstation',
+    label: 'Fedora',
+    description: 'Fedora workstation with blue tones',
+    tags: ['linux', 'fedora', 'workstation'],
+    config: {
+      themePreset: 'fedora-blue',
+      mode: 'dark',
+      backgroundStyle: 'soft-gradient',
+      layoutStyle: 'sidebar',
+      dockStyle: 'pill-dock',
+      panelChrome: 'linux',
+      borderStyle: 'subtle',
+      surfaceMaterial: 'matte',
+      accentIntensity: 'medium',
+      blurStrength: 'soft',
+      iconStyle: 'line',
+      contentShape: 'cards',
+      headerHeight: 'normal',
+      radius: 'rounded',
+      shadow: 'soft',
+      density: 'normal',
+      buttonStyle: 'solid',
+      cardStyle: 'elevated',
+      inputStyle: 'filled',
+      motionLevel: 'normal',
+      fontScale: 'normal',
+    },
+  },
+  {
+    id: 'arch-minimal-console',
+    label: 'Arch Linux',
+    description: 'Arch Linux minimal console with cyan accent',
+    tags: ['linux', 'arch', 'minimal'],
+    config: {
+      themePreset: 'arch-minimal',
+      mode: 'dark',
+      backgroundStyle: 'terminal-matrix',
+      layoutStyle: 'topbar',
+      dockStyle: 'minimal',
+      panelChrome: 'terminal',
+      borderStyle: 'none',
+      surfaceMaterial: 'terminal',
+      accentIntensity: 'low',
+      blurStrength: 'none',
+      iconStyle: 'mono',
+      contentShape: 'list',
+      headerHeight: 'compact',
+      radius: 'sharp',
+      shadow: 'flat',
+      density: 'compact',
+      buttonStyle: 'ghost',
+      cardStyle: 'terminal',
+      inputStyle: 'command-line',
+      motionLevel: 'off',
+      fontScale: 'compact',
+    },
+  },
 ]
 
 export const DEFAULT_CONFIG: BuilderConfig = {
@@ -715,4 +1114,45 @@ export const DEFAULT_CONFIG: BuilderConfig = {
   inputStyle: 'outline',
   motionLevel: 'normal',
   fontScale: 'normal',
+}
+
+export function getStylePresetById(id: string): StylePreset | undefined {
+  return STYLE_PRESETS.find(p => p.id === id)
+}
+
+export function getSystemPresetById(id: string): StylePreset | undefined {
+  const systemIds = [
+    'windows-classic-desktop', 'windows-11-glass', 'ubuntu-workstation',
+    'gnome-adwaita-clean', 'kali-ops-console', 'unix-terminal-console',
+    'macos-aqua-desk', 'macos-graphite-pro', 'centos-server-panel',
+    'android-material-dashboard', 'material-you-lab', 'debian-workbench',
+    'fedora-workstation', 'arch-minimal-console'
+  ]
+  const preset = STYLE_PRESETS.find(p => p.id === id)
+  if (preset && systemIds.includes(preset.id)) {
+    return preset
+  }
+  return undefined
+}
+
+export function getStylePresetIds(): string[] {
+  return [
+    'web-os-pro', 'glass-lab', 'terminal-pro', 'github-clean',
+    'cyber-deck', 'paper-desk', 'studio-console', 'aurora-dashboard',
+    'minimal-saas', 'neon-command'
+  ]
+}
+
+export function getSystemPresetIds(): string[] {
+  return [
+    'windows-classic-desktop', 'windows-11-glass', 'ubuntu-workstation',
+    'gnome-adwaita-clean', 'kali-ops-console', 'unix-terminal-console',
+    'macos-aqua-desk', 'macos-graphite-pro', 'centos-server-panel',
+    'android-material-dashboard', 'material-you-lab', 'debian-workbench',
+    'fedora-workstation', 'arch-minimal-console'
+  ]
+}
+
+export function getPresetById(id: string): StylePreset | undefined {
+  return STYLE_PRESETS.find(p => p.id === id)
 }

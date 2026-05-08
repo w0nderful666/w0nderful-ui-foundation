@@ -6,6 +6,7 @@ import { StyleOptionGroup } from './StyleOptionGroup'
 import { ExportPanel } from './ExportPanel'
 import { MotionPreview } from './MotionPreview'
 import { TokenPreview } from './TokenPreview'
+import { PresetsPicker } from './PresetsPicker'
 import { Button } from '@/components/ui/Button'
 import { RotateCcw } from 'lucide-react'
 import {
@@ -30,10 +31,11 @@ import { motion } from 'framer-motion'
 interface ControlPanelProps {
   config: BuilderConfig
   onConfigChange: <K extends BuilderConfigKey>(key: K, value: BuilderConfigValue<K>) => void
+  onConfigReplace: (config: BuilderConfig) => void
   onReset: () => void
 }
 
-export function ControlPanel({ config, onConfigChange, onReset }: ControlPanelProps) {
+export function ControlPanel({ config, onConfigChange, onConfigReplace, onReset }: ControlPanelProps) {
   return (
     <motion.aside
       className="w-full lg:w-[380px] xl:w-[420px] shrink-0 border-l border-border bg-card/50 backdrop-blur-sm overflow-y-auto"
@@ -51,6 +53,15 @@ export function ControlPanel({ config, onConfigChange, onReset }: ControlPanelPr
       </div>
 
       <div className="p-6 space-y-6">
+        <Card variant="glass" padding="sm">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Presets</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <PresetsPicker config={config} onApply={onConfigReplace} />
+          </CardContent>
+        </Card>
+
         <Card variant="glass" padding="sm">
           <CardHeader>
             <CardTitle className="text-sm font-medium">Global Theme</CardTitle>

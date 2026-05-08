@@ -95,7 +95,99 @@ npm run build
 - **Download theme.css**：下载完整的主题 CSS 文件（含 light/dark）
 - **Copy Tailwind Config**：复制 Tailwind CSS 配置
 - **Download ui-kit.json**：下载 JSON 格式的完整配置
-- **Copy React Token Object**：复制 React 可用的 Token 对象
+- **Copy React Token Object**：复制 React 可用的 Token Object
+
+## 如何使用生成的 UI Kit
+
+### 1. HTML / CSS
+
+下载 `theme.css` 后在 HTML 中引入：
+
+```html
+<link rel="stylesheet" href="./theme.css">
+<div class="card bg-card text-card-foreground border-border p-6 rounded-lg">
+  <h1 class="text-lg font-semibold">Hello UI Foundation</h1>
+  <button class="bg-primary text-primary-foreground px-4 py-2 rounded-md">
+    Action
+  </button>
+</div>
+```
+
+适合：纯静态页面、简单演示
+
+### 2. React + Tailwind
+
+下载 `theme.css` 并配置 Tailwind 颜色：
+
+```js
+// tailwind.config.js
+colors: {
+  background: 'hsl(var(--background))',
+  foreground: 'hsl(var(--foreground))',
+  card: 'hsl(var(--card))',
+  'card-foreground': 'hsl(var(--card-foreground))',
+  primary: 'hsl(var(--primary))',
+  'primary-foreground': 'hsl(var(--primary-foreground))',
+  border: 'hsl(var(--border))',
+}
+```
+
+```jsx
+<div className="bg-card text-card-foreground border border-border rounded-lg p-6">
+  <h2 className="text-xl font-semibold">Web OS Card</h2>
+  <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md">
+    Action
+  </button>
+</div>
+```
+
+适合：React / Vite / Next.js 项目
+
+### 3. Astro / GitHub Pages
+
+```astro
+---
+// src/pages/index.astro
+import '../styles/theme.css'
+---
+
+<section class="bg-card text-card-foreground border border-border rounded-lg p-8">
+  <h1 class="text-2xl font-bold">My Web OS</h1>
+  <button class="bg-primary text-primary-foreground px-4 py-2 rounded-md">
+    Get Started
+  </button>
+</section>
+```
+
+适合：Astro、GitHub Pages、静态博客
+
+### 4. Runtime Theme Loading
+
+加载 `ui-kit.json` 实现运行时换肤：
+
+```js
+async function loadDynamicTheme() {
+  const uiKit = await fetch('/ui-kit.json').then(r => r.json())
+  const root = document.documentElement
+  
+  // Apply tokens
+  root.style.setProperty('--background', uiKit.theme.tokens.background)
+  root.style.setProperty('--foreground', uiKit.theme.tokens.foreground)
+  // ... more tokens
+}
+loadDynamicTheme()
+```
+
+适合：主题切换、用户偏好、A/B Testing
+
+### 5. 推荐集成路径
+
+1. **Phase 1**: 只接 `theme.css` + Tailwind token
+2. **Phase 2**: 把现有组件改成使用 token（如 `bg-blue-500` → `bg-primary`）
+3. **Phase 3**: 使用本项目 Button/Card/Input 组件的 variant 设计
+4. **Phase 4**: 高级用户使用 Import JSON + Config Health
+
+详细集成指南请查看页面内 "Usage / Integration Guide"。
 
 ## localStorage 说明
 

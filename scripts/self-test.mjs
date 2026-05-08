@@ -758,6 +758,63 @@ test('ControlPanel 显示 Applied / Modified 状态', () => {
   assert(content.includes('Modified from') || content.includes('Applied:'), 'ControlPanel 显示应用/修改状态')
 })
 
+test('IntegrationGuide 组件存在', () => {
+  assert(existsSync(resolve(root, 'src/components/builder/IntegrationGuide.tsx')), 'IntegrationGuide.tsx 不存在')
+  const content = readFileSync(resolve(root, 'src/components/builder/IntegrationGuide.tsx'), 'utf-8')
+  assert(content.includes('export function IntegrationGuide'), 'IntegrationGuide 导出函数')
+})
+
+test('IntegrationGuide 包含 HTML / CSS 示例', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/IntegrationGuide.tsx'), 'utf-8')
+  assert(content.includes('HTML / CSS'), 'IntegrationGuide 包含 HTML CSS tab')
+  assert(content.includes('<!DOCTYPE html>'), 'IntegrationGuide 包含 HTML 示例')
+})
+
+test('IntegrationGuide 包含 React + Tailwind 示例', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/IntegrationGuide.tsx'), 'utf-8')
+  assert(content.includes('React + Tailwind'), 'IntegrationGuide 包含 React tab')
+  assert(content.includes('tailwind.config'), 'IntegrationGuide 包含 Tailwind 示例')
+})
+
+test('IntegrationGuide 包含 Astro 示例', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/IntegrationGuide.tsx'), 'utf-8')
+  assert(content.includes('Astro / Static'), 'IntegrationGuide 包含 Astro tab')
+  assert(content.includes('src/pages'), 'IntegrationGuide 包含 Astro 示例')
+})
+
+test('IntegrationGuide 包含 Dynamic Runtime 示例', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/IntegrationGuide.tsx'), 'utf-8')
+  assert(content.includes('Dynamic Runtime'), 'IntegrationGuide 包含 Runtime tab')
+  assert(content.includes('ui-kit.json'), 'IntegrationGuide 包含 JSON 加载示例')
+})
+
+test('IntegrationGuide 包含 Deep Integration 示例', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/IntegrationGuide.tsx'), 'utf-8')
+  assert(content.includes('Deep Integration'), 'IntegrationGuide 包含 Deep tab')
+  assert(content.includes('Phase 1'), 'IntegrationGuide 包含分阶段说明')
+})
+
+test('IntegrationGuide 提供 Copy Code 能力', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/IntegrationGuide.tsx'), 'utf-8')
+  assert(content.includes('copyText'), 'IntegrationGuide 使用 copyText')
+  assert(content.includes('CodeBlock'), 'IntegrationGuide 包含代码块组件')
+})
+
+test('ControlPanel 包含 IntegrationGuide', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlPanel.tsx'), 'utf-8')
+  assert(content.includes('IntegrationGuide'), 'ControlPanel 包含 IntegrationGuide')
+  assert(content.includes('Usage / Integration Guide'), 'ControlPanel 显示 Integration Guide 标题')
+})
+
+test('README 包含 How to use generated UI Kit', () => {
+  const content = readFileSync(resolve(root, 'README.md'), 'utf-8')
+  assert(content.includes('如何使用生成的 UI Kit'), 'README 包含中文使用说明')
+  assert(content.includes('HTML / CSS'), 'README 包含 HTML 说明')
+  assert(content.includes('React + Tailwind'), 'README 包含 React 说明')
+  assert(content.includes('Astro'), 'README 包含 Astro 说明')
+  assert(content.includes('Runtime Theme Loading'), 'README 包含 Runtime 说明')
+})
+
 console.log(`\n📊 结果: ${passed} 通过, ${failed} 失败\n`)
 
 if (failed > 0) {

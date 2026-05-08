@@ -10,6 +10,7 @@ import { TokenPreview } from './TokenPreview'
 import { PresetsPicker } from './PresetsPicker'
 import { ControlSection } from './ControlSection'
 import { RawStorageInspector } from './RawStorageInspector'
+import { IntegrationGuide } from './IntegrationGuide'
 import { Button } from '@/components/ui/Button'
 import { RotateCcw, AlertTriangle, CheckCircle2, Copy } from 'lucide-react'
 import {
@@ -463,6 +464,15 @@ export function ControlPanel({ config, onConfigChange, onConfigReplace, onReset 
           </Card>
 
           <ExportPanel config={config} onConfigReplace={onConfigReplace} />
+
+          <Card variant="glass" padding="sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-xs font-medium">Usage / Integration Guide</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <IntegrationGuide config={config} />
+            </CardContent>
+          </Card>
 
           <Card variant="glass" padding="sm">
             <CardHeader className="pb-2">

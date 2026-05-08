@@ -1,6 +1,6 @@
 import { type BuilderConfig } from '@/lib/builder'
 import { getPreviewBackgroundClass } from '@/lib/previewStyles'
-import { PreviewApp } from './PreviewApp'
+import { ShowcaseSceneSwitcher } from './ShowcaseSceneSwitcher'
 import { ConfigStatusBar } from './ConfigStatusBar'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -23,7 +23,7 @@ export function LivePreview({ config }: LivePreviewProps) {
           exit={{ opacity: 0.8 }}
           transition={{ duration: 0.2 }}
         >
-          <PreviewApp config={config} />
+          <ShowcaseSceneSwitcher config={config} />
         </motion.div>
       </AnimatePresence>
     </div>

@@ -1,5 +1,31 @@
 # Release Notes
 
+## v0.8.0 (2026-05-08)
+
+### Showcase Scene Switcher
+
+将 Live Preview 区域升级为多场景 UI Kit 展示台，支持 7 种真实应用场景预览：
+
+#### 场景
+1. **Overview** - 当前 UI Kit 总览，展示颜色、按钮、卡片、输入框、徽章等基础组件
+2. **Dashboard** - 仪表盘场景，包含侧边栏、顶部导航、统计卡片、活动列表
+3. **Settings** - 设置面板场景，包含设置分组、开关、 segmented controls、保存按钮
+4. **Article** - 文章阅读场景，包含标题、摘要、标签、正文、引用块、代码块
+5. **Landing** - 产品首页场景，包含 hero、feature cards、CTA、trust badges
+6. **Window** - OS 风格窗口场景，包含 window chrome、traffic lights、terminal 内容
+7. **Form** - 表单场景，包含 input、select、textarea、checkbox/switch、error text
+
+#### 技术实现
+- 新增 ShowcaseSceneSwitcher 组件
+- 使用 framer-motion 实现场景切换动画
+- 支持 prefers-reduced-motion
+- 场景内容使用项目已有 CSS variables
+
+#### 测试
+- self-test: 125/125
+
+---
+
 ## v0.7.0 (2026-05-08)
 
 ### Starter Kit ZIP Export

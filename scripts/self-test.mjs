@@ -824,6 +824,44 @@ test('Starter Kit ZIP 文件名正确', () => {
   assert(content.includes('ui-kit-starter-'), 'ZIP 文件名包含 ui-kit-starter-')
 })
 
+test('Showcase Scene Switcher 组件存在', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ShowcaseSceneSwitcher.tsx'), 'utf-8')
+  assert(content.includes('ShowcaseSceneSwitcher'), 'ShowcaseSceneSwitcher 组件')
+  assert(content.includes('OverviewScene'), '包含 OverviewScene')
+  assert(content.includes('DashboardScene'), '包含 DashboardScene')
+  assert(content.includes('SettingsScene'), '包含 SettingsScene')
+  assert(content.includes('ArticleScene'), '包含 ArticleScene')
+  assert(content.includes('LandingScene'), '包含 LandingScene')
+  assert(content.includes('WindowScene'), '包含 WindowScene')
+  assert(content.includes('FormScene'), '包含 FormScene')
+})
+
+test('Showcase Scene Switcher 支持 7 个场景', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ShowcaseSceneSwitcher.tsx'), 'utf-8')
+  assert(content.includes("'overview'"), '支持 overview')
+  assert(content.includes("'dashboard'"), '支持 dashboard')
+  assert(content.includes("'settings'"), '支持 settings')
+  assert(content.includes("'article'"), '支持 article')
+  assert(content.includes("'landing'"), '支持 landing')
+  assert(content.includes("'window'"), '支持 window')
+  assert(content.includes("'form'"), '支持 form')
+})
+
+test('LivePreview 集成 Showcase Scene Switcher', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/LivePreview.tsx'), 'utf-8')
+  assert(content.includes('ShowcaseSceneSwitcher'), 'LivePreview 使用 ShowcaseSceneSwitcher')
+})
+
+test('README 包含 Showcase Scene Switcher 说明', () => {
+  const content = readFileSync(resolve(root, 'README.md'), 'utf-8')
+  assert(content.includes('Showcase') || content.includes('Scene'), 'README 提到 Showcase')
+})
+
+test('RELEASE_NOTES 包含 v0.8.0', () => {
+  const content = readFileSync(resolve(root, 'RELEASE_NOTES.md'), 'utf-8')
+  assert(content.includes('v0.8.0'), 'RELEASE_NOTES 包含 v0.8.0')
+})
+
 test('README 包含 Starter Kit ZIP 说明', () => {
   const content = readFileSync(resolve(root, 'README.md'), 'utf-8')
   assert(content.includes('Starter Kit') || content.includes('ZIP'), 'README 提到 Starter Kit')

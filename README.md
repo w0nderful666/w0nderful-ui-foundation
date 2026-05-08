@@ -13,6 +13,7 @@
 - **11 项可配置项**：Theme、Background、Mode (light/dark)、Radius、Shadow、Density、Button Style、Card Style、Input Style、Motion Level、Font Scale
 - **5 种导出格式**：CSS Variables、theme.css、Tailwind Config、ui-kit.json、React Token Object
 - **全局动画系统**：5 级 Motion Level (off/subtle/normal/expressive/cinematic)
+- **多场景 Showcase**：7 种真实应用场景预览 (Overview / Dashboard / Settings / Article / Landing / Window / Form)
 - **完整 Preview App**：模拟真实 Web OS 应用，包含导航栏、侧边栏、表格、对话框、命令面板等
 
 ## 技术栈

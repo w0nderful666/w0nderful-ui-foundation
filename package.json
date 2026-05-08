@@ -1,6 +1,6 @@
 {
   "name": "web-os-ui-kit-builder",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "type": "module",
   "description": "高级 Web OS 风格 UI Kit 主题搭配生成器",

@@ -965,7 +965,7 @@ const oceanic: ThemeDefinition = {
   },
 }
 
-const THEMES: Record<ThemePreset, ThemeDefinition> = {
+const THEMES = {
   'tokyo-night': tokyoNight,
   'catppuccin': catppuccin,
   'dracula': dracula,
@@ -986,13 +986,17 @@ const THEMES: Record<ThemePreset, ThemeDefinition> = {
   'rose-terminal': roseTerminal,
   'slate-pro': slatePro,
   'oceanic': oceanic,
-}
+} as Record<ThemePreset, ThemeDefinition>
 
 export function getThemeTokens(preset: ThemePreset, mode: Mode): ThemeTokens {
-  return THEMES[preset][mode]
+  const knownThemes = ['tokyo-night', 'catppuccin', 'dracula', 'nord', 'gruvbox', 'rose-pine', 'one-dark', 'solarized', 'monokai', 'github-light', 'vercel-geist', 'linear-dark', 'raycast', 'cyber-neon', 'frosted-glass', 'mint-lab', 'amber-studio', 'rose-terminal', 'slate-pro', 'oceanic']
+  const fallback = knownThemes.includes(preset) ? preset : 'oceanic'
+  return THEMES[fallback][mode]
 }
 
 export function getThemePreviewColor(preset: ThemePreset): string {
-  const dark = THEMES[preset].dark
+  const knownThemes = ['tokyo-night', 'catppuccin', 'dracula', 'nord', 'gruvbox', 'rose-pine', 'one-dark', 'solarized', 'monokai', 'github-light', 'vercel-geist', 'linear-dark', 'raycast', 'cyber-neon', 'frosted-glass', 'mint-lab', 'amber-studio', 'rose-terminal', 'slate-pro', 'oceanic']
+  const fallback = knownThemes.includes(preset) ? preset : 'oceanic'
+  const dark = THEMES[fallback].dark
   return dark.primary
 }

@@ -15,8 +15,12 @@ import {
 export const SHADOW_CLASSES: Record<Shadow, string> = {
   flat: 'shadow-none',
   soft: 'shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.06)]',
+  ambient: 'shadow-[0_1px_3px_rgba(0,0,0,0.04)]',
+  hard: 'shadow-[0_2px_0_rgba(0,0,0,0.1)]',
   floating: 'shadow-[0_8px_24px_rgba(0,0,0,0.12),0_16px_48px_rgba(0,0,0,0.08)]',
+  layered: 'shadow-[0_4px_8px_rgba(0,0,0,0.05),0_8px_16px_rgba(0,0,0,0.03)]',
   elevated: 'shadow-[0_12px_32px_rgba(0,0,0,0.16),0_24px_64px_rgba(0,0,0,0.12)]',
+  spotlight: 'shadow-[0_0_20px_hsl(var(--primary)_/_0.3)]',
   glow: 'shadow-[0_0_20px_hsl(var(--primary)_/_0.3),0_0_40px_hsl(var(--primary)_/_0.2),0_0_60px_hsl(var(--primary)_/_0.1)]',
 }
 
@@ -24,8 +28,12 @@ export const SHADOW_CLASSES: Record<Shadow, string> = {
 export const SHADOW_LIGHT_COMPENSATION: Record<Shadow, string> = {
   flat: '',
   soft: 'dark:shadow-[0_2px_8px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.06)]',
+  ambient: 'dark:shadow-[0_1px_3px_rgba(0,0,0,0.04)]',
+  hard: 'dark:shadow-[0_2px_0_rgba(0,0,0,0.1)]',
   floating: 'dark:shadow-[0_8px_24px_rgba(0,0,0,0.12),0_16px_48px_rgba(0,0,0,0.08)]',
+  layered: 'dark:shadow-[0_4px_8px_rgba(0,0,0,0.05),0_8px_16px_rgba(0,0,0,0.03)]',
   elevated: 'dark:shadow-[0_12px_32px_rgba(0,0,0,0.16),0_24px_64px_rgba(0,0,0,0.12)]',
+  spotlight: 'dark:shadow-[0_0_15px_hsl(var(--primary)_/_0.4)]',
   glow: 'shadow-[0_0_16px_hsl(var(--primary)_/_0.4)]',
 }
 

@@ -282,6 +282,116 @@ const LEVEL_CONFIGS: Record<MotionLevel, MotionConfig> = {
     hoverMotion: { y: -6 },
     tapMotion: { scale: 0.92 },
   },
+  elastic: {
+    duration: {
+      instant: 0,
+      fast: 0.1,
+      normal: 0.3,
+      slow: 0.5,
+      slower: 0.8,
+    },
+    easing: {
+      default: 'ease-out',
+      in: 'ease-in',
+      out: 'ease-out',
+      inOut: 'ease-in-out',
+      spring: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+    },
+    spring: {
+      gentle: { stiffness: 100, damping: 10 },
+      medium: { stiffness: 180, damping: 12 },
+      strong: { stiffness: 250, damping: 15 },
+    },
+    pageTransition: {
+      initial: { opacity: 0, scale: 0.95 },
+      animate: { opacity: 1, scale: 1 },
+      exit: { opacity: 0, scale: 0.95 },
+      transition: { duration: 0.4, ease: [0.68, -0.55, 0.265, 1.55] },
+    },
+    panelTransition: {
+      initial: { opacity: 0, x: 20, scale: 0.95 },
+      animate: { opacity: 1, x: 0, scale: 1 },
+      exit: { opacity: 0, x: 20, scale: 0.95 },
+      transition: { duration: 0.4, ease: [0.68, -0.55, 0.265, 1.55] },
+    },
+    cardTransition: {
+      whileHover: { scale: 1.05, y: -4 },
+      transition: { duration: 0.3, ease: [0.68, -0.55, 0.265, 1.55] },
+    },
+    buttonTransition: {
+      whileHover: { scale: 1.08 },
+      whileTap: { scale: 0.95 },
+      transition: { duration: 0.2 },
+    },
+    dialogTransition: {
+      initial: { opacity: 0, scale: 0.8 },
+      animate: { opacity: 1, scale: 1 },
+      exit: { opacity: 0, scale: 0.8 },
+      transition: { duration: 0.5, ease: [0.68, -0.55, 0.265, 1.55] },
+    },
+    dockTransition: {
+      whileHover: { scale: 1.1, y: -4 },
+      transition: { duration: 0.3 },
+    },
+    listStagger: 0.08,
+    hoverMotion: { scale: 1.05 },
+    tapMotion: { scale: 0.95 },
+  },
+  snappy: {
+    duration: {
+      instant: 0,
+      fast: 0.05,
+      normal: 0.1,
+      slow: 0.15,
+      slower: 0.2,
+    },
+    easing: {
+      default: 'ease-out',
+      in: 'ease-in',
+      out: 'ease-out',
+      inOut: 'ease-in-out',
+      spring: 'ease-out',
+    },
+    spring: {
+      gentle: { stiffness: 200, damping: 20 },
+      medium: { stiffness: 300, damping: 25 },
+      strong: { stiffness: 400, damping: 30 },
+    },
+    pageTransition: {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
+      transition: { duration: 0.1 },
+    },
+    panelTransition: {
+      initial: { opacity: 0, x: 8 },
+      animate: { opacity: 1, x: 0 },
+      exit: { opacity: 0, x: -8 },
+      transition: { duration: 0.1 },
+    },
+    cardTransition: {
+      whileHover: { y: -2 },
+      transition: { duration: 0.1 },
+    },
+    buttonTransition: {
+      whileHover: { scale: 1.02 },
+      whileTap: { scale: 0.98 },
+      transition: { duration: 0.05 },
+    },
+    dialogTransition: {
+      initial: { opacity: 0, scale: 0.98 },
+      animate: { opacity: 1, scale: 1 },
+      exit: { opacity: 0, scale: 0.98 },
+      transition: { duration: 0.1 },
+    },
+    dockTransition: {
+      whileHover: { y: -2 },
+      transition: { duration: 0.1 },
+    },
+    listStagger: 0.02,
+    hoverMotion: { y: -2 },
+    tapMotion: { scale: 0.98 },
+  },
 }
 
 export function getMotionConfig(level: MotionLevel): MotionConfig {

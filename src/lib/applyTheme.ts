@@ -4,10 +4,14 @@ import { getMotionCSSVariables } from './motion'
 import { DENSITY_STYLES, FONT_SCALE_STYLES } from './previewConfig'
 
 const RADIUS_VALUES: Record<Radius, string> = {
-  sharp: '0px',
+  square: '0px',
+  sharp: '2px',
   soft: '4px',
+  smooth: '6px',
   rounded: '8px',
   pill: '9999px',
+  xl: '16px',
+  organic: '24px',
 }
 
 const SHADOW_VALUES: Record<Shadow, Record<string, string>> = {
@@ -17,19 +21,39 @@ const SHADOW_VALUES: Record<Shadow, Record<string, string>> = {
     '--shadow-lg': 'none',
   },
   soft: {
-    '--shadow-sm': '0 2px 4px rgba(0,0,0,0.06)',
-    '--shadow-md': '0 4px 12px rgba(0,0,0,0.08)',
-    '--shadow-lg': '0 8px 24px rgba(0,0,0,0.1)',
+    '--shadow-sm': '0 1px 2px rgba(0,0,0,0.05)',
+    '--shadow-md': '0 2px 8px rgba(0,0,0,0.08)',
+    '--shadow-lg': '0 4px 16px rgba(0,0,0,0.1)',
+  },
+  ambient: {
+    '--shadow-sm': '0 1px 3px rgba(0,0,0,0.04)',
+    '--shadow-md': '0 2px 6px rgba(0,0,0,0.06)',
+    '--shadow-lg': '0 4px 12px rgba(0,0,0,0.08)',
+  },
+  hard: {
+    '--shadow-sm': '0 2px 0 rgba(0,0,0,0.1)',
+    '--shadow-md': '0 4px 0 rgba(0,0,0,0.1)',
+    '--shadow-lg': '0 8px 0 rgba(0,0,0,0.1)',
   },
   floating: {
     '--shadow-sm': '0 4px 8px rgba(0,0,0,0.08)',
     '--shadow-md': '0 12px 24px rgba(0,0,0,0.12)',
     '--shadow-lg': '0 24px 48px rgba(0,0,0,0.16)',
   },
+  layered: {
+    '--shadow-sm': '0 2px 4px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.03)',
+    '--shadow-md': '0 4px 8px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.06)',
+    '--shadow-lg': '0 8px 16px rgba(0,0,0,0.1), 0 16px 32px rgba(0,0,0,0.08)',
+  },
   elevated: {
     '--shadow-sm': '0 8px 16px rgba(0,0,0,0.12)',
     '--shadow-md': '0 16px 32px rgba(0,0,0,0.18)',
     '--shadow-lg': '0 32px 64px rgba(0,0,0,0.24)',
+  },
+  spotlight: {
+    '--shadow-sm': '0 0 10px hsl(var(--primary) / 0.2)',
+    '--shadow-md': '0 0 20px hsl(var(--primary) / 0.3)',
+    '--shadow-lg': '0 0 40px hsl(var(--primary) / 0.4)',
   },
   glow: {
     '--shadow-sm': '0 0 12px hsl(var(--primary) / 0.25)',

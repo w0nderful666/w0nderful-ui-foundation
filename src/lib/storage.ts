@@ -14,6 +14,11 @@ function isValidConfig(data: unknown): data is BuilderConfig {
     typeof config.panelChrome === 'string' &&
     typeof config.borderStyle === 'string' &&
     typeof config.surfaceMaterial === 'string' &&
+    typeof config.accentIntensity === 'string' &&
+    typeof config.blurStrength === 'string' &&
+    typeof config.iconStyle === 'string' &&
+    typeof config.contentShape === 'string' &&
+    typeof config.headerHeight === 'string' &&
     typeof config.radius === 'string' &&
     typeof config.shadow === 'string' &&
     typeof config.density === 'string' &&
@@ -68,6 +73,11 @@ export function mergeWithDefaultConfig(partial: Partial<BuilderConfig>): Builder
     panelChrome: partial.panelChrome ?? DEFAULT_CONFIG.panelChrome,
     borderStyle: partial.borderStyle ?? DEFAULT_CONFIG.borderStyle,
     surfaceMaterial: partial.surfaceMaterial ?? DEFAULT_CONFIG.surfaceMaterial,
+    accentIntensity: partial.accentIntensity ?? DEFAULT_CONFIG.accentIntensity,
+    blurStrength: partial.blurStrength ?? DEFAULT_CONFIG.blurStrength,
+    iconStyle: partial.iconStyle ?? DEFAULT_CONFIG.iconStyle,
+    contentShape: partial.contentShape ?? DEFAULT_CONFIG.contentShape,
+    headerHeight: partial.headerHeight ?? DEFAULT_CONFIG.headerHeight,
     radius: partial.radius ?? DEFAULT_CONFIG.radius,
     shadow: partial.shadow ?? DEFAULT_CONFIG.shadow,
     density: partial.density ?? DEFAULT_CONFIG.density,

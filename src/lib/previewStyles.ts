@@ -13,6 +13,15 @@ export const PREVIEW_BACKGROUND_CLASSES: Record<BackgroundStyle, string> = {
   starfield: 'bg-[#080812] text-white [background-image:radial-gradient(white_1px,transparent_1px),radial-gradient(hsl(var(--primary))_1px,transparent_1px)] [background-size:48px_48px,72px_72px] [background-position:0_0,24px_36px]',
   'blueprint-grid': 'bg-[#101827] text-blue-50 [background-image:linear-gradient(rgba(96,165,250,0.16)_1px,transparent_1px),linear-gradient(90deg,rgba(96,165,250,0.16)_1px,transparent_1px)] [background-size:24px_24px]',
   'minimal-paper': 'bg-[#fafaf7] text-zinc-900 [background-image:linear-gradient(rgba(0,0,0,0.035)_1px,transparent_1px)] [background-size:100%_28px]',
+  'spotlight-stage': 'bg-background [background-image:radial-gradient(circle_at_50%_0%,hsl(var(--primary)/0.15),transparent_50%),radial-gradient(circle_at_100%_100%,hsl(var(--accent)/0.1),transparent_40%)]',
+  'carbon-grid': 'bg-[#121218] [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:8px_8px]',
+  'layered-glass': 'bg-background/60 backdrop-blur-lg [background-image:linear-gradient(135deg,hsl(var(--primary)/0.08),transparent_40%),linear-gradient(225deg,hsl(var(--accent)/0.06),transparent_40%)]',
+  'sunset-mesh': 'bg-background [background-image:linear-gradient(135deg,hsl(var(--warning)/0.15),transparent_40%),linear-gradient(45deg,hsl(var(--destructive)/0.1),transparent_40%),linear-gradient(225deg,hsl(var(--primary)/0.08),transparent_40%)]',
+  'deep-space': 'bg-[#050510] [background-image:radial-gradient(circle_at_30%_50%,hsl(var(--primary)/0.1)_0%,transparent_50%),radial-gradient(circle_at_70%_30%,hsl(var(--info)/0.08)_0%,transparent_40%)]',
+  'circuit-board': 'bg-[#0a0f14] [background-image:linear-gradient(45deg,transparent_48%,hsl(var(--primary)/0.05)_48%,hsl(var(--primary)/0.05)_52%,transparent_52%),linear-gradient(-45deg,transparent_48%,hsl(var(--primary)/0.05)_48%,hsl(var(--primary)/0.05)_52%,transparent_52%)] [background-size:16px_16px]',
+  'soft-noise': 'bg-background [background-image:url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")] [opacity:0.03]',
+  'diagonal-lines': 'bg-background [background-image:repeating-linear-gradient(45deg,hsl(var(--border)/0.1)_0px,hsl(var(--border)/0.1)_1px,transparent_1px,transparent_8px)]',
+  'liquid-blobs': 'bg-background [background-image:radial-gradient(circle_at_20%_30%,hsl(var(--primary)/0.12),transparent_30%),radial-gradient(circle_at_80%_60%,hsl(var(--accent)/0.1),transparent_30%),radial-gradient(circle_at_50%_80%,hsl(var(--info)/0.08),transparent_25%)]',
 }
 
 export function getPreviewBackgroundClass(style: BackgroundStyle): string {

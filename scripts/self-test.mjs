@@ -668,6 +668,96 @@ test('所有系统 preset 包含 experienceStyle', () => {
   }
 })
 
+test('ControlSection 组件存在', () => {
+  assert(existsSync(resolve(root, 'src/components/builder/ControlSection.tsx')), 'ControlSection.tsx 不存在')
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlSection.tsx'), 'utf-8')
+  assert(content.includes('export function ControlSection'), 'ControlSection 导出函数')
+})
+
+test('ControlPanel 包含折叠分组', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlPanel.tsx'), 'utf-8')
+  assert(content.includes('ControlSection'), 'ControlPanel 使用 ControlSection')
+  assert(content.includes('Presets'), 'ControlPanel 包含 Presets 分组')
+  assert(content.includes('Theme'), 'ControlPanel 包含 Theme 分组')
+  assert(content.includes('System Layout'), 'ControlPanel 包含 System Layout 分组')
+  assert(content.includes('Components'), 'ControlPanel 包含 Components 分组')
+  assert(content.includes('Surface & Feel'), 'ControlPanel 包含 Surface & Feel 分组')
+  assert(content.includes('Export & Health'), 'ControlPanel 包含 Export & Health 分组')
+})
+
+test('ControlSection 使用 localStorage 持久化', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlSection.tsx'), 'utf-8')
+  assert(content.includes('localStorage'), 'ControlSection 使用 localStorage')
+  assert(content.includes('persistKey'), 'ControlSection 支持 persistKey')
+})
+
+test('PresetsPicker 支持搜索', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/PresetsPicker.tsx'), 'utf-8')
+  assert(content.includes('Search'), 'PresetsPicker 包含 Search')
+  assert(content.includes('search'), 'PresetsPicker 包含搜索状态')
+})
+
+test('PresetsPicker 支持 tag 过滤', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/PresetsPicker.tsx'), 'utf-8')
+  assert(content.includes('TAG_OPTIONS'), 'PresetsPicker 包含 TAG_OPTIONS')
+  assert(content.includes('selectedTag'), 'PresetsPicker 包含选中标签状态')
+})
+
+test('PresetsPicker 记录 Recently Applied', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/PresetsPicker.tsx'), 'utf-8')
+  assert(content.includes('RECENTLY_APPLIED_KEY'), 'PresetsPicker 包含最近应用 key')
+  assert(content.includes('getRecentlyApplied'), 'PresetsPicker 获取最近应用')
+  assert(content.includes('saveRecentlyApplied'), 'PresetsPicker 保存最近应用')
+})
+
+test('ExportPanel 支持 Import JSON', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ExportPanel.tsx'), 'utf-8')
+  assert(content.includes('showImport'), 'ExportPanel 包含导入状态')
+  assert(content.includes('Import JSON'), 'ExportPanel 包含 Import 按钮')
+  assert(content.includes('handleApplyImport'), 'ExportPanel 应用导入')
+})
+
+test('Import JSON 使用 normalizeBuilderConfig', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ExportPanel.tsx'), 'utf-8')
+  assert(content.includes('normalizeBuilderConfig'), 'Import 使用 normalizeBuilderConfig')
+  assert(content.includes('getConfigHealth'), 'Import 预览使用 getConfigHealth')
+})
+
+test('RawStorageInspector 组件存在', () => {
+  assert(existsSync(resolve(root, 'src/components/builder/RawStorageInspector.tsx')), 'RawStorageInspector.tsx 不存在')
+  const content = readFileSync(resolve(root, 'src/components/builder/RawStorageInspector.tsx'), 'utf-8')
+  assert(content.includes('export function RawStorageInspector'), 'RawStorageInspector 导出函数')
+})
+
+test('RawStorageInspector 读取 ui-kit-builder-config', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/RawStorageInspector.tsx'), 'utf-8')
+  assert(content.includes('ui-kit-builder-config'), 'RawStorageInspector 读取正确 key')
+})
+
+test('RawStorageInspector 支持 Normalize Storage', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/RawStorageInspector.tsx'), 'utf-8')
+  assert(content.includes('handleNormalize'), 'RawStorageInspector 支持 Normalize')
+  assert(content.includes('normalizeBuilderConfig'), 'Normalize 使用 normalizeBuilderConfig')
+})
+
+test('RawStorageInspector 支持 Clear Storage and Reset', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/RawStorageInspector.tsx'), 'utf-8')
+  assert(content.includes('handleClear'), 'RawStorageInspector 支持 Clear')
+  assert(content.includes('resetBuilderConfig'), 'Clear 使用 resetBuilderConfig')
+})
+
+test('Config Health 支持 Copy Health Report', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlPanel.tsx'), 'utf-8')
+  assert(content.includes('Copy Health Report') || content.includes('copyText(JSON.stringify'), 'Config Health 支持复制报告')
+})
+
+test('ControlPanel 显示 Applied / Modified 状态', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlPanel.tsx'), 'utf-8')
+  assert(content.includes('appliedPresetId'), 'ControlPanel 包含应用预设状态')
+  assert(content.includes('isModified'), 'ControlPanel 包含修改状态')
+  assert(content.includes('Modified from') || content.includes('Applied:'), 'ControlPanel 显示应用/修改状态')
+})
+
 console.log(`\n📊 结果: ${passed} 通过, ${failed} 失败\n`)
 
 if (failed > 0) {

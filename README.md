@@ -15,6 +15,7 @@
 - **全局动画系统**：5 级 Motion Level (off/subtle/normal/expressive/cinematic)
 - **多场景 Showcase**：7 种真实应用场景预览 (Overview / Dashboard / Settings / Article / Landing / Window / Form)
 - **高级预设库 (Preset Gallery)**：8 套一键应用的高级风格 (Aurora Glass / Deep Space / Linux Frost / Terminal Pro / Cyber Neon / Paper Minimal / Ocean Panel / Warm Studio)
+- **Token Inspector**：查看并复制设计系统 token (Colors / Surfaces / Shape / Motion / Typography / Layout / Export)
 - **完整 Preview App**：模拟真实 Web OS 应用，包含导航栏、侧边栏、表格、对话框、命令面板等
 
 ## 技术栈

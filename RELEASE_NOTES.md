@@ -1,5 +1,41 @@
 # Release Notes
 
+## v1.0.0 (2026-05-08)
+
+### Token Inspector - Design System Workbench
+
+新增完整的设计系统 token 检查器，让用户可以查看、复制、理解当前 UI Kit 的所有设计 token：
+
+#### 新增功能
+- **TokenInspector 组件** - ControlPanel Export & Health 区域
+- **7 个 Token 分组**:
+  1. **Colors** - 19 个颜色 token (background / foreground / primary / secondary / muted / accent / border / destructive / success / warning / info 等)
+  2. **Surfaces** - 6 个 surface class (Panel / Card / Toolbar / Input / Code / Container)
+  3. **Shape** - 8 个形状 token (radius / shadow / borderStyle / blurStrength / surfaceMaterial / cardStyle / buttonStyle / inputStyle)
+  4. **Motion** - 运动 token (motionLevel + 9 个 CSS 变量)
+  5. **Typography** - 字体 token (fontScale / density)
+  6. **Layout** - 布局 token (layoutStyle / dockStyle / panelChrome / headerHeight / contentShape / iconStyle / experienceStyle)
+  7. **Export** - 导出文件名说明
+
+#### 技术实现
+- 新增 TokenInspector.tsx 组件
+- 使用 tabs 切换不同分组
+- 每个 token 行显示名称、css variable、当前值、copy 按钮
+- 颜色 token 显示色块预览
+- 复用 themes.ts 的 getThemeTokens
+- 复用 motion.ts 的 getMotionCSSVariables
+- 复用 previewSurfaces.ts 的 surface class 获取函数
+
+#### 版本同步
+- package.json version: 1.0.0
+- package-lock.json version: 1.0.0
+
+#### 测试
+- self-test: 增加 Token Inspector 相关断言
+- preflight: 通过
+
+---
+
 ## v0.9.0 (2026-05-08)
 
 ### Preset Gallery - 高级预设库
@@ -26,7 +62,7 @@
 - Apply / Applied 状态显示
 
 #### 测试
-- self-test: 125/125
+- self-test: 132/132
 - preflight: 21/21
 
 ---

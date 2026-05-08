@@ -913,6 +913,53 @@ test('README 包含 Preset Gallery', () => {
   assert(content.includes('Preset Gallery') || content.includes('高级预设'), 'README 缺少 Preset Gallery 说明')
 })
 
+test('TokenInspector.tsx 存在', () => {
+  assert(existsSync(resolve(root, 'src/components/builder/TokenInspector.tsx')), 'TokenInspector.tsx 不存在')
+})
+
+test('ControlPanel.tsx 引入并使用 TokenInspector', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlPanel.tsx'), 'utf-8')
+  assert(content.includes('import { TokenInspector }'), 'ControlPanel.tsx 未引入 TokenInspector')
+  assert(content.includes('<TokenInspector'), 'ControlPanel.tsx 未使用 TokenInspector 组件')
+})
+
+test('TokenInspector.tsx 包含 token 分组', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/TokenInspector.tsx'), 'utf-8')
+  assert(content.includes('colors') || content.includes('Colors'), 'TokenInspector 缺少 Colors 分组')
+  assert(content.includes('surfaces') || content.includes('Surfaces'), 'TokenInspector 缺少 Surfaces 分组')
+  assert(content.includes('shape') || content.includes('Shape'), 'TokenInspector 缺少 Shape 分组')
+  assert(content.includes('motion') || content.includes('Motion'), 'TokenInspector 缺少 Motion 分组')
+  assert(content.includes('typography') || content.includes('Typography'), 'TokenInspector 缺少 Typography 分组')
+  assert(content.includes('layout') || content.includes('Layout'), 'TokenInspector 缺少 Layout 分组')
+  assert(content.includes('export') || content.includes('Export'), 'TokenInspector 缺少 Export 分组')
+})
+
+test('TokenInspector.tsx 包含 CSS variable 文案', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/TokenInspector.tsx'), 'utf-8')
+  assert(content.includes('--background') || content.includes('--primary'), 'TokenInspector 缺少 CSS variable 引用')
+})
+
+test('TokenInspector.tsx 包含 Copy 功能', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/TokenInspector.tsx'), 'utf-8')
+  assert(content.includes('Copy') || content.includes('Copied'), 'TokenInspector 缺少 Copy 按钮')
+})
+
+test('README 包含 Token Inspector', () => {
+  const content = readFileSync(resolve(root, 'README.md'), 'utf-8')
+  assert(content.includes('Token Inspector') || content.includes('token'), 'README 缺少 Token Inspector 说明')
+})
+
+test('RELEASE_NOTES 包含 v1.0.0', () => {
+  const content = readFileSync(resolve(root, 'RELEASE_NOTES.md'), 'utf-8')
+  assert(content.includes('v1.0.0'), 'RELEASE_NOTES 缺少 v1.0.0')
+  assert(content.includes('Token Inspector'), 'RELEASE_NOTES 缺少 Token Inspector 记录')
+})
+
+test('RELEASE_NOTES v0.9.0 测试数量为 132/132', () => {
+  const content = readFileSync(resolve(root, 'RELEASE_NOTES.md'), 'utf-8')
+  assert(content.includes('self-test: 132/132'), 'RELEASE_NOTES v0.9.0 测试数量未修正为 132/132')
+})
+
 test('RELEASE_NOTES 包含 v0.9.0', () => {
   const content = readFileSync(resolve(root, 'RELEASE_NOTES.md'), 'utf-8')
   assert(content.includes('v0.9.0'), 'RELEASE_NOTES 缺少 v0.9.0')

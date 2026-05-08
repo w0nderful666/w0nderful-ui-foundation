@@ -7,6 +7,7 @@ import { StyleOptionGroup } from './StyleOptionGroup'
 import { ExportPanel } from './ExportPanel'
 import { MotionPreview } from './MotionPreview'
 import { TokenPreview } from './TokenPreview'
+import { TokenInspector } from './TokenInspector'
 import { PresetsPicker } from './PresetsPicker'
 import { PresetGallery } from './PresetGallery'
 import { ControlSection } from './ControlSection'
@@ -473,6 +474,15 @@ export function ControlPanel({ config, onConfigChange, onConfigReplace, onReset 
             </CardHeader>
             <CardContent>
               <TokenPreview config={config} />
+            </CardContent>
+          </Card>
+
+          <Card variant="glass" padding="sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-xs font-medium">Token Inspector</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <TokenInspector config={config} />
             </CardContent>
           </Card>
 

@@ -28,6 +28,8 @@ import {
 const STORAGE_KEY = 'ui-kit-builder-config'
 export const BUILDER_CONFIG_VERSION = 2
 
+export const CONFIG_KEYS = Object.keys(DEFAULT_CONFIG) as (keyof BuilderConfig)[]
+
 const OPTION_VALUES: Record<keyof BuilderConfig, string[]> = {
   themePreset: THEME_PRESETS.map(o => o.value),
   mode: MODES.map(o => o.value),
@@ -53,59 +55,29 @@ const OPTION_VALUES: Record<keyof BuilderConfig, string[]> = {
   experienceStyle: EXPERIENCE_STYLES.map(o => o.value),
 }
 
-const DEFAULT_VALUES: Record<string, string> = {
-  themePreset: 'tokyo-night',
-  mode: 'dark',
-  backgroundStyle: 'soft-gradient',
-  layoutStyle: 'sidebar',
-  dockStyle: 'glass-dock',
-  panelChrome: 'macos',
-  borderStyle: 'subtle',
-  surfaceMaterial: 'solid',
-  accentIntensity: 'medium',
-  blurStrength: 'soft',
-  iconStyle: 'line',
-  contentShape: 'cards',
-  headerHeight: 'normal',
-  radius: 'rounded',
-  shadow: 'soft',
-  density: 'normal',
-  buttonStyle: 'solid',
-  cardStyle: 'solid',
-  inputStyle: 'outline',
-  motionLevel: 'normal',
-  fontScale: 'normal',
-  experienceStyle: 'fluent-glass',
-}
-
 function isValidOptionValue<K extends keyof BuilderConfig>(key: K, value: unknown): value is BuilderConfig[K] {
   const validValues = OPTION_VALUES[key]
   if (!validValues) return false
   return typeof value === 'string' && validValues.includes(value)
 }
 
-function getDefaultValue<K extends keyof BuilderConfig>(key: K): string {
-  return DEFAULT_VALUES[key] || 'normal'
-}
-
 export function normalizeBuilderConfig(input: unknown): BuilderConfig {
+  const result = { ...DEFAULT_CONFIG }
+  
   if (!input || typeof input !== 'object') {
-    return { ...DEFAULT_CONFIG }
+    return result
   }
 
   const config = input as Record<string, unknown>
-  const result: Record<string, string> = {}
 
-  for (const key of Object.keys(DEFAULT_VALUES)) {
+  for (const key of CONFIG_KEYS) {
     const value = config[key]
-    if (isValidOptionValue(key as keyof BuilderConfig, value)) {
-      result[key] = value as string
-    } else {
-      result[key] = getDefaultValue(key as keyof BuilderConfig)
+    if (isValidOptionValue(key, value)) {
+      (result as Record<string, unknown>)[key] = value
     }
   }
 
-  return result as unknown as BuilderConfig
+  return result
 }
 
 function isValidConfig(data: unknown): data is BuilderConfig {
@@ -135,6 +107,69 @@ function isValidConfig(data: unknown): data is BuilderConfig {
     typeof config.fontScale === 'string' &&
     (typeof config.experienceStyle === 'string' || config.experienceStyle === undefined)
   )
+}
+
+export interface ConfigHealth {
+  version: number
+  fieldsTotal: number
+  fieldsValid: number
+  missingFields: string[]
+  invalidFields: string[]
+  unknownFields: string[]
+  normalized: BuilderConfig
+  isComplete: boolean
+  isNormalizedEqual: boolean
+}
+
+export function getConfigHealth(input: unknown): ConfigHealth {
+  const missingFields: string[] = []
+  const invalidFields: string[] = []
+  const unknownFields: string[] = []
+
+  if (!input || typeof input !== 'object') {
+    return {
+      version: BUILDER_CONFIG_VERSION,
+      fieldsTotal: CONFIG_KEYS.length,
+      fieldsValid: 0,
+      missingFields: CONFIG_KEYS,
+      invalidFields: [],
+      unknownFields: [],
+      normalized: normalizeBuilderConfig(DEFAULT_CONFIG),
+      isComplete: false,
+      isNormalizedEqual: false,
+    }
+  }
+
+  const config = input as Record<string, unknown>
+
+  for (const key of CONFIG_KEYS) {
+    if (!(key in config)) {
+      missingFields.push(key)
+    } else if (!isValidOptionValue(key, config[key])) {
+      invalidFields.push(key)
+    }
+  }
+
+  for (const key of Object.keys(config)) {
+    if (!CONFIG_KEYS.includes(key as keyof BuilderConfig)) {
+      unknownFields.push(key)
+    }
+  }
+
+  const normalized = normalizeBuilderConfig(input)
+  const isNormalizedEqual = JSON.stringify(input) === JSON.stringify(normalized)
+
+  return {
+    version: BUILDER_CONFIG_VERSION,
+    fieldsTotal: CONFIG_KEYS.length,
+    fieldsValid: CONFIG_KEYS.length - missingFields.length - invalidFields.length,
+    missingFields,
+    invalidFields,
+    unknownFields,
+    normalized,
+    isComplete: missingFields.length === 0 && invalidFields.length === 0 && unknownFields.length === 0,
+    isNormalizedEqual,
+  }
 }
 
 export function loadBuilderConfig(): BuilderConfig {
@@ -198,32 +233,4 @@ export function isConfigSameAsPreset(config: BuilderConfig, presetConfig: Builde
   const normalizedConfig = normalizeBuilderConfig(config)
   const normalizedPreset = normalizeBuilderConfig(presetConfig)
   return JSON.stringify(normalizedConfig) === JSON.stringify(normalizedPreset)
-}
-
-export function getConfigHealth(config: BuilderConfig): {
-  version: number
-  fieldsTotal: number
-  fieldsValid: number
-  invalidFields: string[]
-  isComplete: boolean
-} {
-  const normalized = normalizeBuilderConfig(config)
-  const invalidFields: string[] = []
-
-  for (const key of Object.keys(DEFAULT_VALUES) as (keyof BuilderConfig)[]) {
-    if (!isValidOptionValue(key, normalized[key])) {
-      invalidFields.push(key)
-    }
-  }
-
-  const fieldsTotal = Object.keys(DEFAULT_VALUES).length
-  const fieldsValid = fieldsTotal - invalidFields.length
-
-  return {
-    version: BUILDER_CONFIG_VERSION,
-    fieldsTotal,
-    fieldsValid,
-    invalidFields,
-    isComplete: invalidFields.length === 0,
-  }
 }

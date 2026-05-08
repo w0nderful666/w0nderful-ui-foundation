@@ -537,6 +537,137 @@ test('ControlPanel 包含 Experience Style 控制项', () => {
   assert(content.includes('Experience Style'), 'ControlPanel 缺少 Experience Style 控制项')
 })
 
+test('normalizeBuilderConfig 函数存在', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  assert(content.includes('export function normalizeBuilderConfig'), 'storage.ts 缺少 normalizeBuilderConfig')
+})
+
+test('normalizeBuilderConfig 不使用 DEFAULT_VALUES 双默认源', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  assert(!content.includes('const DEFAULT_VALUES'), 'storage.ts 不应维护第二套 DEFAULT_VALUES')
+  assert(content.includes('DEFAULT_CONFIG'), 'normalizeBuilderConfig 应使用 DEFAULT_CONFIG')
+})
+
+test('getConfigHealth 检查 raw config 而非 normalized', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  assert(content.includes('missingFields'), 'getConfigHealth 缺少 missingFields')
+  assert(content.includes('invalidFields'), 'getConfigHealth 缺少 invalidFields')
+  assert(content.includes('unknownFields'), 'getConfigHealth 缺少 unknownFields')
+  assert(content.includes('normalized'), 'getConfigHealth 应返回 normalized 结果')
+})
+
+test('CONFIG_KEYS 导出用于一致性检查', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  assert(content.includes('export const CONFIG_KEYS'), 'storage.ts 缺少 CONFIG_KEYS 导出')
+})
+
+test('OPTION_VALUES 字段集合与 DEFAULT_CONFIG 一致', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  assert(content.includes('const OPTION_VALUES'), 'storage.ts 缺少 OPTION_VALUES')
+  assert(content.includes('themePreset:'), 'OPTION_VALUES 缺少 themePreset')
+  assert(content.includes('experienceStyle:'), 'OPTION_VALUES 缺少 experienceStyle')
+})
+
+test('getConfigHealth 能检测 missing fields', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  assert(content.includes('!(key in config)'), 'getConfigHealth 应检测缺失字段')
+})
+
+test('getConfigHealth 能检测 unknown fields', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  assert(content.includes('!CONFIG_KEYS.includes'), 'getConfigHealth 应检测未知字段')
+})
+
+test('BUILDER_CONFIG_VERSION 存在', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  assert(content.includes('export const BUILDER_CONFIG_VERSION'), 'storage.ts 缺少版本号导出')
+})
+
+test('storage.ts 保存 versioned config', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  assert(content.includes('version: BUILDER_CONFIG_VERSION'), 'saveBuilderConfig 应保存版本号')
+  assert(content.includes('config: normalized'), 'saveBuilderConfig 应保存归一化后的 config')
+})
+
+test('loadBuilderConfig 使用 normalizeBuilderConfig', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  const funcContent = content.substring(content.indexOf('export function loadBuilderConfig'))
+  assert(funcContent.includes('normalizeBuilderConfig'), 'loadBuilderConfig 应使用归一化')
+})
+
+test('isConfigSameAsPreset 使用 normalized 比较', () => {
+  const content = readFileSync(resolve(root, 'src/lib/storage.ts'), 'utf-8')
+  assert(content.includes('normalizeBuilderConfig(config)'), 'isConfigSameAsPreset 应使用归一化')
+  assert(content.includes('normalizeBuilderConfig(presetConfig)'), 'isConfigSameAsPreset 应使用归一化')
+  assert(content.includes('JSON.stringify(normalizedConfig)'), 'isConfigSameAsPreset 应比较 JSON')
+})
+
+test('ControlPanel Config Health 面板存在', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlPanel.tsx'), 'utf-8')
+  assert(content.includes('Config Health'), 'ControlPanel 缺少 Config Health 面板')
+  assert(content.includes('getConfigHealth'), 'ControlPanel 应使用 getConfigHealth')
+})
+
+test('ControlPanel Fix Config 按钮不是伪实现', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ControlPanel.tsx'), 'utf-8')
+  assert(content.includes('onClick={() => onConfigReplace(health.normalized)}'), 'Fix Config 应使用 health.normalized')
+  assert(!content.includes('getConfigHealth(config) ? config : config'), 'Fix Config 不应是无意义判断')
+})
+
+test('App.tsx onConfigChange 使用 normalizeBuilderConfig', () => {
+  const content = readFileSync(resolve(root, 'src/App.tsx'), 'utf-8')
+  const changeContent = content.substring(content.indexOf('handleConfigChange'))
+  assert(changeContent.includes('normalizeBuilderConfig'), 'handleConfigChange 应使用归一化')
+})
+
+test('App.tsx onConfigReplace 使用 normalizeBuilderConfig', () => {
+  const content = readFileSync(resolve(root, 'src/App.tsx'), 'utf-8')
+  const replaceContent = content.substring(content.indexOf('handleConfigReplace'))
+  assert(replaceContent.includes('normalizeBuilderConfig'), 'handleConfigReplace 应使用归一化')
+})
+
+test('PresetsPicker 使用完整字段比较判断 selected', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/PresetsPicker.tsx'), 'utf-8')
+  assert(content.includes('isConfigSameAsPreset'), 'PresetsPicker 应使用 isConfigSameAsPreset')
+})
+
+test('STYLE_PRESETS 每个 config 包含所有 BuilderConfig 字段', () => {
+  const content = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  const presetsSection = content.substring(content.indexOf('export const STYLE_PRESETS'))
+  assert(presetsSection.includes('themePreset:'), 'STYLE_PRESETS 缺少 themePreset')
+  assert(presetsSection.includes('experienceStyle:'), 'STYLE_PRESETS 缺少 experienceStyle')
+})
+
+test('所有系统 preset 包含 experienceStyle', () => {
+  const builder = readFileSync(resolve(root, 'src/lib/builder.ts'), 'utf-8')
+  const systemPresets = [
+    'windows-classic-desktop',
+    'windows-11-glass',
+    'ubuntu-workstation',
+    'gnome-adwaita-clean',
+    'kali-ops-console',
+    'unix-terminal-console',
+    'macos-aqua-desk',
+    'macos-graphite-pro',
+    'centos-server-panel',
+    'android-material-dashboard',
+    'material-you-lab',
+    'debian-workbench',
+    'fedora-workstation',
+    'arch-minimal-console'
+  ]
+  const configSection = builder.substring(builder.indexOf('config: {'))
+  for (const id of systemPresets) {
+    const presetStart = configSection.indexOf(`id: '${id}'`)
+    assert(presetStart > 0, `找不到 ${id}`)
+    const afterConfig = configSection.indexOf('config:', presetStart + 1)
+    const nextPreset = configSection.indexOf("id: '", presetStart + 20)
+    const endPos = nextPreset > 0 ? nextPreset : configSection.length
+    const section = configSection.substring(afterConfig, endPos)
+    assert(section.includes('experienceStyle:'), `${id} 缺少 experienceStyle`)
+  }
+})
+
 console.log(`\n📊 结果: ${passed} 通过, ${failed} 失败\n`)
 
 if (failed > 0) {

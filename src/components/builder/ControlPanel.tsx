@@ -316,10 +316,22 @@ export function ControlPanel({ config, onConfigChange, onConfigReplace, onReset 
                       {health.fieldsValid}/{health.fieldsTotal} valid
                     </span>
                   </div>
+                  {health.missingFields.length > 0 && (
+                    <div className="flex items-center gap-1 text-xs text-yellow-500">
+                      <AlertTriangle className="h-3 w-3" />
+                      <span>{health.missingFields.length} missing fields</span>
+                    </div>
+                  )}
                   {health.invalidFields.length > 0 && (
                     <div className="flex items-center gap-1 text-xs text-yellow-500">
                       <AlertTriangle className="h-3 w-3" />
                       <span>{health.invalidFields.length} invalid fields</span>
+                    </div>
+                  )}
+                  {health.unknownFields.length > 0 && (
+                    <div className="flex items-center gap-1 text-xs text-yellow-500">
+                      <AlertTriangle className="h-3 w-3" />
+                      <span>{health.unknownFields.length} unknown fields</span>
                     </div>
                   )}
                   {health.isComplete && (
@@ -333,7 +345,7 @@ export function ControlPanel({ config, onConfigChange, onConfigReplace, onReset 
                       variant="outline"
                       size="sm"
                       className="w-full mt-2"
-                      onClick={() => onConfigReplace(getConfigHealth(config) ? config : config)}
+                      onClick={() => onConfigReplace(health.normalized)}
                     >
                       <RotateCcw className="h-3 w-3 mr-1" />
                       Fix Config

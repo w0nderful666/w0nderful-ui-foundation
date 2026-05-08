@@ -31,8 +31,10 @@
 - package-lock.json version: 1.0.0
 
 #### 测试
-- self-test: 增加 Token Inspector 相关断言
-- preflight: 通过
+- build: PASS
+- check: PASS
+- self-test: 140/140
+- preflight: 21/21
 
 ---
 

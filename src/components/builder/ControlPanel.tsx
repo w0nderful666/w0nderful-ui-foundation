@@ -8,6 +8,7 @@ import { ExportPanel } from './ExportPanel'
 import { MotionPreview } from './MotionPreview'
 import { TokenPreview } from './TokenPreview'
 import { PresetsPicker } from './PresetsPicker'
+import { PresetGallery } from './PresetGallery'
 import { ControlSection } from './ControlSection'
 import { RawStorageInspector } from './RawStorageInspector'
 import { IntegrationGuide } from './IntegrationGuide'
@@ -122,6 +123,18 @@ export function ControlPanel({ config, onConfigChange, onConfigReplace, onReset 
           <PresetsPicker 
             config={config} 
             onApply={handlePresetApply}
+          />
+        </ControlSection>
+
+        <ControlSection 
+          title="Preset Gallery" 
+          description="Premium style collections"
+          defaultOpen={false}
+          persistKey="preset-gallery"
+        >
+          <PresetGallery 
+            config={config} 
+            onApply={onConfigReplace}
           />
         </ControlSection>
 

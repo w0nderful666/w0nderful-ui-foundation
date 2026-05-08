@@ -261,68 +261,28 @@ export function HomePage({ onEnterBuilder, motionLevel = 'normal' }: HomePagePro
                 </div>
               </div>
 
-              {/* Floating Token Inspector */}
-              <motion.div
-                className="absolute -right-4 top-1/4 w-48 rounded-lg border border-border bg-card shadow-lg p-3 hidden xl:block"
-                initial={{ opacity: 0, x: 16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: motionConfig.listStagger * 3, duration: motionConfig.duration.normal }}
-              >
-                <div className="text-xs font-medium mb-2">Token Inspector</div>
-                <div className="space-y-1.5">
-                  {[
-                    { name: '--primary', color: 'rgb(99 102 241)' },
-                    { name: '--secondary', color: 'rgb(244 244 245)' },
-                    { name: '--accent', color: 'rgb(244 244 245)' },
-                    { name: '--destructive', color: 'rgb(239 68 68)' },
-                  ].map((token) => (
-                    <div key={token.name} className="flex items-center gap-2">
-                      <div className="h-4 w-4 rounded border border-border" style={{ backgroundColor: token.color }} />
-                      <span className="text-xs font-mono text-muted-foreground">{token.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
+              
 
               {/* Floating Motion Inspector */}
               <motion.div
-                className="absolute -left-4 bottom-1/4 w-52 rounded-lg border border-border bg-card shadow-lg p-3 hidden xl:block"
+                className="absolute -left-4 bottom-1/4 w-44 rounded-lg border border-border bg-card shadow-lg p-3 hidden xl:block"
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: motionConfig.listStagger * 4, duration: motionConfig.duration.normal }}
               >
                 <div className="text-xs font-medium mb-2">Motion Level</div>
-                <div className="flex gap-1.5">
-                  {[
-                    { level: 'off', label: 'Off', glyph: '1', color: '#4285F4' },
-                    { level: 'subtle', label: 'Subtle', glyph: 'd', color: '#EA4335' },
-                    { level: 'normal', label: 'Normal', glyph: 'e', color: '#FBBC05' },
-                    { level: 'expressive', label: 'Expressive', glyph: 'r', color: '#4285F4' },
-                    { level: 'cinematic', label: 'Cinematic', glyph: '4', color: '#34A853' },
-                  ].map((item) => (
+                <div className="flex gap-1">
+                  {['off', 'subtle', 'normal', 'expressive', 'cinematic'].map((level) => (
                     <div
-                      key={item.level}
+                      key={level}
                       className={cn(
-                        'flex-1 h-10 rounded-lg flex items-center justify-center text-sm font-bold',
-                        item.level === motionLevel 
-                          ? 'ring-2 ring-offset-1 ring-black/20' 
-                          : 'opacity-40 hover:opacity-60 transition-opacity'
+                        'h-2 flex-1 rounded-full',
+                        level === motionLevel ? 'bg-primary' : 'bg-muted'
                       )}
-                      style={{ backgroundColor: item.color }}
-                    >
-                      <span style={{ 
-                        color: item.color === '#FBBC05' ? '#1f1f1f' : 'white',
-                        fontFamily: '"Inter Tight", "Inter", "SF Pro Display", "Segoe UI", system-ui, sans-serif',
-                        fontWeight: 700,
-                        fontSize: '18px',
-                        lineHeight: 1
-                      }}>
-                        {item.glyph}
-                      </span>
-                    </div>
+                    />
                   ))}
                 </div>
-                <div className="text-xs text-muted-foreground mt-2 capitalize text-center">{motionLevel}</div>
+                <div className="text-xs text-muted-foreground mt-1 capitalize">{motionLevel}</div>
               </motion.div>
             </motion.div>
           </div>
@@ -519,10 +479,25 @@ export function HomePage({ onEnterBuilder, motionLevel = 'normal' }: HomePagePro
                   transition={{ delay: i * config.listStagger, duration: config.duration.normal }}
                 >
                   <motion.div
-                    className="h-12 w-12 mx-auto mb-3 rounded-lg bg-primary"
+                    className="h-12 w-12 mx-auto mb-3 rounded-lg flex items-center justify-center"
                     animate={{ scale: [0.9, 1] }}
                     transition={{ duration: config.duration.slower, repeat: Infinity, repeatType: 'reverse' }}
-                  />
+                    style={{
+                      backgroundColor: level === 'off' ? '#4285F4' : 
+                                     level === 'subtle' ? '#EA4335' : 
+                                     level === 'normal' ? '#FBBC05' : 
+                                     level === 'expressive' ? '#4285F4' : '#34A853',
+                      color: level === 'normal' ? '#202124' : '#ffffff',
+                      fontFamily: '"Inter Tight", "Inter", "SF Pro Display", "Segoe UI", system-ui, sans-serif',
+                      fontWeight: 800,
+                      fontSize: '20px',
+                    }}
+                  >
+                    {level === 'off' ? '1' : 
+                     level === 'subtle' ? 'd' : 
+                     level === 'normal' ? 'e' : 
+                     level === 'expressive' ? 'r' : '4'}
+                  </motion.div>
                   <span className="text-sm font-medium capitalize">{level}</span>
                 </motion.div>
               )

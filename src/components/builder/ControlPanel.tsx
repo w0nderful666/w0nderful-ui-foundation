@@ -8,7 +8,7 @@ import { MotionPreview } from './MotionPreview'
 import { TokenPreview } from './TokenPreview'
 import { PresetsPicker } from './PresetsPicker'
 import { Button } from '@/components/ui/Button'
-import { RotateCcw } from 'lucide-react'
+import { RotateCcw, AlertTriangle, CheckCircle2 } from 'lucide-react'
 import {
   MODES,
   RADII,
@@ -27,6 +27,7 @@ import {
   SURFACE_MATERIALS,
   DEFAULT_CONFIG,
 } from '@/lib/builder'
+import { getConfigHealth, BUILDER_CONFIG_VERSION } from '@/lib/storage'
 import { motion } from 'framer-motion'
 
 interface ControlPanelProps {
@@ -295,6 +296,54 @@ export function ControlPanel({ config, onConfigChange, onConfigReplace, onReset 
         </Card>
 
         <ExportPanel config={config} />
+
+        <Card variant="glass" padding="sm">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Config Health</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {(() => {
+              const health = getConfigHealth(config)
+              return (
+                <>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground">Schema:</span>
+                    <span className="font-mono">v{health.version}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground">Fields:</span>
+                    <span className={health.isComplete ? 'text-green-500' : 'text-yellow-500'}>
+                      {health.fieldsValid}/{health.fieldsTotal} valid
+                    </span>
+                  </div>
+                  {health.invalidFields.length > 0 && (
+                    <div className="flex items-center gap-1 text-xs text-yellow-500">
+                      <AlertTriangle className="h-3 w-3" />
+                      <span>{health.invalidFields.length} invalid fields</span>
+                    </div>
+                  )}
+                  {health.isComplete && (
+                    <div className="flex items-center gap-1 text-xs text-green-500">
+                      <CheckCircle2 className="h-3 w-3" />
+                      <span>All fields valid</span>
+                    </div>
+                  )}
+                  {!health.isComplete && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full mt-2"
+                      onClick={() => onConfigReplace(getConfigHealth(config) ? config : config)}
+                    >
+                      <RotateCcw className="h-3 w-3 mr-1" />
+                      Fix Config
+                    </Button>
+                  )}
+                </>
+              )
+            })()}
+          </CardContent>
+        </Card>
       </div>
     </motion.aside>
   )

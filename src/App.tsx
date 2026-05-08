@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { type BuilderConfig, DEFAULT_CONFIG } from '@/lib/builder'
-import { loadBuilderConfig, saveBuilderConfig, resetBuilderConfig } from '@/lib/storage'
+import { loadBuilderConfig, saveBuilderConfig, resetBuilderConfig, normalizeBuilderConfig } from '@/lib/storage'
 import { applyBuilderTheme } from '@/lib/applyTheme'
 import { BuilderLayout } from '@/components/builder'
 import { HomePage } from '@/components/builder/HomePage'
@@ -16,11 +16,11 @@ export default function App() {
   }, [config])
 
   const handleConfigChange = useCallback(<K extends keyof BuilderConfig>(key: K, value: BuilderConfig[K]) => {
-    setConfig((prev) => ({ ...prev, [key]: value }))
+    setConfig((prev) => normalizeBuilderConfig({ ...prev, [key]: value }))
   }, [])
 
   const handleConfigReplace = useCallback((newConfig: BuilderConfig) => {
-    setConfig(newConfig)
+    setConfig(normalizeBuilderConfig(newConfig))
   }, [])
 
   const handleReset = useCallback(() => {

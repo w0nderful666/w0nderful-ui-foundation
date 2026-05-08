@@ -1,6 +1,112 @@
-import { type BuilderConfig, DEFAULT_CONFIG } from './builder'
+import { 
+  type BuilderConfig, 
+  DEFAULT_CONFIG,
+  THEME_PRESETS,
+  MODES,
+  BACKGROUND_STYLES,
+  LAYOUT_STYLES,
+  DOCK_STYLES,
+  PANEL_CHROMES,
+  BORDER_STYLES,
+  SURFACE_MATERIALS,
+  ACCENT_INTENSITIES,
+  BLUR_STRENGTHS,
+  ICON_STYLES,
+  CONTENT_SHAPES,
+  HEADER_HEIGHTS,
+  RADII,
+  SHADOWS,
+  DENSITIES,
+  BUTTON_STYLES,
+  CARD_STYLES,
+  INPUT_STYLES,
+  MOTION_LEVELS,
+  FONT_SCALES,
+  EXPERIENCE_STYLES
+} from './builder'
 
 const STORAGE_KEY = 'ui-kit-builder-config'
+export const BUILDER_CONFIG_VERSION = 2
+
+const OPTION_VALUES: Record<keyof BuilderConfig, string[]> = {
+  themePreset: THEME_PRESETS.map(o => o.value),
+  mode: MODES.map(o => o.value),
+  backgroundStyle: BACKGROUND_STYLES.map(o => o.value),
+  layoutStyle: LAYOUT_STYLES.map(o => o.value),
+  dockStyle: DOCK_STYLES.map(o => o.value),
+  panelChrome: PANEL_CHROMES.map(o => o.value),
+  borderStyle: BORDER_STYLES.map(o => o.value),
+  surfaceMaterial: SURFACE_MATERIALS.map(o => o.value),
+  accentIntensity: ACCENT_INTENSITIES.map(o => o.value),
+  blurStrength: BLUR_STRENGTHS.map(o => o.value),
+  iconStyle: ICON_STYLES.map(o => o.value),
+  contentShape: CONTENT_SHAPES.map(o => o.value),
+  headerHeight: HEADER_HEIGHTS.map(o => o.value),
+  radius: RADII.map(o => o.value),
+  shadow: SHADOWS.map(o => o.value),
+  density: DENSITIES.map(o => o.value),
+  buttonStyle: BUTTON_STYLES.map(o => o.value),
+  cardStyle: CARD_STYLES.map(o => o.value),
+  inputStyle: INPUT_STYLES.map(o => o.value),
+  motionLevel: MOTION_LEVELS.map(o => o.value),
+  fontScale: FONT_SCALES.map(o => o.value),
+  experienceStyle: EXPERIENCE_STYLES.map(o => o.value),
+}
+
+const DEFAULT_VALUES: Record<string, string> = {
+  themePreset: 'tokyo-night',
+  mode: 'dark',
+  backgroundStyle: 'soft-gradient',
+  layoutStyle: 'sidebar',
+  dockStyle: 'glass-dock',
+  panelChrome: 'macos',
+  borderStyle: 'subtle',
+  surfaceMaterial: 'solid',
+  accentIntensity: 'medium',
+  blurStrength: 'soft',
+  iconStyle: 'line',
+  contentShape: 'cards',
+  headerHeight: 'normal',
+  radius: 'rounded',
+  shadow: 'soft',
+  density: 'normal',
+  buttonStyle: 'solid',
+  cardStyle: 'solid',
+  inputStyle: 'outline',
+  motionLevel: 'normal',
+  fontScale: 'normal',
+  experienceStyle: 'fluent-glass',
+}
+
+function isValidOptionValue<K extends keyof BuilderConfig>(key: K, value: unknown): value is BuilderConfig[K] {
+  const validValues = OPTION_VALUES[key]
+  if (!validValues) return false
+  return typeof value === 'string' && validValues.includes(value)
+}
+
+function getDefaultValue<K extends keyof BuilderConfig>(key: K): string {
+  return DEFAULT_VALUES[key] || 'normal'
+}
+
+export function normalizeBuilderConfig(input: unknown): BuilderConfig {
+  if (!input || typeof input !== 'object') {
+    return { ...DEFAULT_CONFIG }
+  }
+
+  const config = input as Record<string, unknown>
+  const result: Record<string, string> = {}
+
+  for (const key of Object.keys(DEFAULT_VALUES)) {
+    const value = config[key]
+    if (isValidOptionValue(key as keyof BuilderConfig, value)) {
+      result[key] = value as string
+    } else {
+      result[key] = getDefaultValue(key as keyof BuilderConfig)
+    }
+  }
+
+  return result as unknown as BuilderConfig
+}
 
 function isValidConfig(data: unknown): data is BuilderConfig {
   if (!data || typeof data !== 'object') return false
@@ -34,22 +140,42 @@ function isValidConfig(data: unknown): data is BuilderConfig {
 export function loadBuilderConfig(): BuilderConfig {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
-    if (!stored) return { ...DEFAULT_CONFIG }
+    if (!stored) return normalizeBuilderConfig(DEFAULT_CONFIG)
 
     const parsed = JSON.parse(stored)
-    if (!isValidConfig(parsed)) {
-      return { ...DEFAULT_CONFIG }
+
+    if (!parsed) {
+      return normalizeBuilderConfig(DEFAULT_CONFIG)
     }
 
-    return mergeWithDefaultConfig(parsed)
+    if (parsed.version !== undefined && parsed.config !== undefined) {
+      if (parsed.version === BUILDER_CONFIG_VERSION && isValidConfig(parsed.config)) {
+        return normalizeBuilderConfig(parsed.config)
+      }
+      if (typeof parsed.config === 'object') {
+        return normalizeBuilderConfig(parsed.config)
+      }
+      return normalizeBuilderConfig(DEFAULT_CONFIG)
+    }
+
+    if (isValidConfig(parsed)) {
+      return normalizeBuilderConfig(parsed)
+    }
+
+    return normalizeBuilderConfig(parsed)
   } catch {
-    return { ...DEFAULT_CONFIG }
+    return normalizeBuilderConfig(DEFAULT_CONFIG)
   }
 }
 
 export function saveBuilderConfig(config: BuilderConfig): void {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(config))
+    const normalized = normalizeBuilderConfig(config)
+    const data = {
+      version: BUILDER_CONFIG_VERSION,
+      config: normalized,
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
   } catch {
     // localStorage 可能已满或不可用，静默失败
   }
@@ -61,32 +187,43 @@ export function resetBuilderConfig(): BuilderConfig {
   } catch {
     // 静默失败
   }
-  return { ...DEFAULT_CONFIG }
+  return normalizeBuilderConfig(DEFAULT_CONFIG)
 }
 
 export function mergeWithDefaultConfig(partial: Partial<BuilderConfig>): BuilderConfig {
+  return normalizeBuilderConfig(partial)
+}
+
+export function isConfigSameAsPreset(config: BuilderConfig, presetConfig: BuilderConfig): boolean {
+  const normalizedConfig = normalizeBuilderConfig(config)
+  const normalizedPreset = normalizeBuilderConfig(presetConfig)
+  return JSON.stringify(normalizedConfig) === JSON.stringify(normalizedPreset)
+}
+
+export function getConfigHealth(config: BuilderConfig): {
+  version: number
+  fieldsTotal: number
+  fieldsValid: number
+  invalidFields: string[]
+  isComplete: boolean
+} {
+  const normalized = normalizeBuilderConfig(config)
+  const invalidFields: string[] = []
+
+  for (const key of Object.keys(DEFAULT_VALUES) as (keyof BuilderConfig)[]) {
+    if (!isValidOptionValue(key, normalized[key])) {
+      invalidFields.push(key)
+    }
+  }
+
+  const fieldsTotal = Object.keys(DEFAULT_VALUES).length
+  const fieldsValid = fieldsTotal - invalidFields.length
+
   return {
-    themePreset: partial.themePreset ?? DEFAULT_CONFIG.themePreset,
-    mode: partial.mode ?? DEFAULT_CONFIG.mode,
-    backgroundStyle: partial.backgroundStyle ?? DEFAULT_CONFIG.backgroundStyle,
-    layoutStyle: partial.layoutStyle ?? DEFAULT_CONFIG.layoutStyle,
-    dockStyle: partial.dockStyle ?? DEFAULT_CONFIG.dockStyle,
-    panelChrome: partial.panelChrome ?? DEFAULT_CONFIG.panelChrome,
-    borderStyle: partial.borderStyle ?? DEFAULT_CONFIG.borderStyle,
-    surfaceMaterial: partial.surfaceMaterial ?? DEFAULT_CONFIG.surfaceMaterial,
-    accentIntensity: partial.accentIntensity ?? DEFAULT_CONFIG.accentIntensity,
-    blurStrength: partial.blurStrength ?? DEFAULT_CONFIG.blurStrength,
-    iconStyle: partial.iconStyle ?? DEFAULT_CONFIG.iconStyle,
-    contentShape: partial.contentShape ?? DEFAULT_CONFIG.contentShape,
-    headerHeight: partial.headerHeight ?? DEFAULT_CONFIG.headerHeight,
-    radius: partial.radius ?? DEFAULT_CONFIG.radius,
-    shadow: partial.shadow ?? DEFAULT_CONFIG.shadow,
-    density: partial.density ?? DEFAULT_CONFIG.density,
-    buttonStyle: partial.buttonStyle ?? DEFAULT_CONFIG.buttonStyle,
-    cardStyle: partial.cardStyle ?? DEFAULT_CONFIG.cardStyle,
-    inputStyle: partial.inputStyle ?? DEFAULT_CONFIG.inputStyle,
-    motionLevel: partial.motionLevel ?? DEFAULT_CONFIG.motionLevel,
-    fontScale: partial.fontScale ?? DEFAULT_CONFIG.fontScale,
-    experienceStyle: partial.experienceStyle ?? DEFAULT_CONFIG.experienceStyle,
+    version: BUILDER_CONFIG_VERSION,
+    fieldsTotal,
+    fieldsValid,
+    invalidFields,
+    isComplete: invalidFields.length === 0,
   }
 }

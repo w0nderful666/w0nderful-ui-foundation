@@ -1,5 +1,6 @@
 import { STYLE_PRESETS, getSystemPresetIds, getStylePresetIds, type BuilderConfig } from '@/lib/builder'
 import { getThemeTokens } from '@/lib/themes'
+import { isConfigSameAsPreset } from '@/lib/storage'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
@@ -67,11 +68,7 @@ export function PresetsPicker({ config, onApply }: PresetsPickerProps) {
   const stylePresets = STYLE_PRESETS.filter(p => styleIds.includes(p.id))
 
   const currentPresetId = STYLE_PRESETS.find(p => 
-    p.config.themePreset === config.themePreset &&
-    p.config.mode === config.mode &&
-    p.config.backgroundStyle === config.backgroundStyle &&
-    p.config.dockStyle === config.dockStyle &&
-    p.config.panelChrome === config.panelChrome
+    isConfigSameAsPreset(config, p.config)
   )?.id
 
   return (

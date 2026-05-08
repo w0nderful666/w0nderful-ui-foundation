@@ -15,8 +15,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/Table'
 import { useToast } from '@/components/ui/Toast'
 import { PreviewShell, SidebarItem, StatusBar } from './PreviewShell'
-import { CommandPalettePreview } from './CommandPalettePreview'
-import { FloatingWindowPreview } from './FloatingWindowPreview'
+import { CommandPaletteButton, CommandPaletteModal } from './CommandPalettePreview'
+import { FloatingWindowButton, FloatingWindowPanel } from './FloatingWindowPreview'
 import { SettingsPanelPreview } from './SettingsPanelPreview'
 import { EmptyStatePreview } from './EmptyStatePreview'
 import { ActivityPanelPreview } from './ActivityPanelPreview'
@@ -54,6 +54,8 @@ export function PreviewApp({ config }: PreviewAppProps) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedRows, setSelectedRows] = useState<number[]>([])
   const [sidebarItem, setSidebarItem] = useState('home')
+  const [commandOpen, setCommandOpen] = useState(false)
+  const [floatingOpen, setFloatingOpen] = useState(false)
   const { addToast } = useToast()
   const motionConfig = getMotionConfig(config.motionLevel as any)
 
@@ -83,8 +85,8 @@ export function PreviewApp({ config }: PreviewAppProps) {
         <Input variant={config.inputStyle as any} placeholder="Search..." className="h-8 text-sm" />
       </div>
       <div className="flex items-center gap-1">
-        <CommandPalettePreview config={config} />
-        <FloatingWindowPreview config={config} />
+        <CommandPaletteButton config={config} onClick={() => setCommandOpen(true)} />
+        <FloatingWindowButton config={config} onClick={() => setFloatingOpen(true)} />
         <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleToast}>
           <Bell className="h-4 w-4" />
         </Button>
@@ -416,9 +418,23 @@ export function PreviewApp({ config }: PreviewAppProps) {
         footer={<StatusBar />}
       />
       {/* Overlay for modals - renders on top of PreviewShell */}
-      <div className="absolute inset-0 pointer-events-none z-[60]">
-        <CommandPalettePreview config={config} />
-        <FloatingWindowPreview config={config} />
+      <div className="absolute inset-0 pointer-events-none z-[100]">
+        <AnimatePresence>
+          {commandOpen && (
+            <CommandPaletteModal
+              config={config}
+              open={commandOpen}
+              onClose={() => setCommandOpen(false)}
+            />
+          )}
+        </AnimatePresence>
+        {floatingOpen && (
+          <FloatingWindowPanel
+            config={config}
+            open={floatingOpen}
+            onClose={() => setFloatingOpen(false)}
+          />
+        )}
       </div>
     </div>
   )

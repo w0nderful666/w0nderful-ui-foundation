@@ -31,6 +31,20 @@ export type ThemePreset =
   | 'ice-blue'
   | 'volcanic-red'
   | 'sandstone'
+  | 'windows-classic'
+  | 'windows-11'
+  | 'ubuntu-aubergine'
+  | 'gnome-adwaita'
+  | 'kali-dark'
+  | 'unix-terminal'
+  | 'macos-aqua'
+  | 'macos-graphite'
+  | 'centos-blue'
+  | 'android-material'
+  | 'material-you'
+  | 'debian-red'
+  | 'fedora-blue'
+  | 'arch-minimal'
 
 export type Mode = 'light' | 'dark'
 
@@ -153,6 +167,20 @@ export const THEME_PRESETS: { value: ThemePreset; label: string }[] = [
   { value: 'ice-blue', label: 'Ice Blue' },
   { value: 'volcanic-red', label: 'Volcanic Red' },
   { value: 'sandstone', label: 'Sandstone' },
+  { value: 'windows-classic', label: 'Windows Classic' },
+  { value: 'windows-11', label: 'Windows 11' },
+  { value: 'ubuntu-aubergine', label: 'Ubuntu' },
+  { value: 'gnome-adwaita', label: 'GNOME Adwaita' },
+  { value: 'kali-dark', label: 'Kali Linux' },
+  { value: 'unix-terminal', label: 'Unix Terminal' },
+  { value: 'macos-aqua', label: 'macOS Aqua' },
+  { value: 'macos-graphite', label: 'macOS Graphite' },
+  { value: 'centos-blue', label: 'CentOS' },
+  { value: 'android-material', label: 'Android Material' },
+  { value: 'material-you', label: 'Material You' },
+  { value: 'debian-red', label: 'Debian' },
+  { value: 'fedora-blue', label: 'Fedora' },
+  { value: 'arch-minimal', label: 'Arch Linux' },
 ]
 
 export const MODES: { value: Mode; label: string }[] = [

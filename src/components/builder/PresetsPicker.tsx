@@ -105,9 +105,16 @@ export function PresetsPicker({ config, onApply }: PresetsPickerProps) {
                     themePreset={preset.config.themePreset}
                     mode={preset.config.mode}
                   />
-                  <span className="text-[10px] text-muted-foreground truncate max-w-[80px]">
-                    {preset.tags[0]}
-                  </span>
+                  <div className="flex flex-col items-end gap-0.5">
+                    {preset.config.experienceStyle && (
+                      <span className="text-[9px] text-primary/70 font-medium">
+                        {preset.config.experienceStyle.replace('-', ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                      </span>
+                    )}
+                    <span className="text-[10px] text-muted-foreground truncate max-w-[80px]">
+                      {preset.tags[0]}
+                    </span>
+                  </div>
                 </div>
               </motion.button>
             )

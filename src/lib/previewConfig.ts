@@ -6,7 +6,8 @@ import {
   type SurfaceMaterial,
   type DockStyle,
   type PanelChrome,
-  type LayoutStyle 
+  type LayoutStyle,
+  type ExperienceStyle 
 } from './builder'
 
 // ============================================
@@ -226,4 +227,587 @@ export const LAYOUT_STRUCTURES: Record<LayoutStyle, { main: string; nav: string 
     main: 'flex-1 overflow-y-auto p-6',
     nav: 'hidden',
   },
+}
+
+// ============================================
+// EXPERIENCE STYLE MAPPING
+// ============================================
+export interface ExperienceConfig {
+  typography: {
+    fontFamily: string
+    titleSize: string
+    bodySize: string
+    letterSpacing: string
+    lineHeight: string
+    weight: string
+    dockLabel: string
+    statusText: string
+    commandText: string
+  }
+  motion: {
+    transition: string
+    hover: string
+    active: string
+  }
+  dock: {
+    layout: string
+    className: string
+    itemClassName: string
+    itemActiveClass: string
+  }
+  toast: {
+    className: string
+    titleClass: string
+    bodyClass: string
+  }
+  modal: {
+    className: string
+    headerClass: string
+  }
+  command: {
+    className: string
+    itemClassName: string
+    inputClass: string
+  }
+  floatingWindow: {
+    className: string
+    headerClass: string
+    controlsClass: string
+  }
+  focus: string
+}
+
+export const EXPERIENCE_CONFIG: Record<ExperienceStyle, ExperienceConfig> = {
+  'classic-desktop': {
+    typography: {
+      fontFamily: 'system-ui',
+      titleSize: 'var(--font-size-lg)',
+      bodySize: 'var(--font-size-sm)',
+      letterSpacing: '0',
+      lineHeight: '1.35',
+      weight: '600',
+      dockLabel: 'text-xs font-medium',
+      statusText: 'text-xs',
+      commandText: 'text-sm',
+    },
+    motion: {
+      transition: 'transition-all duration-150 ease-out',
+      hover: 'hover:brightness-95',
+      active: 'active:translate-y-[1px]',
+    },
+    dock: {
+      layout: 'taskbar',
+      className: 'h-10 rounded-none border-t-2 border-border bg-card',
+      itemClassName: 'h-7 rounded-sm border border-border/50 bg-secondary/50 px-3',
+      itemActiveClass: 'bg-primary/20 text-primary border-primary/30',
+    },
+    toast: {
+      className: 'rounded-sm border-2 border-border bg-card shadow-[2px_2px_0_rgba(0,0,0,0.1)]',
+      titleClass: 'font-semibold text-sm',
+      bodyClass: 'text-xs',
+    },
+    modal: {
+      className: 'rounded-sm border-2 border-border bg-card shadow-[4px_4px_0_rgba(0,0,0,0.15)]',
+      headerClass: 'font-semibold text-base border-b border-border px-4 py-3',
+    },
+    command: {
+      className: 'rounded-sm border-2 border-border bg-card shadow-lg',
+      itemClassName: 'rounded-sm px-3 py-2 text-sm hover:bg-primary hover:text-primary-foreground',
+      inputClass: 'rounded-sm border border-border bg-background px-3 py-2 text-sm',
+    },
+    floatingWindow: {
+      className: 'rounded-sm border-2 border-border bg-card shadow-[4px_4px_0_rgba(0,0,0,0.15)]',
+      headerClass: 'font-semibold text-sm border-b border-border px-3 py-2',
+      controlsClass: 'flex items-center gap-1',
+    },
+    focus: 'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 focus-visible:border-primary',
+  },
+  'fluent-glass': {
+    typography: {
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      titleSize: 'var(--font-size-lg)',
+      bodySize: 'var(--font-size-sm)',
+      letterSpacing: '0',
+      lineHeight: '1.5',
+      weight: '500',
+      dockLabel: 'text-[11px] font-normal',
+      statusText: 'text-[11px]',
+      commandText: 'text-sm',
+    },
+    motion: {
+      transition: 'transition-all duration-300 ease-out',
+      hover: 'hover:bg-white/10',
+      active: 'active:scale-[0.98]',
+    },
+    dock: {
+      layout: 'centered',
+      className: 'h-12 rounded-2xl border border-white/20 bg-white/30 backdrop-blur-xl',
+      itemClassName: 'h-9 w-9 rounded-xl bg-transparent hover:bg-white/20 transition-all',
+      itemActiveClass: 'bg-white/40 text-primary shadow-md',
+    },
+    toast: {
+      className: 'rounded-xl border border-white/20 bg-white/40 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.2)]',
+      titleClass: 'font-semibold text-sm',
+      bodyClass: 'text-xs opacity-80',
+    },
+    modal: {
+      className: 'rounded-xl border border-white/20 bg-white/40 backdrop-blur-2xl shadow-[0_24px_64px_rgba(0,0,0,0.25)]',
+      headerClass: 'font-semibold text-base px-5 py-4 border-b border-white/10',
+    },
+    command: {
+      className: 'rounded-2xl border border-white/20 bg-white/30 backdrop-blur-xl shadow-[0_16px_48px_rgba(0,0,0,0.2)]',
+      itemClassName: 'rounded-lg px-4 py-2.5 text-sm hover:bg-white/20',
+      inputClass: 'rounded-xl border-0 bg-white/20 backdrop-blur px-4 py-2.5 text-sm',
+    },
+    floatingWindow: {
+      className: 'rounded-2xl border border-white/20 bg-white/40 backdrop-blur-xl shadow-[0_24px_64px_rgba(0,0,0,0.2)]',
+      headerClass: 'font-semibold text-sm px-4 py-3 border-b border-white/10',
+      controlsClass: 'flex items-center gap-2',
+    },
+    focus: 'focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2',
+  },
+  'linux-workstation': {
+    typography: {
+      fontFamily: 'Ubuntu, system-ui, sans-serif',
+      titleSize: 'var(--font-size-base)',
+      bodySize: 'var(--font-size-sm)',
+      letterSpacing: '0.01em',
+      lineHeight: '1.4',
+      weight: '500',
+      dockLabel: 'text-[10px]',
+      statusText: 'text-[10px]',
+      commandText: 'text-[13px]',
+    },
+    motion: {
+      transition: 'transition-all duration-200 ease-out',
+      hover: 'hover:bg-primary/10',
+      active: 'active:brightness-90',
+    },
+    dock: {
+      layout: 'launcher-left',
+      className: 'h-11 rounded-lg border-t border-border/50 bg-card/80',
+      itemClassName: 'h-9 px-3 rounded-md hover:bg-primary/10 transition-colors',
+      itemActiveClass: 'bg-primary/20 text-primary border-b-2 border-primary',
+    },
+    toast: {
+      className: 'rounded-lg border border-border bg-card shadow-lg',
+      titleClass: 'font-medium text-sm',
+      bodyClass: 'text-xs',
+    },
+    modal: {
+      className: 'rounded-lg border border-border bg-card shadow-xl',
+      headerClass: 'font-medium text-base border-b border-border/50 px-4 py-3',
+    },
+    command: {
+      className: 'rounded-lg border border-border bg-card shadow-xl',
+      itemClassName: 'rounded px-3 py-2 text-sm hover:bg-primary/10',
+      inputClass: 'rounded border border-border bg-background px-3 py-2 text-sm',
+    },
+    floatingWindow: {
+      className: 'rounded-lg border border-border bg-card shadow-xl',
+      headerClass: 'font-medium text-sm px-3 py-2 border-b border-border/50',
+      controlsClass: 'flex items-center gap-0',
+    },
+    focus: 'focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0',
+  },
+  'gnome-clean': {
+    typography: {
+      fontFamily: 'system-ui, Cantarell, sans-serif',
+      titleSize: 'var(--font-size-base)',
+      bodySize: 'var(--font-size-sm)',
+      letterSpacing: '0',
+      lineHeight: '1.45',
+      weight: '500',
+      dockLabel: 'text-[10px] font-normal',
+      statusText: 'text-[11px]',
+      commandText: 'text-sm',
+    },
+    motion: {
+      transition: 'transition-all duration-180 ease-out',
+      hover: 'hover:bg-muted/50',
+      active: 'active:scale-[0.98]',
+    },
+    dock: {
+      layout: 'minimal-top',
+      className: 'h-9 bg-transparent border-t border-transparent',
+      itemClassName: 'h-7 px-2 rounded hover:bg-muted/30 transition-colors',
+      itemActiveClass: 'bg-primary/10 text-primary',
+    },
+    toast: {
+      className: 'rounded-lg border border-border/30 bg-muted/80 backdrop-blur shadow-md',
+      titleClass: 'font-medium text-sm',
+      bodyClass: 'text-xs opacity-70',
+    },
+    modal: {
+      className: 'rounded-xl border border-border/30 bg-card shadow-lg',
+      headerClass: 'font-medium text-base px-5 py-4 border-b border-border/30',
+    },
+    command: {
+      className: 'rounded-xl border border-border/30 bg-card shadow-lg',
+      itemClassName: 'rounded-lg px-4 py-2 text-sm hover:bg-muted/50',
+      inputClass: 'rounded-lg border-0 bg-muted/30 px-4 py-2.5 text-sm',
+    },
+    floatingWindow: {
+      className: 'rounded-xl border border-border/30 bg-card shadow-lg',
+      headerClass: 'font-medium text-sm px-4 py-3 border-b border-border/30',
+      controlsClass: 'flex items-center gap-1',
+    },
+    focus: 'focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-1',
+  },
+  'security-console': {
+    typography: {
+      fontFamily: 'JetBrains Mono, Consolas, monospace',
+      titleSize: 'var(--font-size-sm)',
+      bodySize: 'var(--font-size-xs)',
+      letterSpacing: '0.05em',
+      lineHeight: '1.6',
+      weight: '400',
+      dockLabel: 'text-[9px] uppercase tracking-wider',
+      statusText: 'text-[10px] font-mono',
+      commandText: 'text-xs font-mono',
+    },
+    motion: {
+      transition: 'transition-all duration-100 ease-out',
+      hover: 'hover:bg-cyan-500/10',
+      active: 'active:translate-y-0.5',
+    },
+    dock: {
+      layout: 'terminal-bar',
+      className: 'h-8 bg-[#0a0f14] border-t border-cyan-500/30 font-mono',
+      itemClassName: 'h-6 px-3 text-[10px] text-cyan-400/70 hover:text-cyan-400 hover:bg-cyan-500/10',
+      itemActiveClass: 'text-cyan-400 bg-cyan-500/20 border-b border-cyan-400',
+    },
+    toast: {
+      className: 'rounded border border-cyan-500/40 bg-[#0a0f14]/90 text-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.2)]',
+      titleClass: 'font-mono text-xs font-bold uppercase tracking-wider',
+      bodyClass: 'font-mono text-[10px] opacity-80',
+    },
+    modal: {
+      className: 'rounded border border-cyan-500/40 bg-[#0a0f14] shadow-[0_0_30px_rgba(6,182,212,0.15)]',
+      headerClass: 'font-mono text-xs font-bold uppercase tracking-wider text-cyan-400 border-b border-cyan-500/20 px-4 py-2',
+    },
+    command: {
+      className: 'rounded border border-cyan-500/40 bg-[#0a0f14] shadow-[0_0_20px_rgba(6,182,212,0.15)]',
+      itemClassName: 'rounded px-3 py-1.5 text-xs font-mono text-cyan-400/80 hover:text-cyan-400 hover:bg-cyan-500/10',
+      inputClass: 'rounded border border-cyan-500/30 bg-[#0d1117] font-mono text-xs px-3 py-2 text-cyan-400',
+    },
+    floatingWindow: {
+      className: 'rounded border border-cyan-500/40 bg-[#0a0f14] shadow-[0_0_20px_rgba(6,182,212,0.1)]',
+      headerClass: 'font-mono text-xs font-bold uppercase tracking-wider text-cyan-400 border-b border-cyan-500/20 px-3 py-2',
+      controlsClass: 'flex items-center gap-2 text-cyan-400/50',
+    },
+    focus: 'focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:ring-offset-0 focus-visible:border-cyan-500',
+  },
+  'unix-terminal': {
+    typography: {
+      fontFamily: 'Fira Code, JetBrains Mono, monospace',
+      titleSize: 'var(--font-size-sm)',
+      bodySize: 'var(--font-size-xs)',
+      letterSpacing: '0.03em',
+      lineHeight: '1.5',
+      weight: '400',
+      dockLabel: 'text-[9px] font-mono',
+      statusText: 'text-[10px] font-mono text-green-400',
+      commandText: 'text-xs font-mono',
+    },
+    motion: {
+      transition: 'transition-colors duration-100',
+      hover: 'hover:bg-green-500/10',
+      active: '',
+    },
+    dock: {
+      layout: 'status-bar',
+      className: 'h-6 bg-[#0d1117] border-t border-green-500/20 font-mono text-[10px]',
+      itemClassName: 'h-5 px-2 text-green-400/60 hover:text-green-400',
+      itemActiveClass: 'text-green-400 bg-green-500/10',
+    },
+    toast: {
+      className: 'rounded border border-green-500/30 bg-[#0d1117] text-green-400 font-mono text-xs',
+      titleClass: 'font-bold text-xs',
+      bodyClass: 'text-[10px] opacity-70',
+    },
+    modal: {
+      className: 'rounded border border-green-500/30 bg-[#0d1117] shadow-lg',
+      headerClass: 'font-mono text-xs text-green-400 border-b border-green-500/20 px-3 py-2',
+    },
+    command: {
+      className: 'rounded border border-green-500/30 bg-[#0d1117]',
+      itemClassName: 'rounded px-3 py-1.5 text-xs font-mono text-green-400/70 hover:text-green-400 hover:bg-green-500/10',
+      inputClass: 'rounded border border-green-500/20 bg-[#161b22] font-mono text-xs px-3 py-2 text-green-400',
+    },
+    floatingWindow: {
+      className: 'rounded border border-green-500/30 bg-[#0d1117]',
+      headerClass: 'font-mono text-xs text-green-400 border-b border-green-500/20 px-2 py-1',
+      controlsClass: 'flex items-center gap-1 text-green-400/50 text-[10px]',
+    },
+    focus: 'focus-visible:ring-1 focus-visible:ring-green-500/60 focus-visible:border-green-500/40',
+  },
+  'aqua-desktop': {
+    typography: {
+      fontFamily: '-apple-system, BlinkMacSystemFont, system-ui',
+      titleSize: 'var(--font-size-lg)',
+      bodySize: 'var(--font-size-sm)',
+      letterSpacing: '0',
+      lineHeight: '1.4',
+      weight: '500',
+      dockLabel: 'text-[10px] font-medium',
+      statusText: 'text-[11px]',
+      commandText: 'text-sm',
+    },
+    motion: {
+      transition: 'transition-all duration-250 ease-out',
+      hover: 'hover:bg-blue-500/10',
+      active: 'active:scale-[0.97]',
+    },
+    dock: {
+      layout: 'glass-center',
+      className: 'h-14 rounded-3xl border border-white/20 bg-white/20 backdrop-blur-2xl',
+      itemClassName: 'h-10 w-10 rounded-2xl bg-transparent hover:bg-white/30 transition-all hover:scale-105',
+      itemActiveClass: 'bg-white/40 text-primary shadow-md ring-2 ring-primary/20',
+    },
+    toast: {
+      className: 'rounded-2xl border border-white/20 bg-white/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.15)]',
+      titleClass: 'font-semibold text-sm',
+      bodyClass: 'text-xs opacity-80',
+    },
+    modal: {
+      className: 'rounded-2xl border border-white/20 bg-white/40 backdrop-blur-xl shadow-[0_24px_64px_rgba(0,0,0,0.2)]',
+      headerClass: 'font-semibold text-base px-5 py-4 border-b border-white/10',
+    },
+    command: {
+      className: 'rounded-2xl border border-white/20 bg-white/30 backdrop-blur-xl shadow-[0_16px_48px_rgba(0,0,0,0.15)]',
+      itemClassName: 'rounded-xl px-4 py-2.5 text-sm hover:bg-white/30',
+      inputClass: 'rounded-xl border-0 bg-white/20 backdrop-blur px-4 py-2.5 text-sm',
+    },
+    floatingWindow: {
+      className: 'rounded-2xl border border-white/20 bg-white/40 backdrop-blur-xl shadow-[0_24px_64px_rgba(0,0,0,0.15)]',
+      headerClass: 'font-semibold text-sm px-4 py-3 border-b border-white/10',
+      controlsClass: 'flex items-center gap-2',
+    },
+    focus: 'focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2',
+  },
+  'graphite-pro': {
+    typography: {
+      fontFamily: 'SF Pro, -apple-system, system-ui',
+      titleSize: 'var(--font-size-base)',
+      bodySize: 'var(--font-size-sm)',
+      letterSpacing: '0',
+      lineHeight: '1.4',
+      weight: '500',
+      dockLabel: 'text-[10px] font-medium',
+      statusText: 'text-[11px]',
+      commandText: 'text-sm',
+    },
+    motion: {
+      transition: 'transition-all duration-200 ease-out',
+      hover: 'hover:bg-zinc-500/10',
+      active: 'active:scale-[0.98]',
+    },
+    dock: {
+      layout: 'pro-dock',
+      className: 'h-12 rounded-2xl border border-zinc-200/30 bg-zinc-100/40 backdrop-blur-xl',
+      itemClassName: 'h-9 w-9 rounded-xl bg-transparent hover:bg-zinc-200/40 transition-colors',
+      itemActiveClass: 'bg-zinc-300/50 text-zinc-900',
+    },
+    toast: {
+      className: 'rounded-xl border border-zinc-200/40 bg-zinc-50/90 backdrop-blur shadow-lg',
+      titleClass: 'font-medium text-sm text-zinc-800',
+      bodyClass: 'text-xs text-zinc-600',
+    },
+    modal: {
+      className: 'rounded-xl border border-zinc-200/40 bg-white shadow-xl',
+      headerClass: 'font-medium text-base px-5 py-4 border-b border-zinc-100 text-zinc-800',
+    },
+    command: {
+      className: 'rounded-xl border border-zinc-200/40 bg-white/90 backdrop-blur shadow-lg',
+      itemClassName: 'rounded-lg px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-100',
+      inputClass: 'rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-800',
+    },
+    floatingWindow: {
+      className: 'rounded-xl border border-zinc-200/40 bg-white shadow-xl',
+      headerClass: 'font-medium text-sm px-4 py-3 border-b border-zinc-100 text-zinc-800',
+      controlsClass: 'flex items-center gap-2',
+    },
+    focus: 'focus-visible:ring-2 focus-visible:ring-zinc-400/50 focus-visible:ring-offset-1',
+  },
+  'server-panel': {
+    typography: {
+      fontFamily: 'system-ui, Inter, sans-serif',
+      titleSize: 'var(--font-size-base)',
+      bodySize: 'var(--font-size-xs)',
+      letterSpacing: '0.01em',
+      lineHeight: '1.5',
+      weight: '600',
+      dockLabel: 'text-[10px] uppercase font-semibold',
+      statusText: 'text-[10px] font-mono',
+      commandText: 'text-xs font-mono',
+    },
+    motion: {
+      transition: 'transition-colors duration-150',
+      hover: 'hover:bg-slate-500/10',
+      active: 'active:translate-y-0.5',
+    },
+    dock: {
+      layout: 'status-bottom',
+      className: 'h-8 bg-slate-800 border-t border-slate-700',
+      itemClassName: 'h-6 px-3 text-xs text-slate-400 hover:text-slate-200 hover:bg-slate-700/50',
+      itemActiveClass: 'text-blue-400 bg-slate-700/80 border-b border-blue-400',
+    },
+    toast: {
+      className: 'rounded border border-slate-600 bg-slate-800 text-slate-200',
+      titleClass: 'font-semibold text-xs uppercase tracking-wide',
+      bodyClass: 'text-[10px] opacity-80',
+    },
+    modal: {
+      className: 'rounded border border-slate-600 bg-slate-800 shadow-xl',
+      headerClass: 'font-semibold text-sm uppercase tracking-wide text-slate-200 border-b border-slate-700 px-4 py-3',
+    },
+    command: {
+      className: 'rounded border border-slate-600 bg-slate-800 shadow-xl',
+      itemClassName: 'rounded px-3 py-2 text-xs text-slate-300 hover:bg-slate-700 hover:text-slate-100',
+      inputClass: 'rounded border border-slate-600 bg-slate-900 text-xs px-3 py-2 text-slate-300',
+    },
+    floatingWindow: {
+      className: 'rounded border border-slate-600 bg-slate-800 shadow-xl',
+      headerClass: 'font-semibold text-xs uppercase tracking-wide text-slate-200 border-b border-slate-700 px-3 py-2',
+      controlsClass: 'flex items-center gap-2 text-slate-400 text-xs',
+    },
+    focus: 'focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-0 focus-visible:border-blue-500',
+  },
+  'material-mobile': {
+    typography: {
+      fontFamily: 'Roboto, system-ui, sans-serif',
+      titleSize: 'var(--font-size-base)',
+      bodySize: 'var(--font-size-sm)',
+      letterSpacing: '0.01em',
+      lineHeight: '1.5',
+      weight: '500',
+      dockLabel: 'text-[9px] font-medium',
+      statusText: 'text-[10px]',
+      commandText: 'text-sm',
+    },
+    motion: {
+      transition: 'transition-all duration-200 cubic-bezier(0.4, 0, 0.2, 1)',
+      hover: 'hover:bg-primary/10',
+      active: 'active:scale-[0.96]',
+    },
+    dock: {
+      layout: 'bottom-nav',
+      className: 'h-14 bg-surface-dark border-t border-outline/20',
+      itemClassName: 'h-full px-4 rounded-t-lg hover:bg-on-surface/5 transition-colors',
+      itemActiveClass: 'bg-primary-container text-on-primary-container',
+    },
+    toast: {
+      className: 'rounded-lg bg-inverse-surface text-inverse-on-surface px-4 py-3 shadow-elevation-3',
+      titleClass: 'font-medium text-sm',
+      bodyClass: 'text-xs opacity-90',
+    },
+    modal: {
+      className: 'rounded-xl bg-surface bg-surface-dim shadow-elevation-3',
+      headerClass: 'font-medium text-lg px-6 py-4 border-b border-outline/10',
+    },
+    command: {
+      className: 'rounded-xl bg-surface-dim shadow-elevation-2',
+      itemClassName: 'rounded-lg px-4 py-3 text-sm hover:bg-on-surface/5',
+      inputClass: 'rounded-lg border-0 bg-surface-dim px-4 py-3 text-sm',
+    },
+    floatingWindow: {
+      className: 'rounded-2xl bg-surface shadow-elevation-3',
+      headerClass: 'font-medium text-base px-5 py-4 border-b border-outline/10',
+      controlsClass: 'flex items-center gap-2',
+    },
+    focus: 'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+  },
+  'material-you': {
+    typography: {
+      fontFamily: 'Google Sans, Roboto, system-ui',
+      titleSize: 'var(--font-size-lg)',
+      bodySize: 'var(--font-size-sm)',
+      letterSpacing: '0',
+      lineHeight: '1.4',
+      weight: '500',
+      dockLabel: 'text-[10px] font-medium',
+      statusText: 'text-[11px]',
+      commandText: 'text-sm',
+    },
+    motion: {
+      transition: 'transition-all duration-300 cubic-bezier(0.2, 0, 0, 1)',
+      hover: 'hover:bg-primary/8',
+      active: 'active:scale-[0.98]',
+    },
+    dock: {
+      layout: 'organic-dock',
+      className: 'h-16 rounded-[28px] bg-surface-variant/80 backdrop-blur-xl border border-outline/10',
+      itemClassName: 'h-11 w-11 rounded-[20px] hover:bg-primary/10 transition-colors',
+      itemActiveClass: 'bg-primary/20 text-primary rounded-[20px] shadow-sm',
+    },
+    toast: {
+      className: 'rounded-[28px] bg-inverse-surface text-inverse-on-surface px-5 py-4 shadow-elevation-3',
+      titleClass: 'font-medium text-base',
+      bodyClass: 'text-sm opacity-90',
+    },
+    modal: {
+      className: 'rounded-[28px] bg-surface-container-low shadow-elevation-3',
+      headerClass: 'font-medium text-xl px-6 py-5 border-b border-outline/10',
+    },
+    command: {
+      className: 'rounded-[24px] bg-surface-container-low shadow-elevation-2',
+      itemClassName: 'rounded-[20px] px-5 py-3 text-base hover:bg-primary/8',
+      inputClass: 'rounded-[20px] border-0 bg-surface-container-high px-5 py-3.5 text-base',
+    },
+    floatingWindow: {
+      className: 'rounded-[28px] bg-surface-container-low shadow-elevation-3',
+      headerClass: 'font-medium text-lg px-5 py-4 border-b border-outline/10',
+      controlsClass: 'flex items-center gap-3',
+    },
+    focus: 'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+  },
+  'minimal-dev': {
+    typography: {
+      fontFamily: 'JetBrains Mono, monospace',
+      titleSize: 'var(--font-size-sm)',
+      bodySize: 'var(--font-size-xs)',
+      letterSpacing: '0',
+      lineHeight: '1.6',
+      weight: '400',
+      dockLabel: 'text-[9px] font-mono',
+      statusText: 'text-[10px] font-mono opacity-60',
+      commandText: 'text-xs font-mono',
+    },
+    motion: {
+      transition: 'transition-all duration-100',
+      hover: 'hover:underline',
+      active: '',
+    },
+    dock: {
+      layout: 'minimal-bar',
+      className: 'h-6 bg-transparent border-t border-dashed border-border/30',
+      itemClassName: 'h-5 px-2 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:underline',
+      itemActiveClass: 'text-foreground underline decoration-primary decoration-2',
+    },
+    toast: {
+      className: 'rounded border border-border/50 bg-background/80 px-3 py-2 text-xs font-mono',
+      titleClass: 'font-bold',
+      bodyClass: 'opacity-70',
+    },
+    modal: {
+      className: 'rounded border border-border/50 bg-background shadow-sm',
+      headerClass: 'font-mono text-sm border-b border-border/30 px-4 py-2',
+    },
+    command: {
+      className: 'rounded border border-border/50 bg-background shadow-sm',
+      itemClassName: 'rounded px-3 py-1.5 text-xs font-mono hover:bg-muted hover:underline',
+      inputClass: 'rounded border border-border/50 bg-background font-mono text-xs px-3 py-2',
+    },
+    floatingWindow: {
+      className: 'rounded border border-border/50 bg-background shadow-sm',
+      headerClass: 'font-mono text-xs border-b border-dashed border-border/30 px-3 py-2',
+      controlsClass: 'flex items-center gap-2 text-[10px] font-mono opacity-50',
+    },
+    focus: 'focus-visible:ring-1 focus-visible:ring-primary/50 focus-visible:border-primary/30',
+  },
+}
+
+export function getExperienceConfig(exp: ExperienceStyle): ExperienceConfig {
+  return EXPERIENCE_CONFIG[exp] || EXPERIENCE_CONFIG['fluent-glass']
 }

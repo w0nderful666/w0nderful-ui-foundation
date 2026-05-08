@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { type BuilderConfig } from '@/lib/builder'
 import { getMotionConfig } from '@/lib/motion'
+import { getExperienceConfig } from '@/lib/previewConfig'
 import { Button } from '@/components/ui/Button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { X, Minus, Maximize2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface FloatingWindowProps {
   config: BuilderConfig
@@ -25,22 +27,27 @@ export function FloatingWindowButton({ config, onClick }: { config: BuilderConfi
 
 export function FloatingWindowPanel({ config, open, onClose }: FloatingWindowProps & { open: boolean; onClose: () => void }) {
   const motionConfig = getMotionConfig(config.motionLevel as any)
+  const expConfig = getExperienceConfig(config.experienceStyle || 'fluent-glass')
 
   if (!open) return null
 
   return (
     <motion.div
-      className="absolute top-20 right-8 w-80 bg-card border border-border rounded-xl shadow-2xl overflow-hidden z-[110] pointer-events-auto"
+      className={cn(
+        'absolute top-20 right-8 w-80 overflow-hidden z-[110] pointer-events-auto',
+        expConfig.floatingWindow.className
+      )}
       initial={{ opacity: 0, scale: 0.9, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, y: 20 }}
       transition={{ type: 'spring', ...motionConfig.spring.medium }}
       drag
       dragMomentum={false}
+      style={{ fontFamily: expConfig.typography.fontFamily }}
     >
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/50">
-        <span className="text-sm font-medium">Properties</span>
-        <div className="flex items-center gap-1">
+      <div className={cn('flex items-center justify-between px-4 py-3 border-b', expConfig.floatingWindow.headerClass)}>
+        <span className={expConfig.typography.titleSize}>Properties</span>
+        <div className={cn('flex items-center', expConfig.floatingWindow.controlsClass)}>
           <button className="h-6 w-6 rounded hover:bg-muted flex items-center justify-center">
             <Minus className="h-3 w-3" />
           </button>
@@ -57,7 +64,7 @@ export function FloatingWindowPanel({ config, open, onClose }: FloatingWindowPro
       </div>
       <div className="p-4 space-y-3">
         <div className="space-y-1">
-          <label className="text-xs text-muted-foreground">Name</label>
+          <label className={cn('text-muted-foreground', expConfig.typography.bodySize)}>Name</label>
           <div className="text-sm">Dashboard Component</div>
         </div>
         <div className="space-y-1">

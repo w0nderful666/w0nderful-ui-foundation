@@ -832,6 +832,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'fluent-search',
       motionLevel: 'cinematic',
       fontScale: 'normal',
+      experienceStyle: 'fluent-glass',
     },
   },
   {
@@ -861,6 +862,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'ubuntu-entry',
       motionLevel: 'normal',
       fontScale: 'normal',
+      experienceStyle: 'linux-workstation',
     },
   },
   {
@@ -890,6 +892,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'adwaita-entry',
       motionLevel: 'normal',
       fontScale: 'normal',
+      experienceStyle: 'gnome-clean',
     },
   },
   {
@@ -919,6 +922,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'terminal-prompt',
       motionLevel: 'snappy',
       fontScale: 'compact',
+      experienceStyle: 'security-console',
     },
   },
   {
@@ -948,6 +952,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'terminal-prompt',
       motionLevel: 'off',
       fontScale: 'compact',
+      experienceStyle: 'unix-terminal',
     },
   },
   {
@@ -977,6 +982,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'aqua-search',
       motionLevel: 'cinematic',
       fontScale: 'normal',
+      experienceStyle: 'aqua-desktop',
     },
   },
   {
@@ -1006,6 +1012,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'searchbar',
       motionLevel: 'normal',
       fontScale: 'normal',
+      experienceStyle: 'graphite-pro',
     },
   },
   {
@@ -1035,6 +1042,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'server-field',
       motionLevel: 'subtle',
       fontScale: 'normal',
+      experienceStyle: 'server-panel',
     },
   },
   {
@@ -1064,6 +1072,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'material-filled',
       motionLevel: 'normal',
       fontScale: 'large',
+      experienceStyle: 'material-mobile',
     },
   },
   {
@@ -1093,6 +1102,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'material-filled',
       motionLevel: 'elastic',
       fontScale: 'normal',
+      experienceStyle: 'material-you',
     },
   },
   {
@@ -1122,6 +1132,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'outline',
       motionLevel: 'normal',
       fontScale: 'normal',
+      experienceStyle: 'linux-workstation',
     },
   },
   {
@@ -1151,6 +1162,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'server-field',
       motionLevel: 'normal',
       fontScale: 'normal',
+      experienceStyle: 'gnome-clean',
     },
   },
   {
@@ -1180,6 +1192,7 @@ export const STYLE_PRESETS: StylePreset[] = [
       inputStyle: 'terminal-prompt',
       motionLevel: 'off',
       fontScale: 'compact',
+      experienceStyle: 'minimal-dev',
     },
   },
 ]

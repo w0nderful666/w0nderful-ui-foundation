@@ -1,5 +1,5 @@
 import { type BuilderConfig } from '@/lib/builder'
-import { LAYOUT_STYLES, DOCK_STYLES, PANEL_CHROMES, BORDER_STYLES, SURFACE_MATERIALS } from '@/lib/builder'
+import { LAYOUT_STYLES, DOCK_STYLES, PANEL_CHROMES, BORDER_STYLES, SURFACE_MATERIALS, EXPERIENCE_STYLES } from '@/lib/builder'
 import { cn } from '@/lib/utils'
 
 interface ConfigStatusBarProps {
@@ -38,6 +38,8 @@ export function ConfigStatusBar({ config }: ConfigStatusBarProps) {
       <span className="text-foreground/80 shrink-0">{config.fontScale.charAt(0).toUpperCase() + config.fontScale.slice(1)}</span>
       <span className="text-muted-foreground shrink-0">·</span>
       <span className="text-foreground/80 shrink-0">{config.motionLevel.charAt(0).toUpperCase() + config.motionLevel.slice(1)}</span>
+      <span className="text-muted-foreground shrink-0">·</span>
+      <span className="text-foreground/80 shrink-0">{getLabel(EXPERIENCE_STYLES, config.experienceStyle || 'fluent-glass')}</span>
     </div>
   )
 }

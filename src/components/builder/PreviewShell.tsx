@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { type BuilderConfig } from '@/lib/builder'
 import { getMotionConfig } from '@/lib/motion'
-import { SHADOW_CLASSES, BORDER_CLASSES, SURFACE_CLASSES, DOCK_CLASSES, CHROME_STYLES } from '@/lib/previewConfig'
+import { SHADOW_CLASSES, BORDER_CLASSES, SURFACE_CLASSES, DOCK_CLASSES, CHROME_STYLES, getExperienceConfig } from '@/lib/previewConfig'
 import { cn } from '@/lib/utils'
 import {
   ChevronLeft,
@@ -33,6 +33,7 @@ export function PreviewShell({ config, topNav, sidebar, content, rightPanel, foo
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const motionConfig = getMotionConfig(config.motionLevel as any)
+  const experienceConfig = getExperienceConfig(config.experienceStyle || 'fluent-glass')
 
   // Apply styles based on config
   const shadowClass = SHADOW_CLASSES[config.shadow]
@@ -54,13 +55,14 @@ export function PreviewShell({ config, topNav, sidebar, content, rightPanel, foo
 
   return (
     <div className="flex flex-col h-full">
-      {/* Header with Panel Chrome */}
+      {/* Header with Panel Chrome and Experience */}
       <motion.header
         className={cn(
           'flex items-center h-12 px-4 border-b shrink-0',
           borderClass,
           surfaceClass,
-          chromeStyle.header
+          chromeStyle.header,
+          experienceConfig.focus
         )}
         style={{ boxShadow: 'var(--shadow-sm)' }}
         initial={{ opacity: 0, y: -8 }}
@@ -156,12 +158,16 @@ export function PreviewShell({ config, topNav, sidebar, content, rightPanel, foo
           )}
         </motion.aside>
 
-        {/* Main Content with Density and Font Scale */}
+        {/* Main Content with Density, Font Scale and Experience Typography */}
         <main 
-          className={cn('flex-1 overflow-y-auto', surfaceClass)}
+          className={cn('flex-1 overflow-y-auto', surfaceClass, experienceConfig.focus)}
           style={{ 
             ...densityStyle,
             ...fontStyle,
+            fontFamily: experienceConfig.typography.fontFamily,
+            letterSpacing: experienceConfig.typography.letterSpacing,
+            lineHeight: experienceConfig.typography.lineHeight,
+            fontWeight: experienceConfig.typography.weight,
           }}
         >
           {content}
@@ -179,23 +185,30 @@ export function PreviewShell({ config, topNav, sidebar, content, rightPanel, foo
         )}
       </div>
 
-      {/* Dock with Dock Style */}
+      {/* Dock with Dock Style and Experience */}
       {footer && (
         <motion.footer
           className={cn(
             'flex items-center px-4 border-t shrink-0',
             borderClass,
-            dockClass
+            dockClass,
+            experienceConfig.dock.className
           )}
           style={{ 
             minHeight: 'var(--height-sidebar, 48px)',
             boxShadow: config.dockStyle !== 'minimal' ? 'var(--shadow-md)' : 'none',
+            fontFamily: experienceConfig.typography.fontFamily,
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: motionConfig.duration.normal, delay: motionConfig.listStagger * 3 }}
         >
-          <div className={cn('flex items-center gap-2', config.dockStyle === 'pill-dock' ? 'mx-auto' : '')}>
+          <div className={cn(
+            'flex items-center gap-2',
+            experienceConfig.dock.layout === 'centered' || experienceConfig.dock.layout === 'glass-center' || experienceConfig.dock.layout === 'pro-dock' || experienceConfig.dock.layout === 'organic-dock' ? 'mx-auto' : '',
+            experienceConfig.dock.layout === 'launcher-left' ? 'mr-auto' : '',
+            experienceConfig.dock.layout === 'status-bar' || experienceConfig.dock.layout === 'status-bottom' || experienceConfig.dock.layout === 'terminal-bar' ? 'justify-between w-full text-[10px]' : ''
+          )}>
             {[
               { icon: Folder, active: true },
               { icon: Users, active: false },
@@ -205,17 +218,24 @@ export function PreviewShell({ config, topNav, sidebar, content, rightPanel, foo
               <button
                 key={i}
                 className={cn(
-                  'p-2 rounded-lg transition-all',
-                  item.active 
-                    ? 'bg-primary/20 text-primary' 
-                    : 'hover:bg-muted/50 text-muted-foreground',
-                  config.dockStyle === 'pill-dock' && 'rounded-full',
-                  config.dockStyle === 'neon-dock' && item.active && 'shadow-[0_0_10px_hsl(var(--primary)_/_0.5)]'
+                  'p-2 transition-all',
+                  experienceConfig.motion.transition,
+                  experienceConfig.motion.hover,
+                  experienceConfig.dock.itemClassName,
+                  item.active && experienceConfig.dock.itemActiveClass,
+                  !item.active && experienceConfig.motion.hover && experienceConfig.motion.hover.split(' ').filter(c => c.startsWith('hover:')).map(c => c.replace('hover:', '')).join(' ')
                 )}
               >
                 <item.icon className="h-5 w-5" />
               </button>
             ))}
+            {/* Status area for terminal-like docks */}
+            {(experienceConfig.dock.layout === 'status-bar' || experienceConfig.dock.layout === 'status-bottom' || experienceConfig.dock.layout === 'terminal-bar') && (
+              <div className={cn('flex items-center gap-3', experienceConfig.typography.statusText)}>
+                <span>192.168.1.1</span>
+                <span>OK</span>
+              </div>
+            )}
           </div>
         </motion.footer>
       )}
@@ -248,10 +268,18 @@ export function SidebarItem({ icon: Icon, label, active, collapsed, onClick }: S
   )
 }
 
-export function StatusBar({ compact = false }: { compact?: boolean }) {
+interface StatusBarProps {
+  compact?: boolean
+  experienceConfig?: ReturnType<typeof getExperienceConfig>
+}
+
+export function StatusBar({ compact = false, experienceConfig: expConfig }: StatusBarProps) {
+  const exp = expConfig || getExperienceConfig('fluent-glass')
+  const statusTextClass = exp.typography.statusText
+
   if (compact) {
     return (
-      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+      <div className={cn('flex items-center gap-2 text-muted-foreground', statusTextClass)}>
         <span className="flex items-center gap-1">
           <Wifi className="h-3 w-3" />
           <Battery className="h-3 w-3" />
@@ -267,7 +295,7 @@ export function StatusBar({ compact = false }: { compact?: boolean }) {
   }
   return (
     <>
-      <div className="flex items-center gap-4">
+      <div className={cn('flex items-center gap-4', statusTextClass)}>
         <span className="flex items-center gap-1">
           <Wifi className="h-3 w-3" />
           Connected
@@ -277,8 +305,8 @@ export function StatusBar({ compact = false }: { compact?: boolean }) {
           100%
         </span>
       </div>
-      <div className="flex-1 text-center">w0nderful-ui-foundation</div>
-      <div className="flex items-center gap-4">
+      <div className={cn('flex-1 text-center', statusTextClass)}>w0nderful-ui-foundation</div>
+      <div className={cn('flex items-center gap-4', statusTextClass)}>
         <span className="flex items-center gap-1">
           <Clock className="h-3 w-3" />
           {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

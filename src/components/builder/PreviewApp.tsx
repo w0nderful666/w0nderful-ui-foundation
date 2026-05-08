@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { type BuilderConfig } from '@/lib/builder'
 import { getMotionConfig } from '@/lib/motion'
+import { getExperienceConfig } from '@/lib/previewConfig'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
@@ -415,7 +416,7 @@ export function PreviewApp({ config }: PreviewAppProps) {
         sidebar={sidebar}
         content={content}
         rightPanel={rightPanel}
-        footer={<StatusBar />}
+        footer={<StatusBar experienceConfig={getExperienceConfig(config.experienceStyle || 'fluent-glass')} />}
       />
       {/* Overlay for modals - renders on top of PreviewShell */}
       <div className="absolute inset-0 pointer-events-none z-[100]">

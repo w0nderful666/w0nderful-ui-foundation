@@ -286,24 +286,43 @@ export function HomePage({ onEnterBuilder, motionLevel = 'normal' }: HomePagePro
 
               {/* Floating Motion Inspector */}
               <motion.div
-                className="absolute -left-4 bottom-1/4 w-44 rounded-lg border border-border bg-card shadow-lg p-3 hidden xl:block"
+                className="absolute -left-4 bottom-1/4 w-52 rounded-lg border border-border bg-card shadow-lg p-3 hidden xl:block"
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: motionConfig.listStagger * 4, duration: motionConfig.duration.normal }}
               >
                 <div className="text-xs font-medium mb-2">Motion Level</div>
-                <div className="flex gap-1">
-                  {['off', 'subtle', 'normal', 'expressive', 'cinematic'].map((level) => (
+                <div className="flex gap-1.5">
+                  {[
+                    { level: 'off', label: 'Off', glyph: '1', color: '#4285F4' },
+                    { level: 'subtle', label: 'Subtle', glyph: 'd', color: '#EA4335' },
+                    { level: 'normal', label: 'Normal', glyph: 'e', color: '#FBBC05' },
+                    { level: 'expressive', label: 'Expressive', glyph: 'r', color: '#4285F4' },
+                    { level: 'cinematic', label: 'Cinematic', glyph: '4', color: '#34A853' },
+                  ].map((item) => (
                     <div
-                      key={level}
+                      key={item.level}
                       className={cn(
-                        'h-2 flex-1 rounded-full',
-                        level === motionLevel ? 'bg-primary' : 'bg-muted'
+                        'flex-1 h-10 rounded-lg flex items-center justify-center text-sm font-bold',
+                        item.level === motionLevel 
+                          ? 'ring-2 ring-offset-1 ring-black/20' 
+                          : 'opacity-40 hover:opacity-60 transition-opacity'
                       )}
-                    />
+                      style={{ backgroundColor: item.color }}
+                    >
+                      <span style={{ 
+                        color: item.color === '#FBBC05' ? '#1f1f1f' : 'white',
+                        fontFamily: '"Inter Tight", "Inter", "SF Pro Display", "Segoe UI", system-ui, sans-serif',
+                        fontWeight: 700,
+                        fontSize: '18px',
+                        lineHeight: 1
+                      }}>
+                        {item.glyph}
+                      </span>
+                    </div>
                   ))}
                 </div>
-                <div className="text-xs text-muted-foreground mt-1 capitalize">{motionLevel}</div>
+                <div className="text-xs text-muted-foreground mt-2 capitalize text-center">{motionLevel}</div>
               </motion.div>
             </motion.div>
           </div>

@@ -966,6 +966,48 @@ test('RELEASE_NOTES 包含 v0.9.0', () => {
   assert(content.includes('Preset Gallery'), 'RELEASE_NOTES 缺少 Preset Gallery 记录')
 })
 
+test('package.json 包含 three 依赖', () => {
+  const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf-8'))
+  assert(pkg.dependencies?.three, 'package.json 缺少 three 依赖')
+})
+
+test('ThreeAmbientLayer.tsx 存在', () => {
+  assert(existsSync(resolve(root, 'src/components/builder/ThreeAmbientLayer.tsx')), 'ThreeAmbientLayer.tsx 不存在')
+})
+
+test('ThreeAmbientLayer.tsx 包含 cleanup / dispose', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ThreeAmbientLayer.tsx'), 'utf-8')
+  assert(content.includes('dispose'), 'ThreeAmbientLayer 缺少 dispose 清理')
+  assert(content.includes('cancelAnimationFrame'), 'ThreeAmbientLayer 缺少动画帧取消')
+})
+
+test('ThreeAmbientLayer.tsx 包含 prefers-reduced-motion', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ThreeAmbientLayer.tsx'), 'utf-8')
+  assert(content.includes('prefers-reduced-motion'), 'ThreeAmbientLayer 缺少 prefers-reduced-motion 检测')
+})
+
+test('ThreeAmbientLayer.tsx 包含 visibilityState', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/ThreeAmbientLayer.tsx'), 'utf-8')
+  assert(content.includes('visibilityState') || content.includes('visibilitychange'), 'ThreeAmbientLayer 缺少页面可见性检测')
+})
+
+test('HomePage.tsx 接入 ThreeAmbientLayer', () => {
+  const content = readFileSync(resolve(root, 'src/components/builder/HomePage.tsx'), 'utf-8')
+  assert(content.includes('import { ThreeAmbientLayer }'), 'HomePage.tsx 未引入 ThreeAmbientLayer')
+  assert(content.includes('<ThreeAmbientLayer'), 'HomePage.tsx 未使用 ThreeAmbientLayer 组件')
+})
+
+test('README 包含 Three.js Ambient', () => {
+  const content = readFileSync(resolve(root, 'README.md'), 'utf-8')
+  assert(content.includes('Three.js') || content.includes('Ambient'), 'README 缺少 Three.js Ambient 说明')
+})
+
+test('RELEASE_NOTES 包含 v1.1.0', () => {
+  const content = readFileSync(resolve(root, 'RELEASE_NOTES.md'), 'utf-8')
+  assert(content.includes('v1.1.0'), 'RELEASE_NOTES 缺少 v1.1.0')
+  assert(content.includes('Three.js') || content.includes('Ambient'), 'RELEASE_NOTES 缺少 Three.js Ambient 记录')
+})
+
 console.log(`\n📊 结果: ${passed} 通过, ${failed} 失败\n`)
 
 if (failed > 0) {

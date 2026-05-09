@@ -10,6 +10,7 @@ import { Switch } from '@/components/ui/Switch'
 import { Progress } from '@/components/ui/Progress'
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/Alert'
 import { CodeBlock } from '@/components/ui/CodeBlock'
+import { ThreeAmbientLayer } from './ThreeAmbientLayer'
 import {
   Zap,
   Palette,
@@ -72,7 +73,8 @@ export function HomePage({ onEnterBuilder, motionLevel = 'normal' }: HomePagePro
   }, [])
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <ThreeAmbientLayer className="opacity-40" intensity="ambient" />
       {/* Header */}
       <motion.header
         className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md"

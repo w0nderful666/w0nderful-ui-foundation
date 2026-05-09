@@ -1,5 +1,39 @@
 # Release Notes
 
+## v1.1.0 (2026-05-09)
+
+### Three.js Ambient Showcase Layer
+
+新增轻量 3D 氛围层，探索 Three.js 接入可行性：
+
+#### 新增功能
+- **ThreeAmbientLayer 组件** - 首页 Hero 背景层
+- **粒子场效果** - 150 个缓慢漂浮粒子 (移动端 80 个)
+- **交互支持** - 鼠标移动时轻微视差偏移
+- **性能保护**:
+  - prefers-reduced-motion 时自动关闭
+  - 移动端 (< 768px) 自动降级或关闭
+  - document.visibilityState 隐藏时暂停动画
+  - renderer 使用 alpha 透明 canvas
+  - pointer-events-none 不阻挡 UI 交互
+
+#### 技术实现
+- 原生 Three.js (非 @react-three/fiber)
+- BufferGeometry + PointsMaterial
+- GPU 加速粒子渲染
+- 完整 dispose / cleanup 生命周期
+
+#### 依赖更新
+- 新增 three 依赖
+
+#### 测试
+- build: PASS
+- check: PASS
+- self-test: 增加 Three.js 相关断言
+- preflight: 通过
+
+---
+
 ## v1.0.0 (2026-05-08)
 
 ### Token Inspector - Design System Workbench

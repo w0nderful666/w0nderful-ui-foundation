@@ -128,7 +128,7 @@ export function generateSeriesPrompts(options: GenerateOptions = {}): SeriesProm
       meta: {
         cameraLogic: 'third_person_no_phone',
         handSafeLevel,
-        variationStrength: _variationStrength,
+        variationStrength,
         generatedAt: new Date().toISOString()
       }
     })

@@ -44,7 +44,7 @@ export function buildComboPrompt(sceneId: string, styleId: string, charId: strin
       templateId: 'combo',
       shotIndex: i + 1,
       director,
-      meta: { cameraLogic: 'third_person_no_phone', handSafeLevel: 'strict', generatedAt: new Date().toISOString() }
+      meta: { cameraLogic: 'third_person_no_phone', handSafeLevel: 'strict', variationStrength: 'medium', generatedAt: new Date().toISOString() }
     })
   }
   return results

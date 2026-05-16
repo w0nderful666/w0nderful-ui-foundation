@@ -61,11 +61,11 @@ export function generateSeriesPrompts(options: GenerateOptions = {}): SeriesProm
     templateId,
     count = 4,
     handSafeLevel = 'strict',
-    _realismLevel = 'phone_lowres',
-    _variationStrength = 'medium',
+    realismLevel = 'phone_lowres',
+    variationStrength = 'medium',
     seed = Date.now(),
     characterOverride = {},
-    _lockedFields = ['scene', 'lighting', 'camera', 'clothing', 'hair']
+    lockedFields = ['scene', 'lighting', 'camera', 'clothing', 'hair']
   } = options
 
   const template = SERIES_SCENE_TEMPLATES.find((t: SeriesSceneTemplate) => t.id === templateId)

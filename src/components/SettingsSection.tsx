@@ -112,7 +112,7 @@ export default function SettingsSection() {
             </button>
             <button onClick={toggleMode}
               className={`flex-1 rounded-lg border py-3 text-sm font-bold transition ${
-                mode === 'system' ? 'border-primary bg-primary text-primary-foreground shadow-sm' : 'border-border/50 bg-card text-foreground hover:bg-muted/50'
+                'border-border/50 bg-card text-foreground hover:bg-muted/50'
               }`}
               aria-label="跟随系统">
               <span className="block text-lg mb-1">💻</span>
